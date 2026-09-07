@@ -1656,138 +1656,237 @@
     html.light-theme .casestudy-section::before {
         background: radial-gradient(circle, rgba(0,217,255,0.04) 0%, transparent 70%);
     }
-    .casestudy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+
+    /* ── Threat-intel grid backdrop ── */
+    .cs-grid-bg {
+        position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .5;
+        background-image:
+            linear-gradient(90deg, rgba(0,217,255,.04) 1px, transparent 1px),
+            linear-gradient(rgba(0,217,255,.04) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 55% at 50% 20%, black 20%, transparent 75%);
+        mask-image: radial-gradient(ellipse 70% 55% at 50% 20%, black 20%, transparent 75%);
+    }
+
+    .casestudy-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+
+    /* ── HUD threat panel card ── */
     .casestudy-card {
         position: relative;
-        background: rgba(255,255,255,0.03);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(0,217,255,0.1);
-        border-radius: 20px; overflow: hidden;
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        background: rgba(8,12,20,.72);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(0,217,255,.14);
+        border-radius: 14px; overflow: hidden;
+        transition: all .5s cubic-bezier(.16,1,.3,1);
         text-decoration: none; display: block; cursor: pointer;
     }
     html.light-theme .casestudy-card {
-        background: rgba(255,255,255,0.7);
-        border-color: rgba(0,217,255,0.12);
+        background: rgba(255,255,255,.78);
+        border-color: rgba(0,217,255,.18);
     }
-    .casestudy-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, transparent);
-        opacity: 0; transition: opacity 0.5s ease;
+    /* corner brackets */
+    .casestudy-card .cs-corners {
+        position: absolute; inset: 0; pointer-events: none; z-index: 4;
     }
-    .casestudy-card:hover::before { opacity: 1; }
+    .casestudy-card .cs-corners span {
+        position: absolute; width: 16px; height: 16px;
+        border-color: rgba(0,217,255,.35); border-style: solid; border-width: 0;
+        transition: border-color .3s;
+    }
+    .casestudy-card:hover .cs-corners span { border-color: rgba(0,217,255,.8); }
+    .casestudy-card .cs-corners .tl { top: 6px; left: 6px; border-top-width: 1px; border-left-width: 1px; }
+    .casestudy-card .cs-corners .tr { top: 6px; right: 6px; border-top-width: 1px; border-right-width: 1px; }
+    .casestudy-card .cs-corners .bl { bottom: 6px; left: 6px; border-bottom-width: 1px; border-left-width: 1px; }
+    .casestudy-card .cs-corners .br { bottom: 6px; right: 6px; border-bottom-width: 1px; border-right-width: 1px; }
+
     .casestudy-card:hover {
-        border-color: rgba(0,217,255,0.25);
-        box-shadow: 0 20px 60px rgba(0,217,255,0.08), 0 8px 20px rgba(0,0,0,0.12);
+        border-color: rgba(0,217,255,.4);
+        box-shadow: 0 20px 60px rgba(0,217,255,.1), inset 0 0 30px rgba(0,217,255,.04);
         transform: translateY(-6px);
     }
-    html.light-theme .casestudy-card:hover {
-        box-shadow: 0 20px 60px rgba(0,217,255,0.1);
+    html.light-theme .casestudy-card:hover { box-shadow: 0 20px 60px rgba(0,217,255,.14); }
+
+    /* top header bar */
+    .cs-header {
+        position: relative; z-index: 3;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: .9rem 1.1rem;
+        background: rgba(0,217,255,.05);
+        border-bottom: 1px solid rgba(0,217,255,.1);
     }
-    .casestudy-view-link { margin-top: 1rem; }
-    .view-details-btn {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.85rem; font-weight: 600; color: var(--accent); text-decoration: none;
-        padding: 0.4rem 1rem; border-radius: 10px;
-        background: rgba(0,217,255,0.06); transition: all 0.3s ease;
+    html.light-theme .cs-header { background: rgba(0,100,140,.05); border-color: rgba(0,100,140,.12); }
+    .cs-header .cs-fileid {
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .62rem; font-weight: 700; color: var(--accent);
+        letter-spacing: .08em; text-transform: uppercase;
     }
-    .casestudy-card:hover .view-details-btn {
-        background: rgba(0,217,255,0.12);
-        gap: 0.7rem;
+    html.light-theme .cs-header .cs-fileid { color: var(--accent); }
+    .cs-header .cs-status {
+        display: inline-flex; align-items: center; gap: .35rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .6rem; font-weight: 700; color: #00ff88;
+        letter-spacing: .08em; text-transform: uppercase;
     }
-    .view-details-btn i { font-size: 0.8rem; transition: transform 0.3s ease; }
-    .casestudy-card:hover .view-details-btn i { transform: translateX(3px); }
-    .casestudy-image { position: relative; width: 100%; height: 180px; overflow: hidden; }
-    .casestudy-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
+    html.light-theme .cs-header .cs-status { color: #00884a; }
+    .cs-header .cs-status .csdot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 8px #00ff88;
+        animation: csBlink 1s step-end infinite;
+    }
+    html.light-theme .cs-header .cs-status .csdot { background: #00884a; box-shadow: 0 0 8px rgba(0,136,74,.6); }
+    @keyframes csBlink { 50% { opacity: .3; } }
+
+    /* image / radar zone */
+    .casestudy-image { position: relative; width: 100%; height: 168px; overflow: hidden; margin: .9rem 1.1rem 0; width: calc(100% - 2.2rem); border-radius: 8px; border: 1px solid rgba(0,217,255,.1); z-index: 2; }
+    .casestudy-image img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.16,1,.3,1); }
     .casestudy-card:hover .casestudy-image img { transform: scale(1.06); }
     .casestudy-image::after {
-        content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-        height: 60%; background: linear-gradient(0deg, rgba(8,11,18,0.8) 0%, transparent 100%);
+        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(180deg, rgba(0,217,255,.12), transparent 30%, transparent 70%, rgba(8,11,18,.5));
         pointer-events: none;
     }
-    html.light-theme .casestudy-image::after {
-        background: linear-gradient(0deg, rgba(248,250,252,0.8) 0%, transparent 100%);
+    /* scanline sweep over image */
+    .casestudy-image::before {
+        content: ''; position: absolute; left: 0; right: 0; height: 1px; top: 0; z-index: 2;
+        background: linear-gradient(90deg, transparent, rgba(0,217,255,.6), transparent);
+        opacity: 0; pointer-events: none;
     }
-    .casestudy-category {
-        position: absolute; top: 1rem; left: 1rem; z-index: 2;
-        background: linear-gradient(135deg, #00d9ff, #00ff88);
-        color: #fff; padding: 0.35rem 1.1rem;
-        border-radius: 20px; font-size: 0.72rem; font-weight: 700;
-        letter-spacing: 0.3px; box-shadow: 0 4px 15px rgba(0,217,255,0.3);
+    .casestudy-card:hover .casestudy-image::before {
+        opacity: 1; animation: csImgScan 1.4s ease-in-out infinite;
     }
-    .casestudy-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
-    .casestudy-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.2rem; letter-spacing: -0.3px; color: #fff; }
+    @keyframes csImgScan {
+        0%   { top: 0; opacity: 0; }
+        15%  { opacity: 1; }
+        85%  { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    /* category chip */
+    .cs-category {
+        position: absolute; top: .75rem; left: .75rem; z-index: 3;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        background: rgba(8,11,18,.75); color: var(--accent);
+        border: 1px solid rgba(0,217,255,.35);
+        padding: .3rem .75rem; border-radius: 6px;
+        font-size: .62rem; font-weight: 700; letter-spacing: .06em;
+        clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+        backdrop-filter: blur(4px);
+    }
+    html.light-theme .cs-category { color: var(--accent); }
+
+    /* radar placeholder (no image) */
+    .cs-radar-ph {
+        position: relative; margin: .9rem 1.1rem 0; height: 168px;
+        border-radius: 8px; border: 1px solid rgba(0,217,255,.1);
+        overflow: hidden; background: rgba(0,217,255,.02);
+    }
+    html.light-theme .cs-radar-ph { background: rgba(0,100,140,.03); border-color: rgba(0,100,140,.12); }
+    .cs-radar-ph::before {
+        content: ''; position: absolute; inset: 0;
+        background:
+            linear-gradient(90deg, rgba(0,217,255,.05) 1px, transparent 1px),
+            linear-gradient(rgba(0,217,255,.05) 1px, transparent 1px);
+        background-size: 24px 24px;
+    }
+    .cs-radar-ph .rr {
+        position: absolute; border-radius: 50%;
+        border: 1px solid rgba(0,217,255,.18);
+        top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .cs-radar-ph .rr.r1 { width: 120px; height: 120px; animation: csSpin 8s linear infinite; border-style: dashed; }
+    .cs-radar-ph .rr.r2 { width: 80px; height: 80px; }
+    .cs-radar-ph .rr.r3 { width: 40px; height: 40px; }
+    .cs-radar-ph .beam {
+        position: absolute; top: 50%; left: 50%; width: 60px; height: 60px;
+        margin: -30px 0 0 -30px;
+        background: conic-gradient(from 0deg, rgba(0,217,255,.25), transparent 40%);
+        border-radius: 50%;
+        animation: csSpin 2.4s linear infinite;
+    }
+    @keyframes csSpin { to { transform: rotate(360deg); } }
+    .cs-radar-ph .cs-scan-h {
+        position: absolute; left: 0; right: 0; height: 1px; top: 0;
+        background: linear-gradient(90deg, transparent, rgba(0,217,255,.4), transparent);
+        animation: csVerticalScan 3.2s ease-in-out infinite;
+    }
+    @keyframes csVerticalScan {
+        0%   { top: 0; opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: .8; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    /* body */
+    .casestudy-body { padding: 1.1rem 1.1rem 1.2rem; position: relative; z-index: 2; }
+    .casestudy-body h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: .15rem; color: #fff; letter-spacing: -.2px; }
     html.light-theme .casestudy-body h3 { color: #111827; }
-    .casestudy-client { font-size: 0.85rem; color: #94a3b8; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.4rem; }
-    html.light-theme .casestudy-client { color: #64748b; }
+    .cs-meta { display: flex; align-items: center; gap: 1rem; font-size: .72rem; color: #94a3b8; }
+    html.light-theme .cs-meta { color: #64748b; }
+    .cs-meta i { color: var(--accent); }
 
-
-    /* ===== Glass Card Shine Effect ===== */
-    .project-card::after,
-    .gig-card::after,
-    .testimonial-card::after,
-    .faq-item::after,
-    .wave-service::after,
-    .contact-info-card::after,
-    .contact-item::after,
-    .casestudy-card::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0,217,255,0.45) 0%, rgba(0,217,255,0.18) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
+    /* result terminal block */
+    .cs-terminal {
+        position: relative; z-index: 2;
+        margin: 1rem 1.1rem .9rem;
+        background: rgba(0,217,255,.04);
+        border: 1px solid rgba(0,217,255,.12);
+        border-left: 3px solid #00ff88;
+        border-radius: 6px; padding: .7rem .85rem;
+        min-height: 78px;
     }
-    html.light-theme .project-card::after,
-    html.light-theme .gig-card::after,
-    html.light-theme .testimonial-card::after,
-    html.light-theme .faq-item::after,
-    html.light-theme .wave-service::after,
-    html.light-theme .contact-info-card::after,
-    html.light-theme .contact-item::after,
-    html.light-theme .casestudy-card::after {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0,217,255,0.35) 0%, rgba(0,217,255,0.12) 30%, transparent 60%);
+    html.light-theme .cs-terminal { background: rgba(0,100,140,.04); border-color: rgba(0,100,140,.15); border-left-color: #00884a; }
+    .cs-terminal .cs-term-label {
+        display: inline-flex; align-items: center; gap: .35rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .56rem; font-weight: 700; letter-spacing: .1em;
+        color: #00ff88; text-transform: uppercase; margin-bottom: .4rem;
     }
-    .project-card:hover::after,
-    .gig-card:hover::after,
-    .testimonial-card:hover::after,
-    .faq-item:hover::after,
-    .wave-service:hover::after,
-    .contact-info-card:hover::after,
-    .contact-item:hover::after,
-    .casestudy-card:hover::after { opacity: 1; }
-    /* Ensure content stays above shine */
-    .project-card .card-image,
-    .gig-card .gig-hud,
-    .gig-card .gig-head,
-    .gig-card .gig-tiers,
-    .gig-card .gig-cta,
-    .project-card .card-body,
-    .testimonial-card .quote-icon,
-    .testimonial-card .testimonial-stars,
-    .testimonial-card .testimonial-text,
-    .testimonial-card .testimonial-author,
-    .faq-item button,
-    .faq-item .faq-answer,
-    .wave-service .ws-icon,
-    .wave-service h3,
-    .wave-service p,
-    .contact-info-card h3,
-    .contact-info-card p,
-    .contact-info-card .contact-item,
-    .contact-item .icon-box,
-    .contact-item .info,
-    .casestudy-card .casestudy-image,
-    .casestudy-card .casestudy-body { position: relative; z-index: 2; }
+    html.light-theme .cs-terminal .cs-term-label { color: #00884a; }
+    .cs-terminal p { font-size: .72rem; line-height: 1.5; color: var(--text-secondary); margin: 0; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
+    /* CTA */
+    .cs-action {
+        position: relative; z-index: 3;
+        padding: 0 1.1rem 1.2rem;
+    }
+    .cs-analyze-btn {
+        display: flex; align-items: center; justify-content: center; gap: .5rem;
+        width: 100%;
+        position: relative;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .74rem; font-weight: 700; letter-spacing: .12em;
+        color: var(--accent);
+        border: 1px solid rgba(0,217,255,.35);
+        border-radius: 8px; padding: .65rem;
+        background: rgba(0,217,255,.05);
+        overflow: hidden; text-transform: uppercase;
+        transition: all .3s;
+    }
+    html.light-theme .cs-analyze-btn { color: var(--accent); border-color: rgba(0,100,140,.35); background: rgba(0,100,140,.05); }
+    .cs-analyze-btn i { transition: transform .3s; }
+    .casestudy-card:hover .cs-analyze-btn {
+        color: #fff; background: rgba(0,217,255,.14);
+        border-color: rgba(0,217,255,.55);
+        box-shadow: 0 0 16px rgba(0,217,255,.2);
+    }
+    html.light-theme .casestudy-card:hover .cs-analyze-btn { color: #fff; }
+    .casestudy-card:hover .cs-analyze-btn i { transform: translateX(4px); }
+    /* sheen sweep on CTA */
+    .cs-analyze-btn::before {
+        content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
+        transform: skewX(-20deg); transition: left .5s ease;
+    }
+    .casestudy-card:hover .cs-analyze-btn::before { left: 120%; }
 
     .casestudy-cta {
-        text-align: center; margin-top: 3.5rem; padding: 2.5rem 2rem;
-        background: linear-gradient(135deg, rgba(0,217,255,0.04), rgba(0,255,136,0.04));
-        border: 1px solid rgba(0,217,255,0.1);
-        border-radius: 20px; position: relative; overflow: hidden;
+        text-align: center; margin-top: 3rem; padding: 2rem 2rem;
+        background: linear-gradient(135deg, rgba(0,217,255,.04), rgba(0,255,136,.04));
+        border: 1px solid rgba(0,217,255,.1);
+        border-radius: 14px; position: relative; overflow: hidden; position: relative;
+        z-index: 1; backdrop-filter: blur(6px);
     }
-    html.light-theme .casestudy-cta {
-        background: linear-gradient(135deg, rgba(0,217,255,0.04), rgba(0,255,136,0.04));
-    }
+    html.light-theme .casestudy-cta { background: linear-gradient(135deg, rgba(0,217,255,.04), rgba(0,255,136,.04)); }
     .casestudy-cta::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
         background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, transparent);
@@ -1799,7 +1898,7 @@
     @media (max-width: 768px) {
         .casestudy-grid { grid-template-columns: 1fr; gap: 1.25rem; }
         .casestudy-image { height: 200px; }
-        .casestudy-body { padding: 1.25rem; }
+        .casestudy-body { padding: 1rem; }
     }
 
     /* ─── Cyber-security work experience feed ─── */
@@ -4343,21 +4442,42 @@
                 <h2>{{ __('messages.casestudy_title') }}</h2>
                 <p>{{ __('messages.casestudy_subtitle') }}</p>
             </div>
+            <div class="cs-grid-bg" aria-hidden="true"></div>
             <div class="casestudy-grid">
                 @foreach($caseStudies as $cs)
                     <a href="{{ route('case-study.detail', $cs->id) }}" class="casestudy-card reveal">
+                        <div class="cs-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+                        <div class="cs-header">
+                            <span class="cs-fileid">CS-{{ str_pad($loop->iteration, 3, '0', STR_PAD_LEFT) }}</span>
+                            <span class="cs-status"><span class="csdot"></span> {{ __('messages.case_monitored') }}</span>
+                        </div>
                         @if($cs->image)
                             <div class="casestudy-image">
                                 <img src="{{ config('app.storage_url') }}{{ $cs->image }}" alt="{{ $cs->title }}">
-                                @if($cs->category)<span class="casestudy-category">{{ $cs->category }}</span>@endif
+                                @if($cs->category)<span class="cs-category">{{ $cs->category }}</span>@endif
+                            </div>
+                        @else
+                            <div class="cs-radar-ph">
+                                <span class="rr r1"></span><span class="rr r2"></span><span class="rr r3"></span>
+                                <span class="beam"></span>
+                                <span class="cs-scan-h"></span>
+                                @if($cs->category)<span class="cs-category">{{ $cs->category }}</span>@endif
                             </div>
                         @endif
                         <div class="casestudy-body">
                             <h3>{{ $cs->title }}</h3>
-                            @if($cs->client)<div class="casestudy-client"><i class="bi bi-building me-1"></i>{{ $cs->client }}</div>@endif
-                            <div class="casestudy-view-link">
-                                <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
+                            @if($cs->client)
+                                <div class="cs-meta mt-2"><i class="bi bi-building me-1"></i>{{ $cs->client }}</div>
+                            @endif
+                        </div>
+                        @if($cs->result)
+                            <div class="cs-terminal">
+                                <span class="cs-term-label"><i class="bi bi-shield-check me-1"></i>{{ __('messages.case_result') }}</span>
+                                <p>{{ $cs->result }}</p>
                             </div>
+                        @endif
+                        <div class="cs-action">
+                            <span class="cs-analyze-btn">{{ __('messages.analyze_case') }} <i class="bi bi-arrow-right"></i></span>
                         </div>
                     </a>
                 @endforeach
