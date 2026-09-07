@@ -961,6 +961,9 @@
         position: relative;
         overflow: hidden;
     }
+    .services-section .services-container {
+        max-width: 1560px;
+    }
     html.light-theme .services-section {
         background: linear-gradient(180deg, #e6eef5 0%, #dbe7f0 40%, #cfddea 70%, #c3d5e4 100%);
     }
@@ -3854,7 +3857,7 @@
 
     <!-- Services Section -->
     <section class="services-section section-padding" id="services">
-        <div class="container">
+        <div class="container services-container">
             <div class="section-title reveal">
                 <div class="line"></div>
                 <h2>{{ __('messages.services_title') }}</h2>
