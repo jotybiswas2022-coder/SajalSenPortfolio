@@ -3741,14 +3741,6 @@
                             <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
                             <p>{{ __('messages.about_desc_2') }}</p>
                         </div>
-                        <div class="about-tags-label"><i class="bi bi-shield-check"></i> Cyber Specialties</div>
-                        <div class="about-bio-tags">
-                            <span class="about-bio-tag"><i class="bi bi-bug-fill"></i> Penetration Testing</span>
-                            <span class="about-bio-tag"><i class="bi bi-shield-lock-fill"></i> Network Defense</span>
-                            <span class="about-bio-tag"><i class="bi bi-radioactive"></i> Threat Intel</span>
-                            <span class="about-bio-tag"><i class="bi bi-incognito"></i> Incident Response</span>
-                            <span class="about-bio-tag"><i class="bi bi-cpu-fill"></i> Zero-Trust Arch</span>
-                        </div>
                         <div class="about-stats">
                             <div class="stat-item">
                                 <div class="stat-glow"></div>
