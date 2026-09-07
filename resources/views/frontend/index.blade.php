@@ -1457,6 +1457,36 @@
         100% { background-position: -140% 0; }
     }
 
+    /* Cyber gradient divider (end of every section) */
+    .section-divider {
+        height: 3px;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 217, 255, 0.5) 30%,
+            rgba(0, 255, 136, 0.85) 50%,
+            rgba(0, 217, 255, 0.5) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        animation: dividerFlow 4s linear infinite;
+        opacity: 0.8;
+        pointer-events: none;
+    }
+    html.light-theme .section-divider {
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(8, 145, 178, 0.45) 30%,
+            rgba(13, 148, 136, 0.75) 50%,
+            rgba(8, 145, 178, 0.45) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+    }
+    @keyframes dividerFlow {
+        0%   { background-position: -100% 0; }
+        100% { background-position: 100% 0; }
+    }
+
     /* ---- Light theme ---- */
     html.light-theme .services-section::before {
         background:
@@ -3944,6 +3974,7 @@
                 <div class="wheel"></div>
             </div>
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- About Section -->
@@ -4084,10 +4115,12 @@
                             </div>
                         </aside>
                         @endif
+</div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- Services Section -->
@@ -4208,6 +4241,7 @@
                 @endforeach
             </div>
         </div>
+        <div class="section-divider"></div>
     </section>
     @endif
 
@@ -4244,6 +4278,7 @@
                 <a href="#contact" class="btn-primary-custom">{{ __('messages.start_project') }} <i class="bi bi-arrow-right ms-1"></i></a>
             </div>
         </div>
+        <div class="section-divider"></div>
     </section>
     @endif
 
@@ -4297,6 +4332,7 @@
                 </div>
             @endif
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- Education Qualification Section -->
@@ -4360,6 +4396,7 @@
                 </div>
             @endif
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <style>
@@ -4603,6 +4640,7 @@
                 </div>
             @endif
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- Projects Section -->
@@ -4682,6 +4720,7 @@
                 @endforelse
             </div>
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- Testimonials Section -->
@@ -4756,6 +4795,7 @@
                 </div>
             @endif
         </div>
+        <div class="section-divider"></div>
     </section>
 
         <!-- Contact Section — REDESIGNED MODERN -->
@@ -4901,6 +4941,7 @@
                 </div>
             </div>
         </div>
+        <div class="section-divider"></div>
     </section><!-- FAQ Section -->
     <section class="faq-section section-padding" id="faq">
         <div class="container">
@@ -4957,6 +4998,7 @@
                 </div>
             @endif
         </div>
+        <div class="section-divider"></div>
     </section>
 
     <!-- Footer -->
