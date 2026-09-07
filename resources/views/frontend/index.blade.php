@@ -3621,7 +3621,7 @@
 
     /* Footer */
     .footer {
-        background: #080b14; position: relative; z-index: 1;
+        background: #070a13; position: relative; z-index: 1;
         padding: 3.5rem 2rem 2.5rem; text-align: center;
         border-top: none; overflow: hidden;
     }
@@ -3634,86 +3634,152 @@
         0% { background-position: -200% 0; }
         100% { background-position: 200% 0; }
     }
+    /* cyber grid + glow layers */
     .footer::after {
         content: ''; position: absolute; top: -50%; left: 50%; translate: -50% 0;
         width: 600px; height: 600px;
         background: radial-gradient(circle, rgba(0,217,255,0.06) 0%, transparent 70%);
         pointer-events: none;
     }
+    .footer-cybergrid {
+        position: absolute; inset: 0; pointer-events: none; z-index: 0;
+        background-image:
+            linear-gradient(90deg, rgba(0,217,255,.03) 1px, transparent 1px),
+            linear-gradient(rgba(0,217,255,.03) 1px, transparent 1px);
+        background-size: 38px 38px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 100%, black 15%, transparent 75%);
+        mask-image: radial-gradient(ellipse 70% 70% at 50% 100%, black 15%, transparent 75%);
+    }
     html.light-theme .footer { background: linear-gradient(180deg, #f1f5f9, #e2e8f0) !important; }
     html.light-theme .footer::after {
         background: radial-gradient(circle, rgba(0,217,255,0.04) 0%, transparent 70%);
     }
+    html.light-theme .footer-cybergrid {
+        background-image:
+            linear-gradient(90deg, rgba(0,100,140,.04) 1px, transparent 1px),
+            linear-gradient(rgba(0,100,140,.04) 1px, transparent 1px);
+    }
     .footer-inner { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+
+    /* status bar strip */
+    .ft-status {
+        display: inline-flex; align-items: center; gap: .6rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .6rem; font-weight: 700; letter-spacing: .14em;
+        color: #00ff88; text-transform: uppercase;
+        border: 1px solid rgba(0,217,255,.2);
+        background: rgba(0,217,255,.04);
+        border-radius: 8px; padding: .35rem .9rem;
+        margin-bottom: 1.6rem;
+    }
+    html.light-theme .ft-status { color: #00884a; border-color: rgba(0,100,140,.25); background: rgba(0,100,140,.05); }
+    .ft-status .ft-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 8px #00ff88;
+        animation: ftDotBlink 1.1s step-end infinite;
+    }
+    html.light-theme .ft-status .ft-dot { background: #00884a; box-shadow: 0 0 8px rgba(0,136,74,.6); }
+    @keyframes ftDotBlink { 50% { opacity: .3; } }
+    .ft-status i { font-size: .75rem; color: #00ff88; }
+    html.light-theme .ft-status i { color: #00884a; }
+
     .footer-brand { margin-bottom: 1.5rem; }
     .footer-brand h4 {
-        font-size: 1.4rem; font-weight: 800; letter-spacing: -0.5px;
+        font-size: 1.4rem; font-weight: 800; letter-spacing: -.5px;
         background: linear-gradient(135deg, var(--accent-light), #6bffb8);
         -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        font-family: 'JetBrains Mono', Consolas, monospace;
     }
-    .footer-brand p { color: #64748b; font-size: 0.82rem; margin: 0.3rem 0 0; }
+    .footer-brand p { color: #64748b; font-size: .82rem; margin: .3rem 0 0; }
     .footer-divider {
         width: 80px; height: 2px; margin: 0 auto 1.5rem;
         background: linear-gradient(90deg, transparent, var(--accent), transparent);
         border-radius: 2px;
     }
     .footer-links {
-        display: flex; justify-content: center; gap: 1.8rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+        display: flex; justify-content: center; gap: 1.4rem; margin-bottom: 1.5rem; flex-wrap: wrap;
     }
     .footer-links a {
-        color: #64748b; transition: all 0.3s ease; font-size: 0.85rem;
+        color: #64748b; transition: all .3s ease; font-size: .8rem;
         font-weight: 500; text-decoration: none; position: relative;
-        padding: 0.2rem 0;
+        padding: .25rem .65rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        border: 1px solid transparent; border-radius: 6px;
+        letter-spacing: .03em;
     }
-    .footer-links a::after {
-        content: ''; position: absolute; bottom: 0; left: 50%; right: 50%;
-        height: 1px; background: var(--accent);
-        transition: all 0.3s ease;
+    .footer-links a::before {
+        content: '> '; color: var(--accent); opacity: 0; transition: opacity .3s;
     }
-    .footer-links a:hover { color: var(--accent); }
-    .footer-links a:hover::after { left: 0; right: 0; }
+    .footer-links a:hover {
+        color: var(--accent-light);
+        border-color: rgba(0,217,255,.25);
+        background: rgba(0,217,255,.05);
+    }
+    html.light-theme .footer-links a:hover { color: var(--accent); border-color: rgba(0,100,140,.25); background: rgba(0,100,140,.06); }
+    .footer-links a:hover::before { opacity: 1; }
     .social-icon {
-        width: 44px; height: 44px; border-radius: 14px;
-        background: rgba(0,217,255,0.06);
-        border: 1px solid rgba(0,217,255,0.1);
+        width: 44px; height: 44px; border-radius: 10px;
+        background: rgba(0,217,255,0.05);
+        border: 1px solid rgba(0,217,255,0.15);
         display: inline-flex; align-items: center; justify-content: center;
         color: #64748b; font-size: 1.2rem;
-        transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+        transition: all .35s cubic-bezier(.16,1,.3,1);
         text-decoration: none; position: relative; overflow: hidden;
+        clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
     }
     .social-icon::before {
-        content: ''; position: absolute; inset: 0; border-radius: inherit;
-        background: linear-gradient(135deg, rgba(0,217,255,0.12), rgba(0,255,136,0.08));
-        opacity: 0; transition: opacity 0.35s ease;
+        content: ''; position: absolute; inset: 0;
+        background: linear-gradient(135deg, rgba(0,217,255,.14), rgba(0,255,136,.1));
+        opacity: 0; transition: opacity .35s ease;
     }
-    .social-icon i { position: relative; z-index: 1; }
+    .social-icon::after {
+        content: ''; position: absolute; top: 0; left: -60%; width: 50%; bottom: 0;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.18), transparent);
+        transform: skewX(-20deg); transition: left .5s ease;
+    }
     .social-icon:hover::before { opacity: 1; }
+    .social-icon:hover::after { left: 120%; }
+    .social-icon i, .social-icon svg { position: relative; z-index: 1; }
     .social-icon:hover {
-        border-color: rgba(0,217,255,0.35); color: var(--accent-light);
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(0,217,255,0.2);
+        border-color: rgba(0,217,255,.45); color: var(--accent-light);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(0,217,255,.18);
+        filter: drop-shadow(0 0 8px rgba(0,217,255,.3));
     }
     html.light-theme .social-icon {
-        background: rgba(255,255,255,0.5); border-color: rgba(0,217,255,0.12);
+        background: rgba(255,255,255,.6); border-color: rgba(0,217,255,.15);
     }
     html.light-theme .social-icon:hover {
-        background: rgba(255,255,255,0.8); border-color: var(--accent); color: var(--accent);
+        background: rgba(255,255,255,.85); border-color: var(--accent); color: var(--accent);
+        box-shadow: 0 10px 30px rgba(0,217,255,.2);
+        filter: none;
     }
     .footer-bottom {
-        padding-top: 1.2rem; border-top: 1px solid rgba(0,217,255,0.06);
-        display: flex; justify-content: center; align-items: center; gap: 1rem; flex-wrap: wrap;
+        padding-top: 1.2rem; border-top: 1px solid rgba(0,217,255,.08);
+        display: flex; justify-content: center; align-items: center; gap: 1.1rem; flex-wrap: wrap;
     }
-    .footer-bottom p { color: #475569; font-size: 0.82rem; margin: 0; }
+    .footer-bottom p { color: #475569; font-size: .82rem; margin: 0; }
+    html.light-theme .footer-bottom p { color: #64748b; }
     .footer-bottom .heart { color: #ef4444; display: inline-block; animation: heartBeat 1.4s ease infinite; }
     @keyframes heartBeat { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-    .back-top {
-        display: inline-flex; align-items: center; gap: 0.4rem;
-        color: var(--accent); font-size: 0.8rem; font-weight: 600;
-        text-decoration: none; transition: all 0.3s ease;
+    .ft-seal {
+        display: inline-flex; align-items: center; gap: .35rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .66rem; font-weight: 700; letter-spacing: .1em;
+        color: rgba(0,255,136,.8); text-transform: uppercase;
+        border: 1px solid rgba(0,255,136,.25);
+        padding: .2rem .6rem; border-radius: 6px;
+        background: rgba(0,255,136,.04);
     }
-    .back-top:hover { gap: 0.7rem; color: var(--accent-light); }
+    html.light-theme .ft-seal { color: #00884a; border-color: rgba(0,136,74,.3); background: rgba(0,136,74,.05); }
+    .back-top {
+        display: inline-flex; align-items: center; gap: .4rem;
+        color: var(--accent); font-size: .78rem; font-weight: 600;
+        text-decoration: none; transition: all .3s ease;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+    }
+    .back-top:hover { gap: .7rem; color: var(--accent-light); }
     html.light-theme .footer-links a { color: #64748b; }
-    html.light-theme .footer-bottom p { color: #64748b; }
 
     /* WhatsApp */
     .whatsapp-float {
@@ -5304,7 +5370,13 @@
 
     <!-- Footer -->
     <footer class="footer">
+        <div class="footer-cybergrid" aria-hidden="true"></div>
         <div class="footer-inner">
+            <div class="ft-status">
+                <span class="ft-dot"></span>
+                <i class="bi bi-shield-lock"></i>
+                <span>System Online</span>
+            </div>
             <div class="footer-brand">
                 <h4>{{ optional($account)->name ?? 'Portfolio' }}</h4>
                 <p>{{ __('messages.copyright') }}</p>
@@ -5372,6 +5444,7 @@
             <div class="footer-bottom">
                 <p>© {{ date('Y') }} {{ optional($account)->name ?? 'Portfolio' }}. {{ __('messages.copyright') }}</p>
                 <span style="color: #475569; font-size: 0.82rem;">{{ __('messages.made_with') }} <span class="heart">&hearts;</span></span>
+                <span class="ft-seal"><i class="bi bi-shield-check"></i> Secured By 256-Bit</span>
                 <a href="#" class="back-top"><i class="bi bi-arrow-up"></i> {{ __('messages.back_to_top') }}</a>
             </div>
         </div>
