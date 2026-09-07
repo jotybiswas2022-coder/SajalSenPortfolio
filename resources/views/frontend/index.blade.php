@@ -63,7 +63,11 @@
     html.light-theme .float-chip i {
         color: #00d9ff;
     }
-    html.light-theme .matrix-rain { opacity: 0.55; }
+    html.light-theme .matrix-rain {
+        opacity: 0.7;
+        -webkit-mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 18%, rgba(0,0,0,0.4) 45%, #000 62%);
+        mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 18%, rgba(0,0,0,0.4) 45%, #000 62%);
+    }
     html.light-theme .cyber-grid {
         background-image:
             linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
@@ -4419,7 +4423,10 @@
     var CHAR_SET = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789';
     var streams = [];
     var lastTime = 0;
-    var isLight = document.documentElement.classList.contains('light-theme');
+
+    function inLightTheme() {
+        return document.documentElement.classList.contains('light-theme');
+    }
 
     function randomGlyph() {
         return CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
@@ -4478,16 +4485,17 @@
             }
 
             var startRow = s.headRow - s.glyphs.length + 1;
+            var light = inLightTheme();
             for (var j = 0; j < s.glyphs.length; j++) {
                 var y = (startRow + j) * FONT;
                 if (y < -FONT || y > h) continue;
                 var distFromHead = s.glyphs.length - 1 - j;
                 if (distFromHead === 0) {
-                    ctx.fillStyle = isLight ? 'rgba(3, 105, 88, 0.75)' : 'rgba(180, 255, 210, 0.9)';
+                    ctx.fillStyle = light ? 'rgba(13, 148, 136, 0.9)' : 'rgba(180, 255, 210, 0.9)';
                 } else {
                     var a = Math.pow(1 - distFromHead / TRAIL, 1.6) * 0.65;
-                    ctx.fillStyle = isLight
-                        ? 'rgba(13, 148, 136, ' + (a * 0.85).toFixed(3) + ')'
+                    ctx.fillStyle = light
+                        ? 'rgba(13, 148, 136, ' + a.toFixed(3) + ')'
                         : 'rgba(0, 255, 136, ' + a.toFixed(3) + ')';
                 }
                 ctx.fillText(s.glyphs[j], s.x, y + FONT - 3);
