@@ -27,7 +27,7 @@
     }
     html.light-theme body { background: #f8fafc; }
     body {
-        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
     }
 
     .project-detail-page {

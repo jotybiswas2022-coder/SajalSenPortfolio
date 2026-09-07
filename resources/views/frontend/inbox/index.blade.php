@@ -3,7 +3,7 @@
 @section('content')
 <style>
     /* ===== CSS variables ===== */
-    body { font-family: 'Poppins', 'Hind Siliguri', sans-serif; background: #080b12; margin:0; padding:0; }
+    body { font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif; background: #080b12; margin:0; padding:0; }
 
     :root {
         --bg-primary: #080b12;
@@ -110,7 +110,7 @@
         border-radius: 16px;
         color: var(--text-primary);
         font-size: 0.9rem;
-        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
         outline: none;
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         backdrop-filter: blur(12px);

@@ -28,7 +28,7 @@
     }
     html.light-theme body { background: #f8fafc; }
     body {
-        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
     }
 
     .gig-detail-page {
@@ -336,7 +336,7 @@
         background: linear-gradient(135deg, #00d9ff, #00a2c9);
         color: #fff; border: none; border-radius: 14px;
         font-weight: 700; font-size: 0.95rem;
-        font-family: 'Poppins', 'Hind Siliguri', sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
         text-decoration: none; cursor: pointer;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 4px 15px rgba(0,217,255,0.25);

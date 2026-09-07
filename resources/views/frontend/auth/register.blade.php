@@ -11,8 +11,8 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Poppins + Hind Siliguri Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Space Grotesk + Hind Siliguri Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         if (localStorage.getItem('theme') === 'light') {
@@ -105,7 +105,7 @@
     body {
         margin: 0; padding: 0;
         width: 100%; max-width: 100%; overflow-x: hidden;
-        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
         background: var(--login-primary);
     }
     a { text-decoration: none !important; }
@@ -267,7 +267,7 @@
         background: var(--login-input-bg);
         border: 1.5px solid var(--login-input-border);
         border-radius: var(--login-radius-sm); color: #ffffff !important;
-        font-size: 15px; font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+        font-size: 15px; font-family: 'Space Grotesk', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
         transition: all 0.25s ease; height: 56px;
         outline: none; box-shadow: none; line-height: 1.5;
     }
@@ -323,7 +323,7 @@
         width: 100%; padding: 14px 24px; border: none; border-radius: var(--login-radius-sm);
         background: linear-gradient(135deg, var(--login-accent), var(--login-accent-dark));
         color: #fff; font-size: 15px; font-weight: 600;
-        font-family: 'Poppins', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+        font-family: 'Space Grotesk', 'Hind Siliguri', system-ui, -apple-system, sans-serif;
         cursor: pointer; transition: all 0.25s ease;
         position: relative; overflow: hidden;
         display: flex; align-items: center; justify-content: center; gap: 8px; letter-spacing: 0.2px; margin-top: 4px;
