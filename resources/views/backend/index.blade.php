@@ -368,8 +368,8 @@
                 <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeSkills }}/{{ $skillsCount }}</div>
             </div>
             <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">FAQs</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeFaqs }}/{{ $faqsCount }}</div>
+                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Gigs</div>
+                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeGigs }}/{{ $gigsCount }}</div>
             </div>
         </div>
     </div>
@@ -442,7 +442,7 @@
             <div class="dsb-card">
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-folder2-open" style="color:#00d9ff;"></i> Recent Projects</span>
-                    <a href="{{ route('admin.projects.index') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
+                    <a href="{{ route('admin.projects.index') }}" class="ae-btn ae-btn-ghost">
                         View All <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -459,7 +459,7 @@
                                     <span><i class="bi bi-clock"></i>{{ $p->created_at->diffForHumans() }}</span>
                                 </span>
                             </span>
-                            <span class="dsb-badge {{ $p->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $p->is_active ? 'Active' : 'Draft' }}</span>
+                            <span class="ae-status-badge {{ $p->is_active ? '' : 'inactive' }}" style="cursor:default;"><span class="ae-dot"></span> {{ $p->is_active ? 'Active' : 'Draft' }}</span>
                         </a>
                     @empty
                         <div class="text-center py-4 text-muted small"><i class="bi bi-folder2-open fs-2 d-block mb-2"></i>No projects yet</div>
@@ -473,7 +473,7 @@
             <div class="dsb-card">
                 <div class="dsb-card-hd">
                     <span><i class="bi bi-gear" style="color:#10b981;"></i> Recent Services</span>
-                    <a href="{{ route('admin.services.index') }}" class="btn btn-sm" style="border-radius:50px;border:1px solid #e2e8f0;color:#64748b;font-weight:600;font-size:0.75rem;padding:0.3rem 0.9rem;background:transparent;">
+                    <a href="{{ route('admin.services.index') }}" class="ae-btn ae-btn-ghost">
                         View All <i class="bi bi-arrow-right ms-1"></i>
                     </a>
                 </div>
@@ -489,7 +489,7 @@
                                     <span><i class="bi bi-clock"></i>{{ $s->created_at->diffForHumans() }}</span>
                                 </span>
                             </span>
-                            <span class="dsb-badge {{ $s->is_active ? 'text-bg-success' : 'text-bg-secondary' }}">{{ $s->is_active ? 'Active' : 'Inactive' }}</span>
+                            <span class="ae-status-badge {{ $s->is_active ? '' : 'inactive' }}" style="cursor:default;"><span class="ae-dot"></span> {{ $s->is_active ? 'Active' : 'Inactive' }}</span>
                         </a>
                     @empty
                         <div class="text-center py-4 text-muted small"><i class="bi bi-gear fs-2 d-block mb-2"></i>No services yet</div>
@@ -520,7 +520,7 @@
                                     <span><i class="bi bi-clock"></i>{{ $m->created_at->diffForHumans() }}</span>
                                 </span>
                             </span>
-                            <span class="dsb-badge text-bg-primary" style="font-size:0.65rem;"><i class="bi bi-eye"></i></span>
+                            <span class="ae-btn ae-btn-ghost"><i class="bi bi-eye"></i></span>
                         </button>
                     @empty
                         <div class="text-center py-4 text-muted small"><i class="bi bi-inbox fs-2 d-block mb-2"></i>No messages yet</div>
@@ -550,7 +550,7 @@
                     </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4 pt-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4" style="background:var(--admin-card-bg-2);color:var(--admin-text);border:none;font-weight:600;" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="ae-btn ae-btn-ghost" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
