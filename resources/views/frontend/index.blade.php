@@ -1966,11 +1966,38 @@
     }
 
     /* Skills section */
-    .skills-section { background: linear-gradient(180deg, #080b12 0%, var(--bg-secondary) 100%); }
+    /* ===== CYBER SECURITY SKILLS SECTION ===== */
+    .skills-section { background: linear-gradient(180deg, #080b12 0%, var(--bg-secondary) 100%); position: relative; overflow: hidden; }
     html.light-theme .skills-section { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
-    .skills-wrapper {
+    .skills-section::before {
+        content: ''; position: absolute; inset: 0;
+        background:
+            linear-gradient(90deg, rgba(0,217,255,.02) 1px, transparent 1px),
+            linear-gradient(rgba(0,217,255,.02) 1px, transparent 1px);
+        background-size: 50px 50px; pointer-events: none;
     }
-    .skills-grid {
+    html.light-theme .skills-section::before { background: linear-gradient(90deg, rgba(0,100,140,.03) 1px, transparent 1px), linear-gradient(rgba(0,100,140,.03) 1px, transparent 1px); background-size: 50px 50px; }
+
+    .skills-radar {
+        position: absolute; width: 400px; height: 400px; top: 50%; left: 50%;
+        transform: translate(-50%,-50%); pointer-events: none; opacity: .04; z-index: 0;
+    }
+    .skills-radar .r-ring {
+        position: absolute; border-radius: 50%; border: 1px solid #00d9ff;
+        top: 50%; left: 50%; transform: translate(-50%,-50%);
+    }
+    .skills-radar .r-ring:nth-child(1) { width: 300px; height: 300px; }
+    .skills-radar .r-ring:nth-child(2) { width: 200px; height: 200px; }
+    .skills-radar .r-ring:nth-child(3) { width: 100px; height: 100px; }
+    .skills-radar .r-line {
+        position: absolute; width: 200px; height: 1px; background: linear-gradient(90deg,transparent,#00d9ff);
+        top: 50%; left: 50%; transform-origin: left center;
+    }
+    .skills-radar .r-line:nth-child(4) { transform: rotate(0deg); }
+    .skills-radar .r-line:nth-child(5) { transform: rotate(60deg); }
+    .skills-radar .r-line:nth-child(6) { transform: rotate(120deg); }
+
+    .skills-wrapper { position: relative; z-index: 1; }
         display: flex;
         gap: 1.5rem;
         width: max-content;
@@ -1984,222 +2011,145 @@
         100% { transform: translateX(-50%); }
     }
     .skill-card {
-        text-align: center;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        flex-shrink: 0; position: relative;
+        background: rgba(0,217,255,.03);
+        border: 1px solid rgba(0,217,255,.12);
+        border-radius: 14px;
+        padding: 1.6rem 1.4rem 1.2rem;
+        width: 150px; text-align: center;
+        display: flex; flex-direction: column; align-items: center;
         cursor: default;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-shrink: 0;
+        transition: all .4s cubic-bezier(.175,.885,.32,1.275);
+        overflow: hidden;
     }
+    html.light-theme .skill-card {
+        background: rgba(0,100,140,.04);
+        border-color: rgba(0,100,140,.15);
+    }
+    .skill-card::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        opacity: 0; transition: opacity .3s;
+    }
+    .skill-card:hover::before { opacity: 1; }
+    .skill-card:hover {
+        border-color: rgba(0,217,255,.35);
+        background: rgba(0,217,255,.06);
+        transform: translateY(-6px);
+        box-shadow: 0 0 20px rgba(0,217,255,.1), 0 8px 32px rgba(0,0,0,.3);
+    }
+    html.light-theme .skill-card:hover {
+        background: rgba(0,100,140,.07);
+        box-shadow: 0 4px 20px rgba(0,100,140,.1);
+    }
+
+    .skill-card .sk-corners { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
+    .skill-card .sk-corners span {
+        position: absolute; width: 14px; height: 14px;
+        border-color: rgba(0,217,255,.2); border-style: solid; border-width: 0;
+        transition: border-color .3s;
+    }
+    .skill-card:hover .sk-corners span { border-color: rgba(0,217,255,.5); }
+    .skill-card .sk-corners .tl { top: 4px; left: 4px; border-top-width: 1px; border-left-width: 1px; }
+    .skill-card .sk-corners .tr { top: 4px; right: 4px; border-top-width: 1px; border-right-width: 1px; }
+    .skill-card .sk-corners .bl { bottom: 4px; left: 4px; border-bottom-width: 1px; border-left-width: 1px; }
+    .skill-card .sk-corners .br { bottom: 4px; right: 4px; border-bottom-width: 1px; border-right-width: 1px; }
+
+    .skill-card .sk-scan {
+        position: absolute; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.35) 50%, transparent 95%);
+        opacity: 0; z-index: 2; pointer-events: none; top: 0;
+    }
+    .skill-card:hover .sk-scan { opacity: 1; animation: skScanLine 1.2s ease-in-out infinite; }
+    @keyframes skScanLine {
+        0%   { top: 0; opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+
     .skill-card .skill-circle {
-        position: relative;
-        width: 120px;
-        height: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 0.75rem;
-        border-radius: 50%;
-        background: transparent;
+        position: relative; width: 88px; height: 88px;
+        display: flex; align-items: center; justify-content: center;
+        margin-bottom: .7rem; border-radius: 50%;
     }
-    .skill-circle-svg {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        transform: rotate(-90deg);
+    .skill-card .skill-circle::before {
+        content: ''; position: absolute; inset: -5px; border-radius: 50%;
+        border: 1px dashed rgba(0,217,255,.12);
+        animation: skRadarSpin 12s linear infinite;
     }
-    .skill-circle-bg {
-        fill: none;
-        stroke: rgba(0, 217, 255, 0.1);
-        stroke-width: 6;
+    @keyframes skRadarSpin { to { transform: rotate(360deg); } }
+    html.light-theme .skill-card .skill-circle::before { border-color: rgba(0,100,140,.15); }
+
+    .skill-card .skill-circle::after {
+        content: ''; position: absolute; inset: -12px; border-radius: 50%;
+        border: 1px solid rgba(0,217,255,.06);
     }
+    html.light-theme .skill-card .skill-circle::after { border-color: rgba(0,100,140,.08); }
+    .skill-card:hover .skill-circle::before { border-color: rgba(0,217,255,.3); }
+    .skill-card:hover .skill-circle::after { border-color: rgba(0,217,255,.15); }
+
+    .skill-circle-svg { position: absolute; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .skill-circle-bg { fill: none; stroke: rgba(0,217,255,.08); stroke-width: 5; }
     .skill-circle-progress {
-        fill: none;
-        stroke: var(--accent-gradient);
-        stroke-width: 6;
-        stroke-linecap: round;
-        transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        fill: none; stroke: var(--accent-gradient); stroke-width: 5; stroke-linecap: round;
+        transition: stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1);
     }
+
     .skill-card .skill-icon {
-        font-size: 1.8rem;
-        color: var(--accent-light);
-        display: block;
-        z-index: 2;
-        transition: color 0.3s ease;
+        font-size: 1.5rem; color: var(--accent-light);
+        z-index: 2; display: block; transition: all .3s; position: relative;
     }
+    html.light-theme .skill-card .skill-icon { color: var(--accent); }
+    .skill-card:hover .skill-icon { color: #fff; filter: drop-shadow(0 0 10px rgba(0,217,255,.6)); }
 
-    html.light-theme .skill-card .skill-icon {
-        color: var(--accent);
+    .skill-card .skill-percent {
+        font-size: .62rem; font-weight: 700; font-family: 'JetBrains Mono', Consolas, monospace;
+        color: var(--accent); z-index: 2; display: block; line-height: 1;
+        margin-top: 2px; opacity: .7;
     }
-    .skill-card    .skill-percent {
-        font-size: 0.7rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        z-index: 2;
-        display: block;
-        line-height: 1;
-    }
-    html.light-theme .skill-card .skill-percent {
-        color: var(--text-secondary);
-    }
+    html.light-theme .skill-card .skill-percent { color: var(--accent); }
+
     .skill-card .skill-name {
-        font-weight: 700;
-        font-size: 0.88rem;
-        color: var(--text-primary);
-        display: block;
+        font-weight: 600; font-size: .78rem; color: var(--text-primary);
+        display: block; line-height: 1.2; font-family: 'JetBrains Mono', Consolas, monospace;
     }
+    html.light-theme .skill-card .skill-name { color: var(--text-primary); }
 
-    /* ===== Thunder and Lightning Effects ===== */
-    .skill-card {
-        position: relative;
+    .skill-card .sk-status {
+        position: absolute; top: 6px; right: 8px;
+        font-size: .45rem; font-family: 'JetBrains Mono', Consolas, monospace; font-weight: 700;
+        color: #00ff88; letter-spacing: .08em; z-index: 4; text-transform: uppercase;
     }
+    html.light-theme .skill-card .sk-status { color: #00884a; }
+    .skill-card:hover .sk-status { animation: skBlink .8s step-end infinite; }
+    @keyframes skBlink { 50% { opacity: .3; } }
 
-    /* Lightning bolt SVG */
-    .skill-lightning {
-        position: absolute;
-        top: -8px;
-        right: -8px;
-        width: 40px;
-        height: 40px;
-        z-index: 10;
-        pointer-events: none;
-        opacity: 0;
-        transform-origin: center;
-        transition: opacity 0.05s ease;
+    .skill-card .sk-data-packet {
+        position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+        font-size: .42rem; font-family: 'JetBrains Mono', Consolas, monospace; color: rgba(0,217,255,.2);
+        letter-spacing: .06em; white-space: nowrap; z-index: 1; transition: color .3s;
     }
-    .skill-lightning.thunder-active {
-        opacity: 1;
-        animation: lightningBolt 0.6s ease-out forwards;
-    }
-    @keyframes lightningBolt {
-        0%   { transform: scale(0.3) rotate(-20deg); opacity: 1; filter: brightness(2); }
-        10%  { transform: scale(1.2) rotate(5deg); opacity: 1; filter: brightness(2.5); }
-        20%  { transform: scale(0.9) rotate(-5deg); opacity: 0.9; filter: brightness(1.5); }
-        35%  { transform: scale(1.1) rotate(2deg); opacity: 0.7; filter: brightness(1.2); }
-        50%  { transform: scale(1) rotate(0deg); opacity: 0.6; filter: brightness(1); }
-        100% { transform: scale(0.8) rotate(0deg); opacity: 0; }
-    }
+    .skill-card:hover .sk-data-packet { color: rgba(0,217,255,.45); }
 
-    /* Flash overlay on the skill circle */
-    .skill-circle .thunder-flash {
-        position: absolute;
-        top: 0; left: 0; right: 0; bottom: 0;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(170, 215, 230, 0.9), rgba(0, 217, 255, 0.3), transparent 70%);
-        z-index: 5;
-        pointer-events: none;
-        opacity: 0;
+    .skill-card .sk-glow {
+        position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
+        width: 80px; height: 40px; border-radius: 50%;
+        background: radial-gradient(ellipse, rgba(0,217,255,.12) 0%, transparent 70%);
+        opacity: 0; transition: opacity .4s; pointer-events: none;
     }
-    .skill-circle .thunder-flash.flash-active {
-        opacity: 0;
-        animation: thunderFlash 0.5s ease-out forwards;
-    }
-    @keyframes thunderFlash {
-        0%   { opacity: 0.9; transform: scale(0.8); }
-        10%  { opacity: 1; transform: scale(1.15); }
-        25%  { opacity: 0.6; transform: scale(1.05); }
-        50%  { opacity: 0.2; transform: scale(1); }
-        100% { opacity: 0; transform: scale(0.95); }
-    }
+    .skill-card:hover .sk-glow { opacity: 1; }
 
-    /* Electric arc ring around the skill circle */
-    .skill-circle .electric-ring {
-        position: absolute;
-        top: -4px; left: -4px; right: -4px; bottom: -4px;
-        border-radius: 50%;
-        border: 2px solid transparent;
-        z-index: 4;
-        pointer-events: none;
-        opacity: 0;
-        box-shadow: none;
+    .skill-card .sk-pulse-ring {
+        position: absolute; top: 50%; left: 50%; width: 88px; height: 88px;
+        margin: -44px 0 0 -44px; border-radius: 50%;
+        border: 1px solid rgba(0,217,255,.2); opacity: 0;
+        pointer-events: none; z-index: 1;
     }
-    .skill-circle .electric-ring.arc-active {
-        opacity: 1;
-        border-color: rgba(179, 240, 255, 0.6);
-        box-shadow:
-            0 0 8px 2px rgba(124, 230, 255, 0.6),
-            0 0 20px 6px rgba(0, 217, 255, 0.3),
-            inset 0 0 8px 2px rgba(124, 230, 255, 0.3);
-        animation: electricArc 0.8s ease-out forwards;
-    }
-    @keyframes electricArc {
-        0%   { opacity: 0; transform: scale(0.85) rotate(0deg); box-shadow: 0 0 0 0 rgba(124, 230, 255, 0); }
-        15%  { opacity: 1; transform: scale(1.08) rotate(30deg); box-shadow: 0 0 12px 4px rgba(124, 230, 255, 0.8), 0 0 30px 10px rgba(0, 217, 255, 0.4), inset 0 0 12px 4px rgba(124, 230, 255, 0.4); }
-        30%  { opacity: 0.8; transform: scale(1.02) rotate(60deg); box-shadow: 0 0 8px 2px rgba(124, 230, 255, 0.5), 0 0 20px 6px rgba(0, 217, 255, 0.3); }
-        50%  { opacity: 0.5; transform: scale(1) rotate(90deg); box-shadow: 0 0 4px 1px rgba(124, 230, 255, 0.3); }
-        100% { opacity: 0; transform: scale(0.95) rotate(120deg); box-shadow: 0 0 0 0 rgba(124, 230, 255, 0); }
-    }
-
-    /* Background thunder flash on the whole skills section */
-    .skills-section.thunder-bg-flash {
-        animation: sectionThunderFlash 0.6s ease-out;
-    }
-    @keyframes sectionThunderFlash {
-        0%   { background: linear-gradient(180deg, #0a1420, #111827); }
-        8%   { background: linear-gradient(180deg, rgba(170, 215, 230, 0.15) 0%, #111827 40%); }
-        20%  { background: linear-gradient(180deg, rgba(170, 215, 230, 0.08) 0%, #111827 60%); }
-        100% { background: linear-gradient(180deg, #080b12 0%, var(--bg-secondary) 100%); }
-    }
-    html.light-theme .skills-section.thunder-bg-flash {
-        animation: sectionThunderFlashLight 0.6s ease-out;
-    }
-    @keyframes sectionThunderFlashLight {
-        0%   { background: linear-gradient(180deg, #f1f5f9, #eef2f7); }
-        8%   { background: linear-gradient(180deg, rgba(170, 215, 230, 0.3) 0%, #eef2f7 40%); }
-        20%  { background: linear-gradient(180deg, rgba(170, 215, 230, 0.15) 0%, #eef2f7 60%); }
-        100% { background: linear-gradient(180deg, #f1f5f9 0%, #eef2f7 100%); }
-    }
-
-    /* Skill card shake on thunder strike */
-    .skill-card.thunder-shake {
-        animation: thunderShake 0.5s ease-out;
-    }
-    @keyframes thunderShake {
-        0%   { transform: translateX(0) translateY(0); }
-        5%   { transform: translateX(-3px) translateY(2px); }
-        10%  { transform: translateX(4px) translateY(-1px); }
-        15%  { transform: translateX(-2px) translateY(3px); }
-        25%  { transform: translateX(1px) translateY(-2px); }
-        40%  { transform: translateX(-1px) translateY(0); }
-        100% { transform: translateX(0) translateY(0); }
-    }
-
-    /* Small electric spark particles */
-    .skill-card .spark {
-        position: absolute;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: #7ce6ff;
-        pointer-events: none;
-        z-index: 11;
-        opacity: 0;
-        box-shadow: 0 0 6px 2px rgba(124, 230, 255, 0.8);
-    }
-    .skill-card .spark.spark-active {
-        animation: sparkFly 0.7s ease-out forwards;
-    }
-    @keyframes sparkFly {
-        0%   { opacity: 1; transform: translate(0, 0) scale(1); }
-        100% { opacity: 0; transform: translate(var(--spark-x), var(--spark-y)) scale(0); }
-    }
-
-    /* Thunder strike: skill icon glows */
-    .skill-card.thunder-strike .skill-icon {
-        animation: iconGlow 0.4s ease-out 2;
-    }
-    @keyframes iconGlow {
-        0%   { color: #fff; filter: drop-shadow(0 0 8px rgba(124, 230, 255, 0.8)); }
-        50%  { color: #b3f0ff; filter: drop-shadow(0 0 16px rgba(124, 230, 255, 0.6)); }
-        100% { color: var(--accent-light); filter: none; }
-    }
-
-    /* Skill circle progress glows on thunder */
-    .skill-card.thunder-strike .skill-circle-progress {
-        filter: brightness(1.4) drop-shadow(0 0 6px rgba(0, 217, 255, 0.6));
-        transition: filter 0.3s ease;
+    .skill-card:hover .sk-pulse-ring { animation: skPulseRing 1.5s ease-out infinite; }
+    @keyframes skPulseRing {
+        0%   { transform: scale(1); opacity: .5; }
+        100% { transform: scale(1.8); opacity: 0; }
     }
     /* Filter Tabs */
     .filter-tabs {
@@ -3888,10 +3838,11 @@
         .cyber-location { font-size: 0.68rem; }
 
         .skills-grid { gap: 1.2rem; }
-        .skill-card .skill-circle { width: 100px; height: 100px; }
-        .skill-card .skill-icon { font-size: 1.5rem; }
-        .skill-card .skill-name { font-size: 0.8rem; }
-        .skill-card .skill-percent { font-size: 0.65rem; }
+        .skill-card { width: 130px; padding: 1.3rem 1.1rem 1rem; }
+        .skill-card .skill-circle { width: 76px; height: 76px; }
+        .skill-card .skill-icon { font-size: 1.3rem; }
+        .skill-card .skill-name { font-size: 0.72rem; }
+        .skill-card .skill-percent { font-size: 0.58rem; }
         .skills-grid { animation-duration: 20s; }
         
         .about-grid { gap: 2rem; }
@@ -3994,10 +3945,11 @@
         .about-image .img-wrapper { width: 130px; height: 130px; }
         .about-image .glow-ring { width: 150px; height: 150px; }
         .skills-grid { gap: 1rem; animation-duration: 15s; }
-        .skill-card .skill-circle { width: 90px; height: 90px; }
-        .skill-card .skill-icon { font-size: 1.3rem; }
-        .skill-card .skill-name { font-size: 0.72rem; }
-        .skill-card .skill-percent { font-size: 0.6rem; }
+        .skill-card { width: 116px; padding: 1.1rem 0.9rem 0.8rem; }
+        .skill-card .skill-circle { width: 66px; height: 66px; }
+        .skill-card .skill-icon { font-size: 1.15rem; }
+        .skill-card .skill-name { font-size: 0.66rem; }
+        .skill-card .skill-percent { font-size: 0.54rem; }
         .about-stats { flex-direction: row; flex-wrap: nowrap; gap: 0.5rem; }
         .stat-item { min-width: 0; flex: 1; padding: 0.6rem 0.3rem; }
         .section-title h2 { font-size: 1.4rem; }
@@ -4759,10 +4711,17 @@
             </div>
 
             @if($skills->isNotEmpty())
+                <div class="skills-radar" aria-hidden="true">
+                    <div class="r-ring"></div><div class="r-ring"></div><div class="r-ring"></div>
+                    <div class="r-line"></div><div class="r-line"></div><div class="r-line"></div>
+                </div>
                 <div class="skills-wrapper">
                     <div class="skills-grid">
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
+                                <div class="sk-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+                                <div class="sk-scan"></div>
+                                <div class="sk-pulse-ring"></div>
                                 <div class="skill-circle">
                                     <svg class="skill-circle-svg" viewBox="0 0 120 120">
                                         <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
@@ -4771,24 +4730,20 @@
                                             stroke-dashoffset="326.73"
                                             data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
                                     </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
+                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
                                     <span class="skill-percent">{{ $skill->percentage }}%</span>
-                                    <!-- Thunder flash overlay -->
-                                    <div class="thunder-flash"></div>
-                                    <!-- Electric arc ring -->
-                                    <div class="electric-ring"></div>
-                                    <!-- Lightning bolt SVG top-right -->
-                                    <svg class="skill-lightning" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="0.5"/>
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fff" opacity="0.3"/>
-                                    </svg>
                                 </div>
                                 <span class="skill-name">{{ $skill->name }}</span>
-                                <!-- Spark particles (generated by JS) -->
+                                <span class="sk-status">online</span>
+                                <span class="sk-data-packet">0x{{ str_pad(dechex($index), 2, '0', STR_PAD_LEFT) }} :: encrypted</span>
+                                <div class="sk-glow"></div>
                             </div>
                         @endforeach
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
+                                <div class="sk-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+                                <div class="sk-scan"></div>
+                                <div class="sk-pulse-ring"></div>
                                 <div class="skill-circle">
                                     <svg class="skill-circle-svg" viewBox="0 0 120 120">
                                         <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
@@ -4797,27 +4752,20 @@
                                             stroke-dashoffset="326.73"
                                             data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
                                     </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-star' }}"></i></span>
+                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
                                     <span class="skill-percent">{{ $skill->percentage }}%</span>
-                                    <!-- Thunder flash overlay -->
-                                    <div class="thunder-flash"></div>
-                                    <!-- Electric arc ring -->
-                                    <div class="electric-ring"></div>
-                                    <!-- Lightning bolt SVG top-right -->
-                                    <svg class="skill-lightning" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fbbf24" stroke="#f59e0b" stroke-width="0.5"/>
-                                        <path d="M13 2L4 14h7l-1 8 10-12h-7l1-8z" fill="#fff" opacity="0.3"/>
-                                    </svg>
                                 </div>
                                 <span class="skill-name">{{ $skill->name }}</span>
-                                <!-- Spark particles (generated by JS) -->
+                                <span class="sk-status">online</span>
+                                <span class="sk-data-packet">0x{{ str_pad(dechex($index), 2, '0', STR_PAD_LEFT) }} :: encrypted</span>
+                                <div class="sk-glow"></div>
                             </div>
                         @endforeach
                     </div>
                 </div>
             @else
                 <div class="empty-state reveal">
-                    <i class="bi bi-lightning-charge"></i>
+                    <i class="bi bi-shield-lock"></i>
                     <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_skills') }}</p>
                     <p>{{ __('messages.no_skills_desc') }}</p>
                 </div>
@@ -5481,7 +5429,7 @@
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-ball, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-card, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
         el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
         el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
@@ -5765,233 +5713,50 @@
     });
 })();
 
-// ===== THUNDER / LIGHTNING EFFECT FOR SKILLS (HOVER-TRIGGERED) =====
+// ===== CYBER SKILLS: RADAR SWEEP + PROGRESS FILL ON SCROLL =====
 (function() {
     var section = document.querySelector('.skills-section');
     if (!section) return;
+    var cards = Array.prototype.slice.call(document.querySelectorAll('.skills-grid .skill-card'));
 
-    var allCards = document.querySelectorAll('.skills-grid .skill-card');
-    if (!allCards.length) return;
-
-    var originalCount = Math.ceil(allCards.length / 2);
-    var cards = [];
-    for (var i = 0; i < originalCount; i++) {
-        cards.push(allCards[i]);
-    }
-
-    var dupCards = [];
-    for (var i = originalCount; i < allCards.length; i++) {
-        dupCards.push(allCards[i]);
-    }
-
-    function getPair(index) {
-        return { orig: cards[index], dup: dupCards[index] };
-    }
-
-    function createSparks(card) {
-        var count = 8;
-        for (var i = 0; i < count; i++) {
-            var spark = document.createElement('div');
-            spark.className = 'spark';
-            var angle = (i / count) * 360;
-            var dist = 30 + Math.random() * 40;
-            spark.style.setProperty('--spark-x', Math.cos(angle * Math.PI / 180) * dist + 'px');
-            spark.style.setProperty('--spark-y', Math.sin(angle * Math.PI / 180) * dist + 'px');
-            var size = 2 + Math.random() * 3;
-            spark.style.width = size + 'px';
-            spark.style.height = size + 'px';
-            var hue = 200 + Math.random() * 40;
-            spark.style.background = 'hsl(' + hue + ', 100%, 70%)';
-            spark.style.boxShadow = '0 0 ' + (4 + Math.random() * 6) + 'px hsla(' + hue + ', 100%, 70%, 0.8)';
-            card.appendChild(spark);
-            setTimeout(function() {
-                spark.classList.add('spark-active');
-                setTimeout(function() { spark.remove(); }, 800);
-            }, i * 30);
-        }
-    }
-
-    function strikeCard(card) {
-        if (!card) return;
-        card.classList.add('thunder-strike', 'thunder-shake');
-        var flash = card.querySelector('.thunder-flash');
-        var electric = card.querySelector('.electric-ring');
-        var bolt = card.querySelector('.skill-lightning');
-        [flash, electric, bolt].forEach(function(el) {
-            if (!el) return;
-            var cls = el === flash ? 'flash-active' : el === electric ? 'arc-active' : 'thunder-active';
-            el.classList.remove(cls);
-            el.offsetWidth;
-            el.classList.add(cls);
+    // Animate progress rings when section scrolls into view
+    function fillProgress() {
+        cards.forEach(function(card) {
+            var bar = card.querySelector('.skill-circle-progress');
+            if (!bar) return;
+            var target = parseFloat(bar.getAttribute('data-dashoffset'));
+            if (bar.getAttribute('data-filled') !== '1') {
+                bar.setAttribute('data-filled', '1');
+                setTimeout(function() {
+                    bar.style.strokeDashoffset = target;
+                }, 60);
+            }
         });
-        createSparks(card);
-        setTimeout(function() {
-            card.classList.remove('thunder-strike', 'thunder-shake');
-            card.querySelectorAll('.skill-circle-progress').forEach(function(c) { c.style.filter = ''; });
-        }, 1000);
-    }
-
-    function triggerLightning(index) {
-        var pair = getPair(index);
-        strikeCard(pair.orig);
-        if (pair.dup) strikeCard(pair.dup);
-    }
-
-    function triggerBgFlash() {
-        if (!section) return;
-        section.classList.remove('thunder-bg-flash');
-        section.offsetWidth;
-        section.classList.add('thunder-bg-flash');
-        setTimeout(function() { section.classList.remove('thunder-bg-flash'); }, 700);
-    }
-
-    // Throttle helper to prevent rapid re-triggers (1.5s cooldown)
-    var hoverTimers = {};
-
-    function isThrottled(index) {
-        var now = Date.now();
-        if (hoverTimers[index] && now - hoverTimers[index] < 1500) return true;
-        hoverTimers[index] = now;
-        return false;
-    }
-
-    // Attach hover listeners to each card
-    cards.forEach(function(card, index) {
-        card.addEventListener('mouseenter', function() {
-            if (isThrottled(index)) return;
-            triggerLightning(index);
-            triggerBgFlash();
-        });
-    });
-
-    // Also attach hover to duplicate cards for seamless scroll continuity
-    dupCards.forEach(function(dup, index) {
-        dup.addEventListener('mouseenter', function() {
-            if (isThrottled(index)) return;
-            triggerLightning(index);
-            triggerBgFlash();
-        });
-    });
-})();
-// ===== THUNDER / LIGHTNING EFFECT FOR SKILLS =====
-(function() {
-    var section = document.querySelector('.skills-section');
-    if (!section) return;
-
-    var allCards = document.querySelectorAll('.skills-grid .skill-card');
-    if (!allCards.length) return;
-
-    var originalCount = Math.ceil(allCards.length / 2);
-    var cards = [];
-    for (var i = 0; i < originalCount; i++) {
-        cards.push(allCards[i]);
-    }
-
-    var dupCards = [];
-    for (var i = originalCount; i < allCards.length; i++) {
-        dupCards.push(allCards[i]);
-    }
-
-    function getPair(index) {
-        return { orig: cards[index], dup: dupCards[index] };
-    }
-
-    function createSparks(card) {
-        var count = 8;
-        for (var i = 0; i < count; i++) {
-            var spark = document.createElement('div');
-            spark.className = 'spark';
-            var angle = (i / count) * 360;
-            var dist = 30 + Math.random() * 40;
-            spark.style.setProperty('--spark-x', Math.cos(angle * Math.PI / 180) * dist + 'px');
-            spark.style.setProperty('--spark-y', Math.sin(angle * Math.PI / 180) * dist + 'px');
-            var size = 2 + Math.random() * 3;
-            spark.style.width = size + 'px';
-            spark.style.height = size + 'px';
-            var hue = 200 + Math.random() * 40;
-            spark.style.background = 'hsl(' + hue + ', 100%, 70%)';
-            spark.style.boxShadow = '0 0 ' + (4 + Math.random() * 6) + 'px hsla(' + hue + ', 100%, 70%, 0.8)';
-            card.appendChild(spark);
-            setTimeout(function() {
-                spark.classList.add('spark-active');
-                setTimeout(function() { spark.remove(); }, 800);
-            }, i * 30);
-        }
-    }
-
-    function strikeCard(card) {
-        if (!card) return;
-        card.classList.add('thunder-strike', 'thunder-shake');
-        var flash = card.querySelector('.thunder-flash');
-        var electric = card.querySelector('.electric-ring');
-        var bolt = card.querySelector('.skill-lightning');
-        [flash, electric, bolt].forEach(function(el) {
-            if (!el) return;
-            var cls = el === flash ? 'flash-active' : el === electric ? 'arc-active' : 'thunder-active';
-            el.classList.remove(cls);
-            void el.offsetWidth;
-            el.classList.add(cls);
-        });
-        createSparks(card);
-        setTimeout(function() {
-            card.classList.remove('thunder-strike', 'thunder-shake');
-            card.querySelectorAll('.skill-circle-progress').forEach(function(c) { c.style.filter = ''; });
-        }, 1000);
-    }
-
-    function triggerLightning(index) {
-        var pair = getPair(index);
-        strikeCard(pair.orig);
-        if (pair.dup) strikeCard(pair.dup);
-    }
-
-    function triggerBgFlash() {
-        section.classList.remove('thunder-bg-flash');
-        void section.offsetWidth;
-        section.classList.add('thunder-bg-flash');
-        setTimeout(function() { section.classList.remove('thunder-bg-flash'); }, 700);
-    }
-
-    function randomThunder() {
-        if (!cards.length) return;
-        var index = Math.floor(Math.random() * cards.length);
-        triggerLightning(index);
-        if (Math.random() < 0.2) triggerBgFlash();
-    }
-
-    var isVisible = false;
-    var timeoutId = null;
-
-    function scheduleNext() {
-        if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
-        if (!isVisible) return;
-        timeoutId = setTimeout(function() {
-            if (isVisible) { randomThunder(); scheduleNext(); }
-        }, 2000 + Math.random() * 6000);
     }
 
     if (window.IntersectionObserver) {
         new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                isVisible = entry.isIntersecting;
-                if (isVisible) scheduleNext();
-                else if (timeoutId) { clearTimeout(timeoutId); timeoutId = null; }
+                if (entry.isIntersecting) fillProgress();
             });
-        }, { threshold: 0.1 }).observe(section);
+        }, { threshold: 0.25 }).observe(section);
     } else {
         window.addEventListener('scroll', function() {
             var rect = section.getBoundingClientRect();
-            isVisible = rect.top < window.innerHeight + 100 && rect.bottom > -100;
-            if (isVisible) scheduleNext();
+            if (rect.top < window.innerHeight && rect.bottom > 0) fillProgress();
         });
     }
 
-    setTimeout(function() { if (isVisible) randomThunder(); }, 1000);
+    // Immediate fill if already visible on load
+    setTimeout(function() {
+        var rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) fillProgress();
+    }, 400);
 })();
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .cyber-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card';
+    var selectors = '.cs-step, .cyber-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .skill-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
