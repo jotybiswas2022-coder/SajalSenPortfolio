@@ -60,23 +60,23 @@
 
 /* ─── Stat Cards ─── */
 .dsb-stat {
-    background: rgba(255,255,255,0.75);
+    background: var(--admin-card-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.6);
+    border: 1px solid var(--admin-border);
     border-radius: 16px;
     padding: 1.25rem 1.4rem;
     position: relative;
     overflow: hidden;
     height: 100%;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.03);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
 }
 .dsb-stat:hover {
     transform: translateY(-6px) scale(1.02);
-    background: rgba(255,255,255,0.88);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 6px 12px rgba(0,217,255,0.06);
-    border-color: rgba(255,255,255,0.9);
+    background: var(--admin-card-bg-2);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 6px 12px rgba(0,217,255,0.08);
+    border-color: rgba(0,217,255,0.4);
 }
 .dsb-stat-glow {
     position: absolute;
@@ -128,25 +128,25 @@
 
 /* ─── Content Cards ─── */
 .dsb-card {
-    background: rgba(255,255,255,0.7);
+    background: var(--admin-card-bg);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid var(--admin-border);
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.03), 0 1px 4px rgba(0,0,0,0.02);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     height: 100%;
     overflow: hidden;
 }
 .dsb-card:hover {
-    background: rgba(255,255,255,0.85);
-    box-shadow: 0 12px 32px rgba(0,0,0,0.05), 0 4px 8px rgba(0,0,0,0.03);
-    border-color: rgba(255,255,255,0.8);
+    background: var(--admin-card-bg-2);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+    border-color: rgba(0,217,255,0.4);
     transform: translateY(-3px);
 }
 .dsb-card-hd {
     padding: 1.1rem 1.4rem;
-    border-bottom: 1px solid rgba(0,0,0,0.04);
+    border-bottom: 1px solid var(--admin-border);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -168,7 +168,7 @@
     align-items: center;
     gap: 0.85rem;
     padding: 0.75rem 1.4rem;
-    border-bottom: 1px solid rgba(0,0,0,0.03);
+    border-bottom: 1px solid var(--admin-border);
     transition: all 0.25s ease;
     text-decoration: none;
     color: inherit;
@@ -240,20 +240,20 @@
     align-items: center;
     gap: 0.45rem;
     padding: 0.5rem 0.95rem;
-    background: rgba(255,255,255,0.55);
+    background: var(--admin-bg-soft);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid var(--admin-border);
     border-radius: 10px;
     text-decoration: none;
-    color: #1e293b;
+    color: var(--admin-text);
     font-weight: 600;
     font-size: 0.8rem;
     transition: all 0.25s ease;
     white-space: nowrap;
 }
 .dsb-qa:hover {
-    background: rgba(255,255,255,0.8);
+    background: var(--admin-card-bg-2);
     border-color: #00d9ff;
     color: #00d9ff;
     transform: translateY(-2px);
@@ -533,7 +533,7 @@
     {{-- ─── MESSAGE MODAL ─── --}}
     <div class="modal fade" id="messageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content shadow" style="border-radius:16px;overflow:hidden;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,0.6);">
+            <div class="modal-content shadow" style="border-radius:16px;overflow:hidden;background:var(--admin-card-bg);border:1px solid var(--admin-border);">
                 <div class="modal-header" style="background:linear-gradient(135deg,#00d9ff,#00ff88);color:#fff;padding:1.2rem 1.5rem;">
                     <h5 class="modal-title fw-semibold"><i class="bi bi-person-circle me-2"></i><span id="msgName"></span></h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
@@ -546,11 +546,11 @@
                     </div>
                     <div>
                         <small class="text-muted fw-semibold d-block mb-2" style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.5px;">Message</small>
-                        <p class="mb-0 lh-base" id="msgContent" style="white-space:pre-wrap;color:#334155;font-size:0.92rem;"></p>
+                        <p class="mb-0 lh-base" id="msgContent" style="white-space:pre-wrap;color:var(--admin-text);font-size:0.92rem;"></p>
                     </div>
                 </div>
                 <div class="modal-footer border-0 px-4 pb-4 pt-0">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4" style="background:#f1f5f9;color:#64748b;border:none;font-weight:600;" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" style="background:var(--admin-card-bg-2);color:var(--admin-text);border:none;font-weight:600;" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

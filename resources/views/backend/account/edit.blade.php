@@ -69,8 +69,8 @@
 @keyframes aeDot { 0% { box-shadow: 0 0 0 0 rgba(0,255,136,0.6);} 100% { box-shadow: 0 0 0 9px rgba(0,255,136,0);} }
 
 .ae-card {
-    background: #fff;
-    border: 1px solid rgba(226, 232, 240, 0.9);
+    background: var(--admin-card-bg);
+    border: 1px solid var(--admin-border);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 4px 24px rgba(0,0,0,0.05);
@@ -85,8 +85,8 @@
 .ae-card .ae-card-head {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
     padding: 1rem 1.5rem;
-    background: linear-gradient(135deg, #f8fafc, #eff6ff);
-    border-bottom: 1px solid rgba(0,217,255,0.15);
+    background: linear-gradient(135deg, var(--admin-card-bg-2), rgba(0,217,255,0.05));
+    border-bottom: 1px solid var(--admin-border);
     position: relative;
 }
 .ae-card .ae-card-head::after {
@@ -94,32 +94,35 @@
     background: linear-gradient(180deg, var(--ae-cyan), var(--ae-green));
 }
 .ae-card .ae-card-head .ae-head-title {
-    font-weight: 700; color: var(--ae-slate); font-size: 1rem; margin: 0;
+    font-weight: 700; color: var(--admin-text); font-size: 1rem; margin: 0;
     display: flex; align-items: center; gap: 0.6rem;
 }
 .ae-card .ae-card-head .ae-head-title i { color: var(--ae-cyan); }
 .ae-card .ae-card-head .ae-head-tag {
-    font-size: 0.68rem; color: var(--ae-cyan-d); font-weight: 600;
+    font-size: 0.68rem; color: var(--ae-cyan); font-weight: 600;
     background: rgba(0,217,255,0.1); padding: 0.2rem 0.6rem; border-radius: 50px;
 }
 .ae-card .ae-card-body { padding: 1.5rem; }
 
 .ae-form-label {
-    font-weight: 600; font-size: 0.82rem; color: #334155; margin-bottom: 0.4rem;
+    font-weight: 600; font-size: 0.82rem; color: var(--admin-text); margin-bottom: 0.4rem;
     display: flex; align-items: center; gap: 0.3rem;
 }
 .ae-input-modern {
-    border: 1.5px solid #e2e8f0;
+    border: 1.5px solid var(--admin-border);
     border-radius: 10px;
     padding: 0.62rem 1rem;
     font-size: 0.9rem;
     transition: border-color .2s, box-shadow .2s;
-    background: #fff;
+    background: var(--admin-bg-soft);
+    color: var(--admin-text);
 }
 .ae-input-modern:focus {
     border-color: var(--ae-cyan);
     box-shadow: 0 0 0 3px rgba(0,217,255,0.14);
     outline: none;
+    background: var(--admin-bg-soft);
+    color: var(--admin-text);
 }
 .ae-avatar-wrap {
     position: relative;
@@ -130,13 +133,13 @@
 }
 .ae-avatar-wrap .ae-avatar-inner {
     width: 100%; height: 100%; border-radius: 50%; overflow: hidden;
-    background: #f1f5f9; display: flex; align-items: center; justify-content: center;
-    border: 3px solid #fff;
+    background: var(--admin-bg-soft); display: flex; align-items: center; justify-content: center;
+    border: 3px solid var(--admin-card-bg);
 }
 .ae-avatar-wrap img, .ae-avatar-wrap .ae-avatar-ph {
     width: 100%; height: 100%; object-fit: cover;
 }
-.ae-avatar-wrap .ae-avatar-ph { color: #94a3b8; font-size: 2.6rem; display: flex; align-items: center; justify-content: center; }
+.ae-avatar-wrap .ae-avatar-ph { color: var(--admin-text-muted); font-size: 2.6rem; display: flex; align-items: center; justify-content: center; }
 .ae-btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
     border-radius: 10px; font-weight: 600; font-size: 0.85rem;
@@ -149,12 +152,12 @@
 }
 .ae-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,217,255,0.42); color: #fff; }
 .ae-btn-ghost {
-    background: #fff; color: #475569; border: 1.5px solid #e2e8f0;
+    background: var(--admin-card-bg-2); color: var(--admin-text); border: 1.5px solid var(--admin-border);
     padding: 0.7rem 1.4rem;
 }
-.ae-btn-ghost:hover { border-color: var(--ae-cyan); color: var(--ae-cyan-d); background: #f8fbff; }
-.ae-divider { border: 0; border-top: 1px dashed #e2e8f0; opacity: 1; margin: 1.2rem 0; }
-.ae-note { font-size: 0.72rem; color: var(--ae-muted); margin-top: 0.35rem; }
+.ae-btn-ghost:hover { border-color: var(--ae-cyan); color: var(--ae-cyan); background: rgba(0,217,255,0.08); }
+.ae-divider { border: 0; border-top: 1px dashed var(--admin-border); opacity: 1; margin: 1.2rem 0; }
+.ae-note { font-size: 0.72rem; color: var(--admin-text-muted); margin-top: 0.35rem; }
 
 @media (max-width: 767.98px) {
     .ae-page-header { padding: 16px 16px; }
