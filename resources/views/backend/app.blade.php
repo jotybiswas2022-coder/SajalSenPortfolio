@@ -431,6 +431,73 @@
         .admin-main .progress { background: var(--admin-border) !important; }
         .admin-main .bg-white { background: var(--admin-card-bg) !important; }
         .admin-main .bg-white.border-bottom-0, .admin-main .bg-white.border-0 { background: var(--admin-card-bg-2) !important; }
+
+        /* ===== SHARED ADMIN PAGE KIT (ae-*) ===== */
+        .ae-page-header {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #0b1220 100%);
+            border: 1px solid rgba(0, 217, 255, 0.15);
+            border-radius: 18px;
+            padding: 22px 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
+        }
+        .ae-page-header::before {
+            content: '';
+            position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff88, #00d9ff, transparent);
+            background-size: 60% 100%; background-repeat: no-repeat;
+            animation: aeSweep 4s linear infinite;
+            pointer-events: none;
+        }
+        .ae-page-header::after {
+            content: ''; position: absolute; top: -40px; right: -40px;
+            width: 160px; height: 160px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,217,255,0.15), transparent 70%);
+            pointer-events: none;
+        }
+        @keyframes aeSweep { 0% { background-position: -60% 0; } 100% { background-position: 160% 0; } }
+        .ae-title { position: relative; z-index: 1; color: #fff; font-weight: 800; font-size: 1.4rem; display: flex; align-items: center; gap: 0.7rem; }
+        .ae-sub { position: relative; z-index: 1; color: rgba(226, 232, 240, 0.75); font-size: 0.85rem; margin: 0; }
+        .ae-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(0, 255, 136, 0.12); color: #00ff88; border: 1px solid rgba(0, 255, 136, 0.3); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.5px; padding: 0.25rem 0.7rem; border-radius: 50px; text-transform: uppercase; }
+        .ae-badge .ae-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; animation: aeDot 1.8s ease-out infinite; }
+        @keyframes aeDot { 0% { box-shadow: 0 0 0 0 rgba(0,255,136,0.6);} 100% { box-shadow: 0 0 0 9px rgba(0,255,136,0);} }
+        .ae-btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem; border-radius: 10px; font-weight: 600; font-size: 0.85rem; transition: all .2s ease; border: none; cursor: pointer; text-decoration: none; }
+        .ae-btn-primary { background: linear-gradient(135deg, #00d9ff, #00a2c9); color: #fff; padding: 0.6rem 1.5rem; box-shadow: 0 6px 20px rgba(0,217,255,0.3); }
+        .ae-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(0,217,255,0.42); color: #fff; }
+        .ae-btn-ghost { background: var(--admin-card-bg-2); color: var(--admin-text); border: 1.5px solid var(--admin-border); padding: 0.6rem 1.4rem; }
+        .ae-btn-ghost:hover { border-color: #00d9ff; color: #00d9ff; background: rgba(0,217,255,0.08); }
+        .ae-card { background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.05); transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; position: relative; }
+        .ae-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(0,217,255,0.10); border-color: rgba(0,217,255,0.35); }
+        .ae-card .ae-card-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.5rem; background: linear-gradient(135deg, var(--admin-card-bg-2), rgba(0,217,255,0.05)); border-bottom: 1px solid var(--admin-border); position: relative; }
+        .ae-card .ae-card-head::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #00d9ff, #00ff88); }
+        .ae-card .ae-head-title { font-weight: 700; color: var(--admin-text); font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 0.6rem; }
+        .ae-card .ae-head-title i { color: #00d9ff; }
+        .ae-card .ae-head-tag { font-size: 0.68rem; color: #00d9ff; font-weight: 600; background: rgba(0,217,255,0.1); padding: 0.2rem 0.6rem; border-radius: 50px; }
+        .ae-card .ae-card-body { padding: 1.5rem; }
+        .ae-form-label { font-weight: 600; font-size: 0.82rem; color: var(--admin-text); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.3rem; }
+        .ae-input-modern { border: 1.5px solid var(--admin-border); border-radius: 10px; padding: 0.62rem 1rem; font-size: 0.9rem; transition: border-color .2s, box-shadow .2s; background: var(--admin-bg-soft); color: var(--admin-text); }
+        .ae-input-modern:focus { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0,217,255,0.14); outline: none; background: var(--admin-bg-soft); color: var(--admin-text); }
+        .ae-note { font-size: 0.72rem; color: var(--admin-text-muted); margin-top: 0.35rem; }
+        .ae-table-card { background: var(--admin-card-bg); border: 1px solid var(--admin-border); border-radius: 18px; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,0.05); }
+        .ae-table-card .table { --bs-table-bg: transparent; color: var(--admin-text); margin-bottom: 0; }
+        .ae-table-card .table thead th { background: var(--admin-bg-soft); color: var(--admin-text-muted); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px; padding: 0.9rem 1rem; border-bottom: 1px solid var(--admin-border); white-space: nowrap; }
+        .ae-table-card .table tbody td { padding: 0.85rem 1rem; vertical-align: middle; border-bottom: 1px solid var(--admin-border); font-size: 0.88rem; color: var(--admin-text); }
+        .ae-table-card .table tbody tr { transition: background 0.2s; }
+        .ae-table-card .table tbody tr:hover { background: rgba(0,217,255,0.05); }
+        .ae-table-card .table tbody tr:last-child td { border-bottom: 0; }
+        .ae-icon-box { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; background: rgba(0,217,255,0.1); color: #00d9ff; font-size: 1.25rem; border: 1px solid rgba(0,217,255,0.2); }
+        .ae-order-badge { background: var(--admin-bg-soft); border: 1px solid var(--admin-border); color: var(--admin-text-muted); font-weight: 600; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.78rem; }
+        .ae-status-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(0,255,136,0.1); border: 1px solid rgba(0,255,136,0.25); color: #00ff88; font-weight: 600; padding: 0.3rem 0.75rem; border-radius: 50px; font-size: 0.75rem; text-decoration: none; transition: all 0.2s; cursor: pointer; }
+        .ae-status-badge.inactive { background: var(--admin-bg-soft); border-color: var(--admin-border); color: var(--admin-text-muted); }
+        .ae-status-badge:hover { transform: scale(1.06); }
+        .ae-action-btn { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 9px; border: 1.5px solid var(--admin-border); background: transparent; color: var(--admin-text-muted); transition: all .2s ease; }
+        .ae-action-btn.edit:hover { border-color: #00d9ff; color: #00d9ff; background: rgba(0,217,255,0.08); }
+        .ae-action-btn.delete:hover { border-color: #ef4444; color: #ef4444; background: rgba(239,68,68,0.08); }
+        .ae-search { background: var(--admin-bg-soft); border: 1.5px solid var(--admin-border); border-radius: 12px; color: var(--admin-text); }
+        .ae-search:focus { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0,217,255,0.14); }
+        .ae-search-icon { background: var(--admin-bg-soft); border-color: var(--admin-border) !important; color: var(--admin-text-muted); border-radius: 12px 0 0 12px !important; }
+        .ae-search-icon-end { background: var(--admin-bg-soft); border-color: var(--admin-border) !important; color: var(--admin-text-muted); border-radius: 0 12px 12px 0 !important; }
     </style>
 </head>
 <body>
