@@ -3036,13 +3036,15 @@
         .section-title { margin-bottom: 3rem; }
         .section-title h2 { font-size: 2rem; }
         .section-title p { font-size: 0.95rem; }
+        .hero { overflow: hidden; }
         .hero h1 { font-size: clamp(2rem, 6vw, 3.5rem); }
         .hero p { font-size: 1rem; }
         .hero-badge { font-size: 0.75rem; padding: 0.3rem 1rem; }
         .hero::before { width: 400px; height: 400px; }
-        .hero-content { width: 100%; }
+        .hero-content { width: 100%; min-width: 0; }
         .hero-badge { max-width: 90%; text-align: center; white-space: normal; }
         .hero p { max-width: 100%; }
+        .hero h1 .gradient-text { white-space: normal; word-break: break-word; }
         
         .about-stats { flex-wrap: nowrap; gap: 0.75rem; }
         .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
@@ -3100,9 +3102,7 @@
         .empty-state i { font-size: 2.2rem; }
         
         /* Tablet hero decorative */
-        .float-chip.c1 { top: 10%; right: 3%; }
-        .float-chip.c2 { display: none; }
-        .float-chip.c3 { display: none; }
+        .float-chip { display: none; }
     }
     
     /* Mobile Small (max 480px) */
