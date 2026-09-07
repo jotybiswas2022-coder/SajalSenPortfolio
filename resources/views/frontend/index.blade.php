@@ -1561,9 +1561,10 @@
 
     /* ---- Mobile: grid cards ---- */
     @media (max-width: 768px) {
-        .services-section .water-surface { height: 30px; }
-        .services-section .water-surface .wave { height: 40px; }
-        .services-section .bottom-waves { height: 40px; }
+        .services-section .water-surface { height: 3px; }
+        .services-section .water-surface .wave { height: 100%; }
+        .services-section .bottom-waves { height: 3px; }
+        .services-section .bottom-waves .wave { height: 100%; }
         .wave-scene { min-height: auto; padding: 1rem 0; }
         .wave-scene .wave-bubbles .bub { display: none; }
         .wave-scene .wave-shimmer { opacity: 0.3; }
