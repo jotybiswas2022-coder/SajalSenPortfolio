@@ -2370,9 +2370,28 @@
     }
 
     /* Cyber head */
+    .gig-thumb {
+        position: relative; z-index: 2;
+        height: 175px; overflow: hidden;
+        display: flex; align-items: center; justify-content: center;
+        background: linear-gradient(170deg, rgba(0, 217, 255, 0.1), rgba(0, 255, 136, 0.06));
+        border-bottom: 1px solid rgba(0, 217, 255, 0.14);
+    }
+    .gig-thumb img {
+        width: 100%; height: 100%; object-fit: cover;
+        transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .gig-card:hover .gig-thumb img { transform: scale(1.08); }
+    .gig-thumb::after {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background: linear-gradient(180deg, rgba(7, 16, 27, 0) 62%, rgba(7, 16, 27, 0.72));
+    }
+    html.light-theme .gig-thumb::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0) 62%, rgba(248, 250, 252, 0.78)); }
+    .gig-thumb .gig-icon { margin: 0; }
+
     .gig-head {
         position: relative; z-index: 2;
-        text-align: center; padding: 2rem 1.6rem 1.2rem;
+        text-align: center; padding: 1.6rem 1.6rem 1.2rem;
     }
     .gig-head::before {
         content: ''; position: absolute; left: 1.6rem; right: 1.6rem; top: 0; height: 3px;
@@ -3901,6 +3920,7 @@
         .gig-card { width: 100% !important; min-width: 0 !important; display: block; max-width: none !important; }
         .gig-card + .gig-card { margin-top: 1rem; }
         .gig-head { padding: 1.5rem 1.2rem 1rem; }
+        .gig-thumb { height: 130px; }
         .gig-head h3 { font-size: 1.02rem; margin-bottom: 0.3rem; }
         .gig-head p { font-size: 0.8rem; margin-bottom: 0.4rem; line-height: 1.45; }
         .gig-icon { width: 60px; height: 60px; margin-bottom: 0.9rem; }
@@ -4375,8 +4395,14 @@
                             <span class="gig-hud-id">PKG-{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}</span>
                             <span class="gig-hud-live"><span class="dot"></span> ACTIVE</span>
                         </div>
+                        <div class="gig-thumb">
+                            @if($gig->image)
+                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
+                            @else
+                                <div class="gig-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                            @endif
+                        </div>
                         <div class="gig-head">
-                            <div class="gig-icon"><i class="bi bi-shield-lock-fill"></i></div>
                             <h3>{{ $gig->title }}</h3>
                             @if($gig->short_description)
                                 <p>{{ $gig->short_description }}</p>
