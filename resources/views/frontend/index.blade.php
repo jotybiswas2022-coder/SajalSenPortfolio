@@ -978,36 +978,51 @@
         z-index: 0;
     }
 
-    /* Surface water wave at top of section */
+    /* Cyber top divider line (replaces surface water wave) */
     .services-section .water-surface {
         position: absolute;
         top: 0; left: 0; right: 0;
-        height: 50px;
-        z-index: 1;
+        height: 3px;
+        z-index: 3;
         pointer-events: none;
         overflow: hidden;
     }
     .services-section .water-surface .wave {
         position: absolute;
-        top: -20px; left: -50%;
-        width: 200%; height: 60px;
-        border-radius: 45%;
+        top: 0; left: 0; right: 0; bottom: 0;
+        width: 100%; height: 100%;
+        border-radius: 0;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 217, 255, 0.7) 30%,
+            rgba(0, 255, 136, 0.9) 50%,
+            rgba(0, 217, 255, 0.7) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.5));
     }
     .services-section .water-surface .wave:nth-child(1) {
-        background: rgba(0, 217, 255, 0.06);
-        animation: surfaceWave1 4s linear infinite alternate;
+        animation: surfaceWave1 4s linear infinite;
+        opacity: 0.8;
     }
     .services-section .water-surface .wave:nth-child(2) {
-        background: rgba(0, 217, 255, 0.04);
-        animation: surfaceWave2 6s linear infinite alternate;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 255, 136, 0.4) 50%,
+            transparent 100%
+        );
+        background-size: 150% 100%;
+        animation: surfaceWave2 6s linear infinite;
+        opacity: 0.6;
     }
     @keyframes surfaceWave1 {
-        0%   { transform: translateX(0) rotate(0deg); }
-        100% { transform: translateX(-20%) rotate(5deg); }
+        0%   { background-position: -100% 0; }
+        100% { background-position: 100% 0; }
     }
     @keyframes surfaceWave2 {
-        0%   { transform: translateX(0) rotate(0deg); }
-        100% { transform: translateX(15%) rotate(-3deg); }
+        0%   { background-position: 150% 0; }
+        100% { background-position: -150% 0; }
     }
 
     /* ===== WAVE SCENE — continuous full-width water body ===== */
@@ -1024,88 +1039,94 @@
     .wave-scene::before {
         content: '';
         position: absolute;
-        top: 15%;
-        left: -50%;
-        width: 200%;
-        height: 70%;
-        background: linear-gradient(90deg,
-            transparent 0%, 
-            rgba(30, 58, 95, 0.20) 20%,
-            rgba(20, 50, 80, 0.30) 40%,
-            rgba(30, 58, 95, 0.20) 60%,
-            transparent 100%
-        );
-        border-radius: 40%;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.05) 1px, transparent 1px);
+        background-size: 42px 42px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(0,0,0,0.85), transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(0,0,0,0.85), transparent 85%);
         pointer-events: none;
         z-index: 0;
-        animation: waveDeep 6s linear infinite alternate;
+        animation: cyberGrid 5s linear infinite;
         will-change: transform;
+    }
+    @keyframes cyberGrid {
+        0%   { background-position: 0 0; }
+        100% { background-position: 0 42px; }
     }
     /* Wave Layer 2 — mid, medium speed */
     .wave-scene::after {
         content: '';
         position: absolute;
-        top: 25%;
-        left: -50%;
-        width: 200%;
-        height: 60%;
-        background: linear-gradient(90deg,
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: linear-gradient(180deg,
             transparent 0%,
-            rgba(0, 217, 255, 0.03) 15%,
-            rgba(0, 217, 255, 0.08) 35%,
-            rgba(0, 217, 255, 0.05) 55%,
-            rgba(56, 189, 248, 0.03) 75%,
-            transparent 100%
+            rgba(0, 217, 255, 0.05) 8%,
+            rgba(0, 217, 255, 0.12) 12%,
+            rgba(0, 217, 255, 0.05) 16%,
+            transparent 24%
         );
-        border-radius: 36%;
+        background-size: 100% 400px;
+        background-repeat: no-repeat;
+        filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.3));
         pointer-events: none;
         z-index: 1;
-        animation: waveMid 5s linear infinite alternate;
-        will-change: transform;
+        animation: cyberScanMove 6s linear infinite;
+    }
+    @keyframes cyberScanMove {
+        0%   { background-position: 0 -120px; opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: 1; }
+        100% { background-position: 0 500px; opacity: 0; }
     }
 
-    /* Wave Layer 3 — foreground, faster */
+    /* Cyber data-stream bar (replaces foreground wave) */
     .wave-scene .wave-layer {
         position: absolute;
-        top: 35%;
-        left: -50%;
-        width: 200%;
-        height: 65%;
+        top: 62%;
+        left: 0; right: 0;
+        width: 100%;
+        height: 2px;
         background: linear-gradient(90deg,
             transparent 0%,
-            rgba(6, 182, 212, 0.02) 10%,
-            rgba(0, 217, 255, 0.06) 30%,
-            rgba(0, 217, 255, 0.04) 50%,
-            rgba(0, 217, 255, 0.06) 70%,
+            rgba(0, 217, 255, 0.1) 20%,
+            rgba(0, 255, 136, 0.7) 50%,
+            rgba(0, 217, 255, 0.1) 80%,
             transparent 100%
         );
-        border-radius: 44%;
+        filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.5));
         pointer-events: none;
         z-index: 2;
-        animation: waveFront 4s linear infinite alternate;
-        will-change: transform;
+        animation: dataStream 3s linear infinite;
+        opacity: 0.6;
+    }
+    @keyframes dataStream {
+        0%   { transform: translateX(-40%); }
+        100% { transform: translateX(40%); }
     }
 
-    /* Wave Layer 4 — very foreground, opposite direction */
+    /* Cyber data-stream bar 2 */
     .wave-scene .wave-layer-2 {
         position: absolute;
-        top: 45%;
-        left: -50%;
-        width: 200%;
-        height: 75%;
+        top: 80%;
+        left: 0; right: 0;
+        width: 100%;
+        height: 1px;
         background: linear-gradient(90deg,
             transparent 0%,
-            rgba(0, 255, 136, 0.015) 20%,
-            rgba(0, 217, 255, 0.04) 40%,
-            rgba(56, 189, 248, 0.03) 60%,
-            rgba(0, 217, 255, 0.04) 80%,
+            rgba(0, 255, 136, 0.5) 50%,
             transparent 100%
         );
-        border-radius: 38%;
+        filter: drop-shadow(0 0 6px rgba(0, 255, 136, 0.4));
         pointer-events: none;
         z-index: 3;
-        animation: waveFront2 7s linear infinite alternate;
-        will-change: transform;
+        animation: dataStream2 5s linear infinite;
+        opacity: 0.5;
+    }
+    @keyframes dataStream2 {
+        0%   { transform: translateX(40%); }
+        100% { transform: translateX(-40%); }
     }
 
     /* Wave flow keyframes — pure linear translation, no scale, for smooth flowing water */
@@ -1126,35 +1147,37 @@
         100% { transform: translateX(-30%); }
     }
 
-    /* Water surface shimmer — sweeps across the full scene */
+    /* Cyber vertical scanner beam (replaces water shimmer) */
     .wave-scene .wave-shimmer {
         position: absolute;
-        top: 0; left: -100%; right: 0; bottom: 0;
-        width: 300%;
+        top: 0; left: 0; right: 0; bottom: 0;
         background: linear-gradient(90deg,
             transparent 0%,
-            transparent 30%,
-            rgba(255, 255, 255, 0.015) 45%,
-            rgba(255, 255, 255, 0.03) 50%,
-            rgba(255, 255, 255, 0.015) 55%,
-            transparent 70%,
+            transparent 40%,
+            rgba(0, 217, 255, 0.06) 49%,
+            rgba(0, 255, 136, 0.12) 50%,
+            rgba(0, 217, 255, 0.06) 51%,
+            transparent 60%,
             transparent 100%
         );
+        width: 100%;
+        background-size: 200% 100%;
+        filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.3));
         pointer-events: none;
         z-index: 4;
-        animation: shimmerSweep 4s linear infinite;
-        opacity: 0.5;
+        animation: scannerSweep 4s linear infinite;
+        opacity: 0.7;
     }
-    @keyframes shimmerSweep {
-        0%   { transform: translateX(0); }
-        100% { transform: translateX(33.33%); }
+    @keyframes scannerSweep {
+        0%   { background-position: 120% 0; }
+        100% { background-position: -120% 0; }
     }
 
-    /* Mouse-responsive water ripple */
+    /* Mouse-responsive cyber ripple (subtle) */
     .wave-scene .wave-ripple {
         position: absolute;
         top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.04), transparent 60%);
+        background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.05), transparent 60%);
         pointer-events: none;
         z-index: 5;
         opacity: 0;
@@ -1164,7 +1187,7 @@
         opacity: 1;
     }
 
-    /* Floating bubbles rising through the water */
+    /* Floating binary glyphs rising (replaces water bubbles) */
     .wave-scene .wave-bubbles {
         position: absolute;
         bottom: 0; left: 0; right: 0;
@@ -1177,8 +1200,9 @@
         position: absolute;
         bottom: -8px;
         width: 4px; height: 4px;
-        border-radius: 50%;
-        background: rgba(0, 217, 255, 0.12);
+        border-radius: 0;
+        background: rgba(0, 255, 136, 0.5);
+        box-shadow: 0 0 6px rgba(0, 255, 136, 0.5), 0 0 12px rgba(0, 217, 255, 0.3);
         opacity: 0;
     }
     .wave-scene .wave-bubbles .bub:nth-child(1)  { left: 5%;  width: 3px;  height: 3px;  animation: bubRise 5s ease-out infinite; animation-delay: 0s; }
@@ -1374,44 +1398,56 @@
     html.light-theme .services-section .ws-radar { border-color: rgba(0, 217, 255, 0.25); }
     html.light-theme .services-section .ws-radar::before { border-color: rgba(0, 217, 255, 0.2); }
 
-    /* Bottom section waves */
+    /* Cyber bottom divider line (replaces bottom water waves) */
     .services-section .bottom-waves {
         position: absolute;
         bottom: 0; left: 0; right: 0;
-        height: 70px;
-        z-index: 1;
+        height: 3px;
+        z-index: 3;
         pointer-events: none;
         overflow: hidden;
     }
     .services-section .bottom-waves .wave {
         position: absolute;
-        bottom: 0; left: -50%;
-        width: 200%; height: 100%;
-        border-radius: 45%;
+        bottom: 0; left: 0; right: 0;
+        width: 100%; height: 100%;
+        border-radius: 0;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 217, 255, 0.5) 30%,
+            rgba(0, 255, 136, 0.8) 50%,
+            rgba(0, 217, 255, 0.5) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
+        filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.5));
     }
     .services-section .bottom-waves .wave:nth-child(1) {
-        background: rgba(0, 217, 255, 0.05);
-        animation: bottomWave1 5s linear infinite alternate;
+        animation: bottomWave1 4s linear infinite;
+        opacity: 0.8;
     }
     .services-section .bottom-waves .wave:nth-child(2) {
-        background: rgba(0, 217, 255, 0.04);
-        animation: bottomWave2 7s linear infinite alternate;
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(0, 255, 136, 0.35) 50%,
+            transparent 100%
+        );
+        background-size: 140% 100%;
+        animation: bottomWave2 7s linear infinite;
+        opacity: 0.6;
     }
     .services-section .bottom-waves .wave:nth-child(3) {
-        background: rgba(6, 182, 212, 0.03);
-        animation: bottomWave3 4s linear infinite alternate;
+        background: rgba(0, 217, 255, 0.15);
+        animation: none;
+        opacity: 0.5;
     }
     @keyframes bottomWave1 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.4; }
-        100% { transform: translateX(-25%) rotate(4deg); opacity: 0.6; }
+        0%   { background-position: -100% 0; }
+        100% { background-position: 100% 0; }
     }
     @keyframes bottomWave2 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.3; }
-        100% { transform: translateX(20%) rotate(-3deg); opacity: 0.5; }
-    }
-    @keyframes bottomWave3 {
-        0%   { transform: translateX(0) rotate(0deg); opacity: 0.2; }
-        100% { transform: translateX(-20%) rotate(5deg); opacity: 0.4; }
+        0%   { background-position: 140% 0; }
+        100% { background-position: -140% 0; }
     }
 
     /* ---- Light theme ---- */
@@ -1421,57 +1457,52 @@
             radial-gradient(ellipse at 80% 30%, rgba(56, 189, 248, 0.03), transparent 50%);
     }
     html.light-theme .wave-scene::before {
-        background: linear-gradient(90deg,
-            transparent 0%, 
-            rgba(30, 58, 95, 0.10) 20%,
-            rgba(20, 50, 80, 0.15) 40%,
-            rgba(30, 58, 95, 0.10) 60%,
-            transparent 100%
-        );
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.06) 1px, transparent 1px);
+        background-size: 42px 42px;
     }
     html.light-theme .wave-scene::after {
-        background: linear-gradient(90deg,
+        background: linear-gradient(180deg,
             transparent 0%,
-            rgba(0, 217, 255, 0.04) 15%,
-            rgba(0, 217, 255, 0.10) 35%,
-            rgba(0, 217, 255, 0.07) 55%,
-            rgba(56, 189, 248, 0.04) 75%,
-            transparent 100%
+            rgba(0, 217, 255, 0.05) 8%,
+            rgba(0, 217, 255, 0.10) 12%,
+            rgba(0, 217, 255, 0.05) 16%,
+            transparent 24%
         );
+        background-size: 100% 400px;
+        background-repeat: no-repeat;
+        animation: cyberScanMove 6s linear infinite;
     }
     html.light-theme .wave-scene .wave-layer {
         background: linear-gradient(90deg,
             transparent 0%,
-            rgba(6, 182, 212, 0.03) 10%,
-            rgba(0, 217, 255, 0.08) 30%,
-            rgba(0, 217, 255, 0.06) 50%,
-            rgba(0, 217, 255, 0.08) 70%,
+            rgba(0, 217, 255, 0.04) 20%,
+            rgba(0, 255, 136, 0.6) 50%,
+            rgba(0, 217, 255, 0.04) 80%,
             transparent 100%
         );
     }
     html.light-theme .wave-scene .wave-layer-2 {
         background: linear-gradient(90deg,
             transparent 0%,
-            rgba(0, 255, 136, 0.02) 20%,
-            rgba(0, 217, 255, 0.05) 40%,
-            rgba(56, 189, 248, 0.04) 60%,
-            rgba(0, 217, 255, 0.05) 80%,
+            rgba(0, 255, 136, 0.45) 50%,
             transparent 100%
         );
     }
     html.light-theme .wave-scene .wave-ripple {
-        background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.04), transparent 60%);
+        background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.05), transparent 60%);
     }
     html.light-theme .wave-scene .wave-bubbles .bub {
-        background: rgba(0, 217, 255, 0.10);
+        background: rgba(0, 255, 136, 0.5);
     }
     html.light-theme .wave-service h3 {
         color: #111827;
         text-shadow: 0 2px 8px rgba(255, 255, 255, 0.5);
     }
-    html.light-theme .wave-service p {
-        color: #475569;
-        text-shadow: 0 1px 4px rgba(255, 255, 255, 0.3);
+    html.light-theme .wave-service p,
+    html.light-theme .wave-service .ws-status {
+        text-shadow: none;
     }
     html.light-theme .wave-service .ws-icon {
         background: rgba(255, 255, 255, 0.7);
@@ -1482,19 +1513,43 @@
         border-color: transparent;
     }
     html.light-theme .services-section .water-surface .wave:nth-child(1) {
-        background: rgba(0, 217, 255, 0.04);
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(8, 145, 178, 0.5) 30%,
+            rgba(13, 148, 136, 0.8) 50%,
+            rgba(8, 145, 178, 0.5) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
     }
     html.light-theme .services-section .water-surface .wave:nth-child(2) {
-        background: rgba(0, 217, 255, 0.03);
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(13, 148, 136, 0.4) 50%,
+            transparent 100%
+        );
+        background-size: 150% 100%;
     }
     html.light-theme .services-section .bottom-waves .wave:nth-child(1) {
-        background: rgba(0, 217, 255, 0.04);
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(8, 145, 178, 0.4) 30%,
+            rgba(13, 148, 136, 0.7) 50%,
+            rgba(8, 145, 178, 0.4) 70%,
+            transparent 100%
+        );
+        background-size: 200% 100%;
     }
     html.light-theme .services-section .bottom-waves .wave:nth-child(2) {
-        background: rgba(0, 217, 255, 0.03);
+        background: linear-gradient(90deg,
+            transparent 0%,
+            rgba(13, 148, 136, 0.35) 50%,
+            transparent 100%
+        );
+        background-size: 140% 100%;
     }
     html.light-theme .services-section .bottom-waves .wave:nth-child(3) {
-        background: rgba(6, 182, 212, 0.02);
+        background: rgba(8, 145, 178, 0.15);
     }
 
     /* ---- Mobile: grid cards ---- */
