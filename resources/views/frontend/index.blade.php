@@ -436,9 +436,10 @@
     /* Floating Chips */
     .float-chip { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.75rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; }
     .float-chip i { color: #00ff88; font-size: 0.8rem; }
-    .float-chip.c1 { top: 15%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
-    .float-chip.c2 { bottom: 25%; left: 3%; animation: floatChip 6s ease-in-out infinite 1s; }
-    .float-chip.c3 { top: 40%; left: 8%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+    .float-chip.c1 { top: 18%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
+    .float-chip.c2 { top: 15%; left: 4%; animation: floatChip 6s ease-in-out infinite 1s; }
+    .float-chip.c3 { bottom: 22%; left: 3%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+    .float-chip.c4 { bottom: 25%; right: 3%; animation: floatChip 5.5s ease-in-out infinite 0.2s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
     /* Shimmer Text */
@@ -3353,6 +3354,7 @@
         <div class="float-chip c1"><i class="bi bi-shield-check"></i> 256-Bit Encryption</div>
         <div class="float-chip c2"><i class="bi bi-upc-scan"></i> 24/7 Threat Monitoring</div>
         <div class="float-chip c3"><i class="bi bi-shield-lock-fill"></i> SOC 2 Compliant</div>
+        <div class="float-chip c4"><i class="bi bi-broadcast"></i> Zero-Trust Network</div>
 
         <!-- Scan Line Overlay -->
         <div class="scan-lines"></div>
