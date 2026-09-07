@@ -638,8 +638,9 @@
 
     /* About */
     .about-section { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: flex-start; }
     .about-image { position: relative; display: flex; justify-content: center; align-items: center; }
+    .about-image { margin-top: -1.5rem; }
     .about-name-highlight { color: var(--accent-light); font-weight: 700; }
     .about-image .img-wrapper {
         width: 320px; height: 320px; border-radius: 50%; overflow: hidden;
