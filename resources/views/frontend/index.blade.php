@@ -434,7 +434,7 @@
     }
 
     /* Floating Chips */
-    .float-chip { position: absolute; display: flex; align-items: center; justify-content: center; box-sizing: border-box; gap: 0.4rem; width: 172px; padding: 0.45rem 0.75rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.72rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .float-chip { position: absolute; display: flex; align-items: center; justify-content: center; box-sizing: border-box; gap: 0.4rem; width: 158px; padding: 0.45rem 0.75rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.72rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .float-chip i { color: #00ff88; font-size: 0.78rem; flex-shrink: 0; }
     .float-chip.c1 { top: 18%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
     .float-chip.c2 { top: 15%; left: 4%; animation: floatChip 6s ease-in-out infinite 1s; }
@@ -3351,10 +3351,10 @@
         <canvas id="matrixRain" class="matrix-rain" aria-hidden="true"></canvas>
 
         <!-- Floating Security Chips -->
-        <div class="float-chip c1"><i class="bi bi-shield-check"></i> 256-Bit Encryption</div>
+        <div class="float-chip c1"><i class="bi bi-shield-check"></i> AES-256</div>
         <div class="float-chip c2"><i class="bi bi-upc-scan"></i> 24/7 Monitoring</div>
         <div class="float-chip c3"><i class="bi bi-shield-lock-fill"></i> SOC 2 Ready</div>
-        <div class="float-chip c4"><i class="bi bi-broadcast"></i> Zero-Trust Network</div>
+        <div class="float-chip c4"><i class="bi bi-broadcast"></i> Zero-Trust</div>
 
         <!-- Scan Line Overlay -->
         <div class="scan-lines"></div>
