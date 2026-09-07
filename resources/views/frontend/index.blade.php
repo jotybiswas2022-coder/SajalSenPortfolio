@@ -3024,6 +3024,8 @@
         .about-image { order: -1; }
         .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .hero { padding: 5rem 1.5rem 2rem; }
+        .hero-content { max-width: 100%; padding: 0 0.5rem; }
+        .hero h1 { font-size: clamp(2.4rem, 7vw, 4rem); }
         .whatsapp-float { width: 48px; height: 48px; font-size: 1.3rem; bottom: 1.5rem; left: 1.5rem; }
         .admin-float-btn { width: 42px; height: 42px; font-size: 1rem; bottom: 4.5rem; right: 1.5rem; }
     }
@@ -3038,6 +3040,9 @@
         .hero p { font-size: 1rem; }
         .hero-badge { font-size: 0.75rem; padding: 0.3rem 1rem; }
         .hero::before { width: 400px; height: 400px; }
+        .hero-content { width: 100%; }
+        .hero-badge { max-width: 90%; text-align: center; white-space: normal; }
+        .hero p { max-width: 100%; }
         
         .about-stats { flex-wrap: nowrap; gap: 0.75rem; }
         .stat-item .stat-icon { width: 36px; height: 36px; font-size: 0.95rem; }
@@ -3106,13 +3111,15 @@
         .section-title { padding: 0 0.5rem; margin-bottom: 2.5rem; }
         .section-title h2 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .section-title .line { width: 45px; height: 3px; }
-        .hero { padding: 4rem 1rem 1.5rem; min-height: 90vh; }
-        .hero h1 { font-size: 1.8rem; letter-spacing: -0.5px; }
+        .hero { padding: 4rem 1rem 1.5rem; min-height: 88vh; }
+        .hero h1 { font-size: 1.7rem; letter-spacing: -0.5px; }
         .hero p { font-size: 0.9rem; }
-        .hero-buttons { flex-direction: column; align-items: center; }
+        .hero-buttons { flex-direction: column; align-items: center; gap: 0.7rem; }
         .hero-buttons .btn-primary-custom,
         .hero-buttons .btn-outline-custom { width: 100%; justify-content: center; padding: 0.75rem 1.5rem; font-size: 0.88rem; }
         .hero::before { width: 300px; height: 300px; }
+        .hero-badge { font-size: 0.68rem; padding: 0.35rem 0.9rem; margin-bottom: 1.2rem; gap: 0.4rem; }
+        .hero-badge i { font-size: 0.8rem; }
         
         .timeline-card { padding: 0.85rem; }
         .timeline-card h3 { font-size: 0.88rem; }
