@@ -1756,8 +1756,10 @@
     .casestudy-card:hover::after { opacity: 1; }
     /* Ensure content stays above shine */
     .project-card .card-image,
-    .gig-card .gig-image,
-    .gig-card .gig-body,
+    .gig-card .gig-hud,
+    .gig-card .gig-head,
+    .gig-card .gig-tiers,
+    .gig-card .gig-cta,
     .project-card .card-body,
     .testimonial-card .quote-icon,
     .testimonial-card .testimonial-stars,
@@ -2267,63 +2269,201 @@
     .project-card:hover .view-details-btn { background: rgba(0,217,255,0.12); gap: 0.7rem; }
     .project-card:hover .view-details-btn i { transform: translateX(3px); }
 
-/* ===== GIGS — FLEX GRID (3+2 centered, matches casestudy width) ===== */
+/* ===== GIGS — CYBER PRICING PLANS ===== */
+    .gigs-section { position: relative; overflow: hidden; }
+    .gigs-section::before {
+        content: '';
+        position: absolute; inset: 0; pointer-events: none; z-index: 0;
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, rgba(0,0,0,0.65), transparent 82%);
+        mask-image: radial-gradient(ellipse 70% 70% at 50% 45%, rgba(0,0,0,0.65), transparent 82%);
+    }
+    .gigs-cyber-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .gc-radar {
+        position: absolute; left: 50%; top: 45%; width: 620px; height: 620px;
+        transform: translate(-50%, -50%); border-radius: 50%;
+        border: 1px solid rgba(0, 217, 255, 0.07);
+    }
+    .gc-radar::before {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.1); animation: wsRadarSpin 30s linear infinite;
+    }
+    .gc-radar::after {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        background: conic-gradient(from 0deg, rgba(0,217,255,0.1), transparent 70deg, transparent 360deg);
+        animation: wsRadarSpin 6s linear infinite;
+    }
+    .gc-beam {
+        position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(0,217,255,0.35), transparent);
+        transform: translateX(-50%);
+        animation: gcBeamMove 8s ease-in-out infinite;
+    }
+    @keyframes gcBeamMove {
+        0%   { left: 8%; opacity: 0; }
+        15%  { opacity: 1; }
+        50%  { left: 92%; opacity: 1; }
+        65%  { opacity: 1; }
+        100% { left: 8%; opacity: 0; }
+    }
+    .gc-particle {
+        position: absolute; color: rgba(0, 255, 136, 0.4);
+        font-family: 'JetBrains Mono', Consolas, monospace; font-size: 0.68rem; font-weight: 700;
+        animation: gcFloat linear infinite; z-index: 0;
+    }
+    .gc-particle.p1 { left: 6%; top: 32%; animation-duration: 8s; }
+    .gc-particle.p2 { right: 8%; top: 55%; animation-duration: 9s; animation-delay: 1.2s; }
+    .gc-particle.p3 { left: 13%; bottom: 22%; animation-duration: 7.5s; animation-delay: 2s; }
+    @keyframes gcFloat {
+        0%   { transform: translateY(0); opacity: 0; }
+        12%  { opacity: 1; }
+        88%  { opacity: 1; }
+        100% { transform: translateY(-70px); opacity: 0; }
+    }
+
     .gigs-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1.5rem;
+        position: relative; z-index: 1;
+        display: flex; flex-wrap: wrap; justify-content: center;
+        gap: 1.75rem;
     }
     .gig-card {
-        width: calc(33.333% - 1rem);
+        width: calc(33.333% - 1.17rem);
         min-width: 280px;
         flex-shrink: 0;
-        display: block;
+        display: flex; flex-direction: column;
         text-decoration: none;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        overflow: hidden;
-        transition: var(--transition);
-    }
-    html.light-theme .gig-card { background: rgba(255, 255, 255, 0.85); }
-    .gig-card:hover {
-        border-color: var(--border-hover);
-        box-shadow: var(--shadow-md);
-        transform: translateY(-6px);
-    }
-    .gig-image {
-        height: 220px;
         position: relative;
+        background: linear-gradient(170deg, rgba(11, 24, 38, 0.94), rgba(7, 16, 27, 0.9));
+        border: 1px solid rgba(0, 217, 255, 0.16);
+        border-radius: 18px;
         overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s, border-color 0.4s;
     }
-    .gig-image .gig-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
-    .gig-card:hover .gig-image .gig-icon { transform: scale(1.3); opacity: 1; }
-    .gig-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .gig-card:hover .gig-image img { transform: scale(1.08); }
-    .gig-image::after {
-        content: '';
-        position: absolute;
-        bottom: 0; left: 0; right: 0;
-        height: 70px;
-        background: linear-gradient(transparent, rgba(30, 41, 59, 0.95));
+    html.light-theme .gig-card { background: linear-gradient(170deg, rgba(255,255,255,0.96), rgba(248,250,252,0.92)); border-color: rgba(8,145,178,0.18); }
+    .gig-card:hover {
+        border-color: rgba(0, 217, 255, 0.55);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 30px rgba(0, 217, 255, 0.1);
+        transform: translateY(-9px);
     }
-    html.light-theme .gig-image::after { background: linear-gradient(transparent, rgba(248, 250, 252, 0.9)) !important; }
-    .gig-body { padding: 1.5rem 1.5rem 1.8rem; position: relative; z-index: 2; }
-    .gig-body h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
-    .gig-body p { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1rem; }
-    .gig-price-badge {
-        display: inline-block;
-        padding: 0.3rem 1rem;
-        background: rgba(0, 217, 255, 0.12);
-        color: var(--accent-light);
+    html.light-theme .gig-card:hover { box-shadow: 0 24px 50px rgba(0,0,0,0.14), 0 0 24px rgba(8,145,178,0.2); }
+
+    /* HUD top bar */
+    .gig-hud {
+        position: relative; z-index: 2;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 0.55rem 1.1rem;
+        font-family: 'JetBrains Mono', Consolas, monospace; font-size: 0.68rem; letter-spacing: 0.14em;
+        color: rgba(0, 217, 255, 0.65);
+        background: rgba(0, 217, 255, 0.04);
+        border-bottom: 1px solid rgba(0, 217, 255, 0.12);
+    }
+    html.light-theme .gig-hud { color: #0e7490; background: rgba(8,145,178,0.05); border-color: rgba(8,145,178,0.15); }
+    .gig-hud-id { font-weight: 700; }
+    .gig-hud-live { display: inline-flex; align-items: center; gap: 0.45rem; }
+    .gig-hud-live .dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 10px rgba(0, 255, 136, 0.9);
+        animation: cyberBlink 1.6s linear infinite;
+    }
+
+    /* Cyber head */
+    .gig-head {
+        position: relative; z-index: 2;
+        text-align: center; padding: 2rem 1.6rem 1.2rem;
+    }
+    .gig-head::before {
+        content: ''; position: absolute; left: 1.6rem; right: 1.6rem; top: 0; height: 3px;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.7), transparent);
+        animation: topBarPulse 3s ease-in-out infinite;
+    }
+    @keyframes topBarPulse {
+        0%, 100% { opacity: 0.35; }
+        50% { opacity: 1; }
+    }
+    .gig-icon {
+        position: relative; width: 74px; height: 74px; margin: 0 auto 1.1rem;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 50%;
+        background: rgba(0, 217, 255, 0.07);
         border: 1px solid rgba(0, 217, 255, 0.25);
-        border-radius: 20px;
-        font-size: 0.85rem;
-        font-weight: 600;
+    }
+    .gig-icon i { font-size: 2rem; color: #00d9ff; filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.6)); }
+    html.light-theme .gig-icon i { color: #0891b2; filter: drop-shadow(0 0 6px rgba(8,145,178,0.4)); }
+    .gig-icon::before, .gig-icon::after {
+        content: ''; position: absolute; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.3);
+        animation: wsRadarSpin 14s linear infinite;
+    }
+    .gig-icon::before { inset: -12px; animation-duration: 14s; }
+    .gig-icon::after { inset: -24px; animation-duration: 22s; animation-direction: reverse; }
+    .gig-head h3 { font-size: 1.22rem; font-weight: 800; color: var(--text-primary); letter-spacing: -0.3px; margin-bottom: 0.35rem; }
+    .gig-head p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.6; margin: 0; }
+    html.light-theme .gig-head p { color: #475569; }
+
+    /* Tier bars */
+    .gig-tiers { position: relative; z-index: 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; padding: 0.9rem 1.5rem; }
+    .gig-tier {
+        text-align: center; padding: 0.7rem 0.4rem 0.6rem;
+        background: rgba(148, 163, 184, 0.07);
+        border: 1px solid rgba(148, 163, 184, 0.18);
+        border-radius: 12px;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .gig-card:hover .gig-tier { transform: translateY(-2px); }
+    .gig-tier.std { background: rgba(0, 217, 255, 0.08); border-color: rgba(0, 217, 255, 0.3); }
+    .gig-tier.pre { background: rgba(251, 191, 36, 0.07); border-color: rgba(251, 191, 36, 0.28); }
+    .gig-tier-name {
+        display: block; font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+        color: var(--text-muted); margin-bottom: 0.3rem;
+    }
+    .gig-tier-name::before {
+        content: ''; display: inline-block; width: 5px; height: 5px; border-radius: 50%;
+        background: #94a3b8; margin-right: 0.35rem; vertical-align: middle;
+    }
+    .gig-tier.std .gig-tier-name::before { background: #00d9ff; box-shadow: 0 0 6px rgba(0, 217, 255, 0.8); }
+    .gig-tier.pre .gig-tier-name::before { background: #fbbf24; box-shadow: 0 0 6px rgba(251, 191, 36, 0.8); }
+    .gig-tier-price {
+        display: block; font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 0.9rem; font-weight: 700; color: var(--text-primary);
+    }
+    .gig-tier.std .gig-tier-price { color: #00d9ff; text-shadow: 0 0 12px rgba(0, 217, 255, 0.35); }
+    html.light-theme .gig-tier.std .gig-tier-price { text-shadow: none; }
+    .gig-tier.pre .gig-tier-price { color: #fbbf24; text-shadow: 0 0 12px rgba(251, 191, 36, 0.3); }
+    html.light-theme .gig-tier.pre .gig-tier-price { text-shadow: none; }
+
+    /* CTA */
+    .gig-cta {
+        position: relative; z-index: 2; overflow: hidden;
+        display: flex; align-items: center; justify-content: space-between;
+        margin: auto 1.5rem 1.5rem; padding: 0.8rem 1.2rem;
+        border-radius: 12px;
+        background: linear-gradient(90deg, rgba(0, 217, 255, 0.14), rgba(0, 255, 136, 0.1));
+        border: 1px solid rgba(0, 217, 255, 0.35);
+        font-weight: 700; font-size: 0.88rem; letter-spacing: 0.02em;
+        color: #d9f6ff; transition: var(--transition);
+    }
+    html.light-theme .gig-cta { color: #075985; }
+    .gig-cta i { position: relative; z-index: 2; transition: transform 0.3s ease; }
+    .gig-card:hover .gig-cta {
+        background: linear-gradient(90deg, rgba(0, 217, 255, 0.26), rgba(0, 255, 136, 0.18));
+        border-color: rgba(0, 217, 255, 0.6);
+        box-shadow: 0 0 20px rgba(0, 217, 255, 0.15);
+    }
+    .gig-card:hover .gig-cta i { transform: translateX(5px); }
+    .gig-cta::after {
+        content: ''; position: absolute; top: 0; bottom: 0; width: 40px;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+        transform: skewX(-20deg); animation: gcScan 3.2s ease-in-out infinite;
+    }
+    @keyframes gcScan {
+        0%   { left: -60px; opacity: 0; }
+        25%  { opacity: 1; }
+        75%  { opacity: 1; }
+        100% { left: 110%; opacity: 0; }
     }
 
     /* Testimonials */
@@ -3675,9 +3815,6 @@
         .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .gigs-grid { gap: 1.5rem; }
         .gig-card { width: calc(50% - 0.75rem); min-width: 240px; }
-        .gig-image { height: 180px; }
-        .gig-body { padding: 1.3rem; }
-        .gig-body h3 { font-size: 1.1rem; }
         .filter-tabs { gap: 0.4rem; }
         .filter-btn { font-size: 0.75rem; padding: 0.4rem 1rem; }
         
@@ -3763,11 +3900,13 @@
         .gigs-grid { display: block !important; gap: unset; width: 100% !important; }
         .gig-card { width: 100% !important; min-width: 0 !important; display: block; max-width: none !important; }
         .gig-card + .gig-card { margin-top: 1rem; }
-        .gig-image { height: 140px; }
-        .gig-body { padding: 1rem; }
-        .gig-body h3 { font-size: 0.9rem; margin-bottom: 0.3rem; }
-        .gig-body p { font-size: 0.8rem; margin-bottom: 0.5rem; line-height: 1.4; }
-        .gig-price-badge { font-size: 0.72rem; padding: 0.2rem 0.7rem; }
+        .gig-head { padding: 1.5rem 1.2rem 1rem; }
+        .gig-head h3 { font-size: 1.02rem; margin-bottom: 0.3rem; }
+        .gig-head p { font-size: 0.8rem; margin-bottom: 0.4rem; line-height: 1.45; }
+        .gig-icon { width: 60px; height: 60px; margin-bottom: 0.9rem; }
+        .gig-icon i { font-size: 1.6rem; }
+        .gig-tiers { padding: 0.75rem 1.2rem; gap: 0.4rem; }
+        .gig-cta { margin: auto 1.2rem 1.2rem; padding: 0.7rem 1rem; font-size: 0.82rem; }
         .filter-tabs { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-bottom: 0.5rem; -webkit-overflow-scrolling: touch; }
         .filter-tabs::-webkit-scrollbar { height: 2px; }
         .filter-tabs::-webkit-scrollbar-thumb { background: rgba(0,217,255,0.3); border-radius: 2px; }
@@ -4212,34 +4351,48 @@
                 <h2>{{ __('messages.gigs_title') }}</h2>
                 <p>{{ __('messages.gigs_subtitle') }}</p>
             </div>
+
+            <div class="gigs-cyber-bg" aria-hidden="true">
+                <div class="gc-radar"></div>
+                <div class="gc-beam"></div>
+                <div class="gc-particle p1">0x7F3A</div>
+                <div class="gc-particle p2">TCP:443</div>
+                <div class="gc-particle p3">IDS</div>
+            </div>
+
             <div class="gigs-grid">
                 @foreach($gigs as $index => $gig)
                     @php
                         $delay = ($index % 4) + 1;
-                        $gradients = [
-                            'linear-gradient(135deg, #0f2d3b, #0b1f28)',
-                            'linear-gradient(135deg, #0d2f27, #0c2530)',
-                            'linear-gradient(135deg, #17303c, #0b1f28)',
-                            'linear-gradient(135deg, #1f3a2e, #0b1f28)',
+                        $tiers = [
+                            ['name' => $gig->basic_name ?: 'Basic',    'price' => $gig->basic_price,    'cls' => ''],
+                            ['name' => $gig->standard_name ?: 'Standard', 'price' => $gig->standard_price, 'cls' => 'std'],
+                            ['name' => $gig->premium_name ?: 'Premium', 'price' => $gig->premium_price,  'cls' => 'pre'],
                         ];
-                        $icons = ['bi bi-star-fill', 'bi bi-rocket-takeoff-fill', 'bi bi-lightning-fill', 'bi bi-diamond-fill'];
                     @endphp
                     <a href="{{ route('gig.detail', $gig->id) }}" class="gig-card reveal reveal-delay-{{ $delay }}">
-                        <div class="gig-image" style="background: {{ $gradients[$index % count($gradients)] }};">
-                            @if($gig->image)
-                                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}">
-                            @else
-                                <span class="gig-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
-                            @endif
+                        <div class="gig-hud">
+                            <span class="gig-hud-id">PKG-{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}</span>
+                            <span class="gig-hud-live"><span class="dot"></span> ACTIVE</span>
                         </div>
-                        <div class="gig-body">
+                        <div class="gig-head">
+                            <div class="gig-icon"><i class="bi bi-shield-lock-fill"></i></div>
                             <h3>{{ $gig->title }}</h3>
                             @if($gig->short_description)
                                 <p>{{ $gig->short_description }}</p>
                             @endif
-                            <span class="gig-price-badge">
-                                {{ $gig->basic_price }} USD
-                            </span>
+                        </div>
+                        <div class="gig-tiers">
+                            @foreach($tiers as $tier)
+                                <div class="gig-tier {{ $tier['cls'] }}">
+                                    <span class="gig-tier-name">{{ $tier['name'] }}</span>
+                                    <span class="gig-tier-price">${{ number_format((int)$tier['price'], 0) }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="gig-cta">
+                            <span>{{ __('messages.gigs_cta') }}</span>
+                            <i class="bi bi-arrow-right"></i>
                         </div>
                     </a>
                 @endforeach
