@@ -962,7 +962,9 @@
         overflow: hidden;
     }
     .services-section .services-container {
-        max-width: 1560px;
+        max-width: 100%;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
     }
     html.light-theme .services-section {
         background: linear-gradient(180deg, #e6eef5 0%, #dbe7f0 40%, #cfddea 70%, #c3d5e4 100%);
