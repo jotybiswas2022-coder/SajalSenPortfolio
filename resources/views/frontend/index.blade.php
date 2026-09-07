@@ -2239,6 +2239,94 @@
     .carousel-dots .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(0, 217, 255, 0.2); cursor: pointer; transition: var(--transition); }
     .carousel-dots .dot.active { background: var(--accent); width: 28px; border-radius: 5px; }
 
+    /* ===== TESTIMONIALS — CYBER HUD OVERLAY ===== */
+    .testimonials-section { position: relative; overflow: hidden; }
+    .testimonials-section-wrap { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+    .testimonial-carousel { position: relative; z-index: 2; }
+    .testimonials-section::before {
+        content: '';
+        position: absolute; inset: 0; pointer-events: none;
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
+        background-size: 46px 46px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 65% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+        mask-image: radial-gradient(ellipse 65% 65% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+    }
+    .tm-radar {
+        position: absolute; z-index: 1; top: 55%; left: 50%;
+        width: 520px; height: 520px; transform: translate(-50%, -50%);
+        border-radius: 50%; pointer-events: none;
+        border: 1px solid rgba(0, 217, 255, 0.08); opacity: 0.9;
+    }
+    .tm-radar::before {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.12); animation: wsRadarSpin 24s linear infinite;
+    }
+    .tm-radar::after {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        background: conic-gradient(from 0deg, rgba(0, 217, 255, 0.12), transparent 60deg, transparent 360deg);
+        animation: wsRadarSpin 5s linear infinite;
+    }
+    .tm-particle {
+        position: absolute; z-index: 1; color: rgba(0, 255, 136, 0.5);
+        font-size: 0.7rem; font-family: 'Consolas', monospace; font-weight: 700;
+        pointer-events: none; user-select: none; animation: wsFloat linear infinite; opacity: 0;
+    }
+    .testimonial-card {
+        overflow: hidden; background: transparent;
+        border-radius: var(--radius-xl); border: 1px solid rgba(0, 217, 255, 0.12);
+        box-shadow: 0 20px 55px rgba(0, 0, 0, 0.35);
+    }
+    html.light-theme .testimonial-card { box-shadow: 0 20px 55px rgba(0, 0, 0, 0.08); }
+    .tm-cyber {
+        position: absolute; inset: 0; border-radius: var(--radius-xl); pointer-events: none;
+        background: linear-gradient(160deg, rgba(12, 26, 40, 0.9), rgba(8, 18, 30, 0.85));
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(0, 217, 255, 0.1); z-index: 0;
+    }
+    html.light-theme .tm-cyber {
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(248, 250, 252, 0.85));
+    }
+    .testimonial-card > * { position: relative; z-index: 2; }
+    .tm-corner { position: absolute; width: 16px; height: 16px; border: 2px solid rgba(0, 217, 255, 0.55); z-index: 3; }
+    .tm-corner.tl { top: 10px; left: 10px; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
+    .tm-corner.tr { top: 10px; right: 10px; border-width: 2px 2px 0 0; border-top-right-radius: 8px; }
+    .tm-corner.bl { bottom: 10px; left: 10px; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; }
+    .tm-corner.br { bottom: 10px; right: 10px; border-width: 0 2px 2px 0; border-bottom-right-radius: 8px; }
+    .tm-topbar {
+        position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 3;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.8), transparent);
+        animation: tmTopbar 4s linear infinite; opacity: 0.7;
+        background-size: 60% 100%; background-repeat: no-repeat;
+    }
+    @keyframes tmTopbar {
+        0% { background-position: -60% 0; }
+        100% { background-position: 160% 0; }
+    }
+    .tm-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.24rem 0.7rem; margin-bottom: 1rem;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.6px;
+        color: #00ff88; background: rgba(0, 255, 136, 0.06);
+        border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; text-transform: uppercase;
+    }
+    html.light-theme .tm-status { color: #0d9488; background: rgba(13,148,136,0.06); border-color: rgba(13,148,136,0.25); }
+    .tm-status .tm-dot { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 0 0 rgba(0,255,136,0.6); animation: wsDot 1.8s ease-out infinite; }
+    html.light-theme .tm-status .tm-dot { background: #0d9488; box-shadow: 0 0 0 0 rgba(13,148,136,0.5); }
+    .quote-icon { position: relative; display: inline-block; }
+    .quote-icon::before {
+        content: ''; position: absolute; inset: -12px; border-radius: 50%;
+        border: 1px solid rgba(0, 217, 255, 0.35); animation: wsPulse 3s ease-out infinite; opacity: 0;
+    }
+    .testimonial-card:hover .quote-icon::before { opacity: 1; }
+    .author-avatar { position: relative; }
+    .author-avatar::before {
+        content: ''; position: absolute; inset: -5px; border-radius: 50%;
+        border: 1px solid rgba(0, 255, 136, 0.4); animation: wsPulse 3s ease-out infinite; opacity: 0;
+    }
+    .testimonial-card:hover .author-avatar::before { opacity: 1; }
+
     /* ===== CONTACT — REDESIGNED MODERN ===== */
     .contact-section {
         background: linear-gradient(180deg, #070d15 0%, #0a1420 40%, #0e1e2e 70%, #080b12 100%);
@@ -4368,10 +4456,24 @@
             </div>
 
             @if($testimonials->isNotEmpty())
+                <div class="testimonials-section-wrap">
+                    <div class="tm-radar"></div>
+                    <div class="tm-particle" style="left:4%; animation-duration:7s; animation-delay:0s;">0101</div>
+                    <div class="tm-particle" style="left:12%; animation-duration:9s; animation-delay:1.2s;">110</div>
+                    <div class="tm-particle" style="left:86%; animation-duration:8s; animation-delay:0.6s;">0110</div>
+                    <div class="tm-particle" style="left:94%; animation-duration:7.5s; animation-delay:2s;">101</div>
+                </div>
                 <div class="testimonial-carousel reveal">
                     <div class="testimonial-track" id="testimonialTrack">
                         @foreach($testimonials as $testimonial)
                             <div class="testimonial-card">
+                                <div class="tm-cyber"></div>
+                                <span class="tm-corner tl"></span>
+                                <span class="tm-corner tr"></span>
+                                <span class="tm-corner bl"></span>
+                                <span class="tm-corner br"></span>
+                                <div class="tm-topbar"></div>
+                                <span class="tm-status"><span class="tm-dot"></span> Verified Review</span>
                                 <div class="quote-icon"><i class="bi bi-quote"></i></div>
                                 <div class="testimonial-stars">
                                     @foreach($testimonial->stars as $filled)
