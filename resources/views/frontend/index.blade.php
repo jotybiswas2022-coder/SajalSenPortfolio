@@ -4312,18 +4312,25 @@
                 <div class="row g-4 justify-content-center reveal">
                     @foreach($educations as $edu)
                         <div class="col-lg-6 col-12">
-                            <div class="edu-card"
-                                style="border-radius: var(--radius-lg); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); height: 100%;">
+                            <div class="edu-card" style="height: 100%;">
+                                <span class="edu-hud"></span>
+                                <span class="edu-hud br"></span>
+                                <div class="edu-scanline"></div>
                                 <div class="edu-bar"></div>
                                 <div class="p-4">
                                     <div class="d-flex align-items-start gap-3">
-                                        <div class="edu-icon">
-                                            <i class="bi bi-mortarboard-fill"></i>
+                                        <div class="edu-icon-wrap">
+                                            <div class="edu-icon">
+                                                <i class="bi bi-mortarboard-fill"></i>
+                                            </div>
                                         </div>
                                         <div class="flex-grow-1" style="min-width:0;">
-                                            <span class="edu-duration">
-                                                <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
-                                            </span>
+                                            <div class="edu-top">
+                                                <span class="edu-duration">
+                                                    <i class="bi bi-calendar3 me-1"></i>{{ $edu->duration }}
+                                                </span>
+                                                <span class="edu-verify"><span class="edu-pulse"></span><i class="bi bi-shield-check"></i> Verified</span>
+                                            </div>
                                             <h3 class="edu-degree">{{ $edu->degree_name }}</h3>
                                             <div class="edu-meta">
                                                 <span><i class="bi bi-building me-1"></i>{{ $edu->institution }}</span>
@@ -4364,8 +4371,8 @@
         overflow: hidden;
     }
     html.light-theme .edu-card {
-        background: rgba(255,255,255,0.7) !important;
-        border-color: rgba(0,217,255,0.2) !important;
+        background: rgba(255,255,255,0.8) !important;
+        border-color: rgba(0,217,255,0.22) !important;
     }
     .edu-card::before {
         content: '';
@@ -4384,61 +4391,139 @@
     .edu-card:hover::before { opacity: 1; }
     .edu-card:hover {
         transform: translateY(-8px);
-        border-color: rgba(0,217,255,0.4) !important;
-        box-shadow: 0 0 30px rgba(0,217,255,0.25), var(--shadow-md);
+        border-color: rgba(0,217,255,0.45) !important;
+        box-shadow: 0 0 32px rgba(0,217,255,0.28), var(--shadow-md);
     }
     html.light-theme .edu-card:hover {
         box-shadow: 0 0 30px rgba(0,217,255,0.15), var(--shadow-md);
     }
+    /* HUD corner brackets */
+    .edu-hud {
+        position: absolute; top: 12px; left: 12px;
+        width: 15px; height: 15px;
+        pointer-events: none; z-index: 2;
+        opacity: 0.9;
+    }
+    .edu-hud::before {
+        content: ''; position: absolute; top: 0; left: 0;
+        width: 15px; height: 2px;
+        background: #00d9ff; box-shadow: 0 0 8px rgba(0,217,255,0.6);
+    }
+    .edu-hud::after {
+        content: ''; position: absolute; top: 0; left: 0;
+        width: 2px; height: 15px;
+        background: #00d9ff; box-shadow: 0 0 8px rgba(0,217,255,0.6);
+    }
+    .edu-hud.br {
+        top: auto; bottom: 12px; left: auto; right: 12px;
+        transform: rotate(180deg);
+        animation: eduHudBlink 2.6s ease-in-out infinite;
+    }
+    html.light-theme .edu-hud::before, html.light-theme .edu-hud::after { background: #0891b2; box-shadow: 0 0 8px rgba(8, 145, 178, 0.5); }
+    @keyframes eduHudBlink { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+
+    /* Continuous scan sweep */
+    .edu-scanline {
+        position: absolute; top: 0; width: 60%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.08), transparent);
+        transform: skewX(-20deg);
+        animation: eduScan 3.1s linear infinite;
+        z-index: 1; pointer-events: none; filter: blur(1px);
+    }
+    html.light-theme .edu-scanline { background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.14), transparent); }
+    @keyframes eduScan { 0% { left: -75%; } 100% { left: 135%; } }
+
     .edu-bar {
-        height: 5px;
-        background: linear-gradient(90deg, #00d9ff, #6bffb8, #00d9ff);
+        height: 4px;
+        background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, #00d9ff, transparent);
         background-size: 200% 100%;
         animation: eduShimmer 3s ease-in-out infinite;
     }
+    .edu-icon-wrap { position: relative; width: 52px; height: 52px; flex-shrink: 0; }
+    .edu-icon-wrap::after {
+        content: ''; position: absolute; inset: -6px;
+        border-radius: 18px;
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        animation: cyberRadar 2.4s ease-out infinite;
+    }
     .edu-icon {
-        width: 52px; height: 52px; flex-shrink: 0;
-        background: var(--accent-gradient);
+        width: 100%; height: 100%;
         border-radius: 14px;
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.16), rgba(0, 255, 136, 0.08));
+        border: 1px solid rgba(0, 217, 255, 0.45);
+        box-shadow: 0 0 18px rgba(0, 217, 255, 0.2);
         display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem; color: #fff;
-        box-shadow: 0 4px 15px rgba(0,217,255,0.3);
+        font-size: 1.4rem; color: #00d9ff;
+        position: relative; z-index: 1;
+        transition: all 0.4s ease;
+    }
+    .edu-card:hover .edu-icon {
+        transform: rotate(-6deg) scale(1.06);
+        box-shadow: 0 0 26px rgba(0, 217, 255, 0.4);
+    }
+    .edu-top {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.4rem;
     }
     .edu-duration {
         display: inline-flex; align-items: center;
+        font-family: 'JetBrains Mono', Consolas, monospace;
         font-size: 0.72rem; color: var(--accent-light); font-weight: 600;
-        background: rgba(0,217,255,0.08);
-        padding: 0.2rem 0.8rem; border-radius: 20px;
-        margin-bottom: 0.3rem;
+        background: rgba(0, 217, 255, 0.08);
+        border: 1px solid rgba(0, 217, 255, 0.16);
+        padding: 0.2rem 0.7rem; border-radius: 6px;
     }
+    .edu-duration::before { content: '$'; color: #00ff88; font-weight: 700; margin-right: 0.3rem; }
+    html.light-theme .edu-duration::before { color: #059669; }
+    .edu-verify {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        text-transform: uppercase; letter-spacing: 0.07em;
+        font-size: 0.58rem; font-weight: 700;
+        color: #00ff88;
+        background: rgba(0, 255, 136, 0.09);
+        border: 1px solid rgba(0, 255, 136, 0.3);
+        padding: 0.24rem 0.6rem; border-radius: 6px;
+    }
+    html.light-theme .edu-verify { color: #059669; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); }
+    .edu-pulse {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 7px #00ff88;
+        animation: cyberBlink 1.2s steps(2, start) infinite;
+    }
+    html.light-theme .edu-pulse { background: #059669; box-shadow: 0 0 7px rgba(16, 185, 129, 0.5); }
+
     .edu-degree {
         font-size: 1.1rem; font-weight: 700;
         margin-bottom: 0.15rem; color: var(--text-primary);
     }
     .edu-meta {
         font-size: 0.88rem; color: var(--text-secondary);
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.6rem;
         display: flex; flex-wrap: wrap; align-items: center;
         gap: 0.3rem 1rem;
     }
-    .edu-meta i { color: var(--accent-light); }
+    .edu-meta i { color: #00d9ff; }
     .edu-board { font-size: 0.82rem; color: var(--text-muted); }
     .edu-result {
         display: inline-flex; align-items: center; gap: 0.4rem;
-        font-size: 0.82rem; color: #f59e0b; font-weight: 600;
-        background: rgba(245,158,11,0.1);
-        padding: 0.25rem 1rem; border-radius: 20px;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 0.8rem; color: #fbbf24; font-weight: 600;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid rgba(245, 158, 11, 0.28);
+        padding: 0.25rem 0.85rem; border-radius: 6px;
     }
     @keyframes eduShimmer {
-        0%, 100% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+        0%, 100% { background-position: 200% 50%; }
+        50% { background-position: 0% 50%; }
     }
     html.light-theme #education {
         background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
     }
     @media (max-width: 768px) {
         .edu-degree { font-size: 0.95rem !important; }
-        .edu-icon { width: 42px !important; height: 42px !important; font-size: 1.1rem !important; }
+        .edu-icon-wrap { width: 42px !important; height: 42px !important; }
+        .edu-icon { font-size: 1.1rem !important; }
         .edu-card .p-4 { padding: 1rem !important; }
     }
     </style>
