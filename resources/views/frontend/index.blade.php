@@ -64,9 +64,9 @@
         color: #00d9ff;
     }
     html.light-theme .matrix-rain {
-        opacity: 0.7;
-        -webkit-mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 18%, rgba(0,0,0,0.4) 45%, #000 62%);
-        mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 18%, rgba(0,0,0,0.4) 45%, #000 62%);
+        opacity: 0.9;
+        -webkit-mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 22%, rgba(0,0,0,0.35) 48%, #000 62%);
+        mask-image: radial-gradient(ellipse 95% 95% at 50% 45%, transparent 0%, transparent 22%, rgba(0,0,0,0.35) 48%, #000 62%);
     }
     html.light-theme .cyber-grid {
         background-image:
@@ -4491,12 +4491,12 @@
                 if (y < -FONT || y > h) continue;
                 var distFromHead = s.glyphs.length - 1 - j;
                 if (distFromHead === 0) {
-                    ctx.fillStyle = light ? 'rgba(13, 148, 136, 0.9)' : 'rgba(180, 255, 210, 0.9)';
+                    ctx.fillStyle = light ? 'rgb(4, 120, 110)' : 'rgba(180, 255, 210, 0.9)';
                 } else {
-                    var a = Math.pow(1 - distFromHead / TRAIL, 1.6) * 0.65;
+                    var a = Math.pow(1 - distFromHead / TRAIL, 1.6);
                     ctx.fillStyle = light
                         ? 'rgba(13, 148, 136, ' + a.toFixed(3) + ')'
-                        : 'rgba(0, 255, 136, ' + a.toFixed(3) + ')';
+                        : 'rgba(0, 255, 136, ' + (a * 0.65).toFixed(3) + ')';
                 }
                 ctx.fillText(s.glyphs[j], s.x, y + FONT - 3);
             }
