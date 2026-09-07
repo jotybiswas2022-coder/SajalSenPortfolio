@@ -370,7 +370,13 @@
     <!-- Logo -->
     <a href="/" class="nav-logo">
         <span class="nav-logo-icon"><i class="bi bi-shield-fill-check"></i></span>
-        <span class="nav-logo-text">Sajal Kumar <span class="nav-logo-accent">Sen</span></span>
+        @php
+            $siteName = optional($account)->name ? trim($account->name) : '';
+            $nameWords = $siteName !== '' ? explode(' ', $siteName) : [];
+            $firstName = $nameWords ? array_shift($nameWords) : '';
+            $accentName = $nameWords ? implode(' ', $nameWords) : '';
+        @endphp
+        <span class="nav-logo-text">@if($siteName !== ''){{ $firstName }}@else Sajal Kumar @endif @if($accentName !== '')<span class="nav-logo-accent">{{ $accentName }}</span>@else<span class="nav-logo-accent">Sen</span>@endif</span>
     </a>
 
     <!-- Desktop Nav Links -->
@@ -425,7 +431,13 @@
     <div class="drawer-header">
         <a href="/" class="drawer-logo">
             <span class="nav-logo-icon"><i class="bi bi-shield-fill-check"></i></span>
-            <span class="drawer-logo-text">Sajal Kumar <span class="nav-logo-accent">Sen</span></span>
+            @php
+                $drawerName = optional($account)->name ? trim($account->name) : '';
+                $drawerWords = $drawerName !== '' ? explode(' ', $drawerName) : [];
+                $drawerFirst = $drawerWords ? array_shift($drawerWords) : '';
+                $drawerAccent = $drawerWords ? implode(' ', $drawerWords) : '';
+            @endphp
+            <span class="drawer-logo-text">@if($drawerName !== ''){{ $drawerFirst }}@else Sajal Kumar @endif @if($drawerAccent !== '')<span class="nav-logo-accent">{{ $drawerAccent }}</span>@else<span class="nav-logo-accent">Sen</span>@endif</span>
         </a>
         <button class="drawer-close" id="drawerClose" aria-label="Close menu">
             <i class="bi bi-x-lg"></i>
