@@ -2336,7 +2336,6 @@
         background: var(--bg-card); border: 1px solid var(--border-color);
         border-radius: var(--radius-xl); text-align: center;
         position: relative; transition: var(--transition);
-        margin: 0 0.25rem;
     }
     .testimonial-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
     .quote-icon { font-size: 3rem; color: rgba(0, 217, 255, 0.15); margin-bottom: 0.5rem; }
