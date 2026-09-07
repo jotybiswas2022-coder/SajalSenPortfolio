@@ -1212,12 +1212,13 @@
     }
 
     .wave-service {
-        flex: 0 1 280px;
+        flex: 0 1 300px;
         text-align: center;
-        padding: 0;
+        padding: 2.2rem 1.6rem 1.8rem;
         position: relative;
         cursor: default;
     }
+    .wave-service > * { position: relative; z-index: 2; }
     .wave-service .ws-icon {
         width: 56px;
         height: 56px;
@@ -1254,6 +1255,124 @@
         margin: 0;
         text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
+
+    /* ===== SERVICES CYBER HUD OVERLAY ===== */
+    .ws-cyber {
+        position: absolute; inset: 0; border-radius: 20px; pointer-events: none;
+        background: rgba(8, 18, 30, 0.35);
+        border: 1px solid rgba(0, 217, 255, 0.14);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+        transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    html.light-theme .ws-cyber {
+        background: rgba(255, 255, 255, 0.55);
+        border-color: rgba(0, 217, 255, 0.2);
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.08);
+    }
+    .wave-service:hover .ws-cyber {
+        border-color: rgba(0, 217, 255, 0.5);
+        box-shadow: 0 20px 60px rgba(0, 217, 255, 0.18);
+    }
+    html.light-theme .wave-service:hover .ws-cyber { box-shadow: 0 20px 60px rgba(0, 217, 255, 0.15); }
+
+    /* HUD corner brackets */
+    .ws-corner { position: absolute; width: 18px; height: 18px; border: 2px solid rgba(0, 217, 255, 0.6); z-index: 3; }
+    .ws-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
+    .ws-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; border-top-right-radius: 8px; }
+    .ws-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; }
+    .ws-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; border-bottom-right-radius: 8px; }
+
+    /* Card scan line */
+    .ws-scan {
+        position: absolute; left: 12px; right: 12px; height: 2px; z-index: 3;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.6), transparent);
+        filter: drop-shadow(0 0 5px rgba(0, 255, 136, 0.5));
+        opacity: 0;
+    }
+    .wave-service:hover .ws-scan { animation: wsScan 2.2s ease-in-out infinite; }
+    @keyframes wsScan {
+        0% { top: 12%; opacity: 0; }
+        15% { opacity: 1; }
+        85% { opacity: 1; }
+        100% { top: 88%; opacity: 0; }
+    }
+
+    /* Pulsing ring behind icon */
+    .wave-service .ws-icon { position: relative; }
+    .wave-service .ws-icon::before {
+        content: ''; position: absolute; inset: -9px; border-radius: 22px;
+        border: 1px solid rgba(0, 217, 255, 0.4);
+        animation: wsPulse 2.6s ease-out infinite; opacity: 0;
+    }
+    .wave-service:hover .ws-icon::before { opacity: 1; }
+    @keyframes wsPulse {
+        0% { transform: scale(0.85); opacity: 0.8; }
+        100% { transform: scale(1.35); opacity: 0; }
+    }
+
+    /* Cyber status tag */
+    .ws-status {
+        display: inline-flex; align-items: center; gap: 0.35rem;
+        margin-top: 0.6rem; padding: 0.22rem 0.6rem;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px;
+        color: #00ff88; background: rgba(0, 255, 136, 0.06);
+        border: 1px solid rgba(0, 255, 136, 0.18);
+        border-radius: 50px; text-transform: uppercase;
+    }
+    .ws-status .ws-dot {
+        width: 6px; height: 6px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6);
+        animation: wsDot 1.8s ease-out infinite;
+    }
+    html.light-theme .ws-status { color: #0d9488; background: rgba(13, 148, 136, 0.06); border-color: rgba(13, 148, 136, 0.25); }
+    html.light-theme .ws-status .ws-dot { background: #0d9488; box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.5); }
+    @keyframes wsDot {
+        0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6); }
+        70% { box-shadow: 0 0 0 7px rgba(0, 255, 136, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+    }
+
+    /* Floating binary particles in section */
+    .ws-particle {
+        position: absolute; z-index: 1; color: rgba(0, 217, 255, 0.5);
+        font-size: 0.7rem; font-family: 'Consolas', monospace; font-weight: 700;
+        pointer-events: none; user-select: none;
+        animation: wsFloat linear infinite;
+        opacity: 0;
+    }
+    @keyframes wsFloat {
+        0% { transform: translateY(20px); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-140px); opacity: 0; }
+    }
+
+    /* Rotating radar ring behind services */
+    .ws-radar {
+        position: absolute; z-index: 1; top: 50%; left: 50%;
+        width: 420px; height: 420px; transform: translate(-50%, -50%);
+        border-radius: 50%; pointer-events: none;
+        border: 1px solid rgba(0, 217, 255, 0.12);
+        opacity: 0.8;
+    }
+    .ws-radar::before, .ws-radar::after {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+    }
+    .ws-radar::before {
+        border: 1px dashed rgba(0, 217, 255, 0.15);
+        animation: wsRadarSpin 20s linear infinite;
+    }
+    .ws-radar::after {
+        background: conic-gradient(from 0deg, rgba(0, 217, 255, 0.15), transparent 60deg, transparent 360deg);
+        animation: wsRadarSpin 4s linear infinite;
+    }
+    @keyframes wsRadarSpin {
+        to { transform: rotate(360deg); }
+    }
+    html.light-theme .services-section .ws-radar { border-color: rgba(0, 217, 255, 0.25); }
+    html.light-theme .services-section .ws-radar::before { border-color: rgba(0, 217, 255, 0.2); }
 
     /* Bottom section waves */
     .services-section .bottom-waves {
@@ -1391,7 +1510,7 @@
             display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 1.5rem; padding: 2rem 0;
         }
-        .wave-service { flex: none; text-align: center; padding: 0; background: none; border: none; border-radius: 0; }
+        .wave-service { flex: none; text-align: center; padding: 1.8rem 1.2rem 1.5rem; }
         .wave-service:hover .ws-icon { background: var(--accent-gradient); border-color: transparent; color: #fff; transform: scale(1.1) rotate(-4deg); box-shadow: 0 8px 25px rgba(0, 217, 255, 0.25); }
         .wave-service .ws-icon { width: 44px; height: 44px; font-size: 1.2rem; margin-bottom: 0.75rem; }
         .wave-service h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
@@ -1399,7 +1518,7 @@
     }
     @media (max-width: 480px) {
         .wave-services { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 0.5rem; }
-        .wave-service { padding: 0; background: none; border: none; }
+        .wave-service { padding: 1.6rem 1rem 1.4rem; }
         .wave-service .ws-icon { width: 44px; height: 44px; font-size: 1.1rem; margin-bottom: 0.6rem; }
         .wave-service h3 { font-size: 0.95rem; margin-bottom: 0.4rem; }
         .wave-service p { font-size: 0.82rem; line-height: 1.5; }
@@ -3700,6 +3819,15 @@
                     <div class="wave-shimmer"></div>
                     <!-- Mouse ripple -->
                     <div class="wave-ripple"></div>
+                    <!-- Rotating cyber radar sweep -->
+                    <div class="ws-radar"></div>
+                    <!-- Floating binary particles -->
+                    <div class="ws-particle" style="left:6%; animation-duration:7s; animation-delay:0s;">01001</div>
+                    <div class="ws-particle" style="left:14%; animation-duration:9s; animation-delay:1.5s;">1010</div>
+                    <div class="ws-particle" style="left:78%; animation-duration:8s; animation-delay:0.8s;">110</div>
+                    <div class="ws-particle" style="left:88%; animation-duration:6.5s; animation-delay:2.2s;">01100</div>
+                    <div class="ws-particle" style="left:24%; animation-duration:10s; animation-delay:3s;">10</div>
+                    <div class="ws-particle" style="left:92%; animation-duration:8.5s; animation-delay:1s;">0101</div>
                     <!-- Floating bubbles -->
                     <div class="wave-bubbles">
                         <div class="bub"></div><div class="bub"></div><div class="bub"></div>
@@ -3707,11 +3835,17 @@
                         <div class="bub"></div><div class="bub"></div><div class="bub"></div>
                         <div class="bub"></div><div class="bub"></div><div class="bub"></div>
                     </div>
-                    <!-- Services floating within the waves (no boxes!) -->
+                    <!-- Services within the waves (HUD cards) -->
                     <div class="wave-services">
                         @foreach($services as $index => $service)
                             @php $delay = ($index % 4) + 1; @endphp
                             <div class="wave-service reveal reveal-delay-{{ $delay }}">
+                                <div class="ws-cyber"></div>
+                                <span class="ws-corner tl"></span>
+                                <span class="ws-corner tr"></span>
+                                <span class="ws-corner bl"></span>
+                                <span class="ws-corner br"></span>
+                                <div class="ws-scan"></div>
                                 <div class="ws-icon">
                                     <i class="bi {{ $service->icon ?: 'bi-star' }}"></i>
                                 </div>
@@ -3719,6 +3853,7 @@
                                 @if($service->short_description)
                                     <p>{{ $service->short_description }}</p>
                                 @endif
+                                <span class="ws-status"><span class="ws-dot"></span> Secure</span>
                             </div>
                         @endforeach
                     </div>
