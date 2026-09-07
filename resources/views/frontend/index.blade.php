@@ -1998,8 +1998,10 @@
     .skills-radar .r-line:nth-child(6) { transform: rotate(120deg); }
 
     .skills-wrapper { position: relative; z-index: 1; }
+    .skills-grid {
         display: flex;
-        gap: 1.5rem;
+        align-items: center;
+        gap: 1rem;
         width: max-content;
         animation: skillScroll 30s linear infinite;
     }
@@ -2012,19 +2014,19 @@
     }
     .skill-card {
         flex-shrink: 0; position: relative;
+        display: flex; align-items: center; gap: .7rem;
+        padding: .5rem .8rem;
+        height: 52px;
         background: rgba(0,217,255,.03);
-        border: 1px solid rgba(0,217,255,.12);
-        border-radius: 14px;
-        padding: 1.6rem 1.4rem 1.2rem;
-        width: 150px; text-align: center;
-        display: flex; flex-direction: column; align-items: center;
+        border: 1px solid rgba(0,217,255,.14);
+        border-radius: 12px;
         cursor: default;
-        transition: all .4s cubic-bezier(.175,.885,.32,1.275);
+        transition: all .35s cubic-bezier(.175,.885,.32,1.275);
         overflow: hidden;
     }
     html.light-theme .skill-card {
-        background: rgba(0,100,140,.04);
-        border-color: rgba(0,100,140,.15);
+        background: rgba(0,100,140,.05);
+        border-color: rgba(0,100,140,.18);
     }
     .skill-card::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
@@ -2033,34 +2035,22 @@
     }
     .skill-card:hover::before { opacity: 1; }
     .skill-card:hover {
-        border-color: rgba(0,217,255,.35);
-        background: rgba(0,217,255,.06);
-        transform: translateY(-6px);
-        box-shadow: 0 0 20px rgba(0,217,255,.1), 0 8px 32px rgba(0,0,0,.3);
+        border-color: rgba(0,217,255,.45);
+        background: rgba(0,217,255,.07);
+        transform: translateY(-3px);
+        box-shadow: 0 0 18px rgba(0,217,255,.12), 0 6px 20px rgba(0,0,0,.3);
     }
     html.light-theme .skill-card:hover {
-        background: rgba(0,100,140,.07);
-        box-shadow: 0 4px 20px rgba(0,100,140,.1);
+        background: rgba(0,100,140,.08);
+        box-shadow: 0 4px 16px rgba(0,100,140,.12);
     }
-
-    .skill-card .sk-corners { position: absolute; inset: 0; pointer-events: none; z-index: 3; }
-    .skill-card .sk-corners span {
-        position: absolute; width: 14px; height: 14px;
-        border-color: rgba(0,217,255,.2); border-style: solid; border-width: 0;
-        transition: border-color .3s;
-    }
-    .skill-card:hover .sk-corners span { border-color: rgba(0,217,255,.5); }
-    .skill-card .sk-corners .tl { top: 4px; left: 4px; border-top-width: 1px; border-left-width: 1px; }
-    .skill-card .sk-corners .tr { top: 4px; right: 4px; border-top-width: 1px; border-right-width: 1px; }
-    .skill-card .sk-corners .bl { bottom: 4px; left: 4px; border-bottom-width: 1px; border-left-width: 1px; }
-    .skill-card .sk-corners .br { bottom: 4px; right: 4px; border-bottom-width: 1px; border-right-width: 1px; }
 
     .skill-card .sk-scan {
         position: absolute; left: 0; right: 0; height: 1px;
-        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.35) 50%, transparent 95%);
+        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.45) 50%, transparent 95%);
         opacity: 0; z-index: 2; pointer-events: none; top: 0;
     }
-    .skill-card:hover .sk-scan { opacity: 1; animation: skScanLine 1.2s ease-in-out infinite; }
+    .skill-card:hover .sk-scan { opacity: 1; animation: skScanLine 1.1s ease-in-out infinite; }
     @keyframes skScanLine {
         0%   { top: 0; opacity: 0; }
         10%  { opacity: 1; }
@@ -2068,89 +2058,54 @@
         100% { top: 100%; opacity: 0; }
     }
 
-    .skill-card .skill-circle {
-        position: relative; width: 88px; height: 88px;
+    .skill-card .sk-icon {
+        width: 34px; height: 34px; flex-shrink: 0;
         display: flex; align-items: center; justify-content: center;
-        margin-bottom: .7rem; border-radius: 50%;
+        border: 1px solid rgba(0,217,255,.25);
+        border-radius: 8px;
+        background: rgba(0,217,255,.06);
+        color: var(--accent-light);
+        font-size: 1rem;
+        transition: all .3s;
     }
-    .skill-card .skill-circle::before {
-        content: ''; position: absolute; inset: -5px; border-radius: 50%;
-        border: 1px dashed rgba(0,217,255,.12);
-        animation: skRadarSpin 12s linear infinite;
+    html.light-theme .skill-card .sk-icon { border-color: rgba(0,100,140,.3); color: var(--accent); }
+    .skill-card:hover .sk-icon {
+        color: #fff; border-color: rgba(0,217,255,.5);
+        background: rgba(0,217,255,.12);
+        box-shadow: 0 0 12px rgba(0,217,255,.25);
     }
-    @keyframes skRadarSpin { to { transform: rotate(360deg); } }
-    html.light-theme .skill-card .skill-circle::before { border-color: rgba(0,100,140,.15); }
+    html.light-theme .skill-card:hover .sk-icon { color: var(--accent); }
 
-    .skill-card .skill-circle::after {
-        content: ''; position: absolute; inset: -12px; border-radius: 50%;
-        border: 1px solid rgba(0,217,255,.06);
+    .skill-card .sk-info {
+        display: flex; flex-direction: column; gap: .3rem; min-width: 0;
     }
-    html.light-theme .skill-card .skill-circle::after { border-color: rgba(0,100,140,.08); }
-    .skill-card:hover .skill-circle::before { border-color: rgba(0,217,255,.3); }
-    .skill-card:hover .skill-circle::after { border-color: rgba(0,217,255,.15); }
-
-    .skill-circle-svg { position: absolute; width: 100%; height: 100%; transform: rotate(-90deg); }
-    .skill-circle-bg { fill: none; stroke: rgba(0,217,255,.08); stroke-width: 5; }
-    .skill-circle-progress {
-        fill: none; stroke: var(--accent-gradient); stroke-width: 5; stroke-linecap: round;
-        transition: stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1);
-    }
-
-    .skill-card .skill-icon {
-        font-size: 1.5rem; color: var(--accent-light);
-        z-index: 2; display: block; transition: all .3s; position: relative;
-    }
-    html.light-theme .skill-card .skill-icon { color: var(--accent); }
-    .skill-card:hover .skill-icon { color: #fff; filter: drop-shadow(0 0 10px rgba(0,217,255,.6)); }
-
-    .skill-card .skill-percent {
-        font-size: .62rem; font-weight: 700; font-family: 'JetBrains Mono', Consolas, monospace;
-        color: var(--accent); z-index: 2; display: block; line-height: 1;
-        margin-top: 2px; opacity: .7;
-    }
-    html.light-theme .skill-card .skill-percent { color: var(--accent); }
-
     .skill-card .skill-name {
-        font-weight: 600; font-size: .78rem; color: var(--text-primary);
-        display: block; line-height: 1.2; font-family: 'JetBrains Mono', Consolas, monospace;
+        font-weight: 600; font-size: .72rem; color: var(--text-primary);
+        line-height: 1; white-space: nowrap;
+        font-family: 'JetBrains Mono', Consolas, monospace;
     }
     html.light-theme .skill-card .skill-name { color: var(--text-primary); }
 
-    .skill-card .sk-status {
-        position: absolute; top: 6px; right: 8px;
-        font-size: .45rem; font-family: 'JetBrains Mono', Consolas, monospace; font-weight: 700;
-        color: #00ff88; letter-spacing: .08em; z-index: 4; text-transform: uppercase;
+    .skill-card .sk-bar {
+        width: 96px; height: 3px; border-radius: 4px;
+        background: rgba(0,217,255,.12);
+        overflow: hidden;
     }
-    html.light-theme .skill-card .sk-status { color: #00884a; }
-    .skill-card:hover .sk-status { animation: skBlink .8s step-end infinite; }
-    @keyframes skBlink { 50% { opacity: .3; } }
+    html.light-theme .skill-card .sk-bar { background: rgba(0,100,140,.15); }
+    .skill-card .sk-bar-fill {
+        display: block; height: 100%; width: 0;
+        background: var(--accent-gradient);
+        border-radius: 4px;
+        transition: width 1.2s cubic-bezier(.16,1,.3,1);
+    }
 
-    .skill-card .sk-data-packet {
-        position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
-        font-size: .42rem; font-family: 'JetBrains Mono', Consolas, monospace; color: rgba(0,217,255,.2);
-        letter-spacing: .06em; white-space: nowrap; z-index: 1; transition: color .3s;
+    .skill-card .skill-percent {
+        font-size: .62rem; font-weight: 700;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        color: var(--accent); opacity: .8; flex-shrink: 0;
     }
-    .skill-card:hover .sk-data-packet { color: rgba(0,217,255,.45); }
-
-    .skill-card .sk-glow {
-        position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%);
-        width: 80px; height: 40px; border-radius: 50%;
-        background: radial-gradient(ellipse, rgba(0,217,255,.12) 0%, transparent 70%);
-        opacity: 0; transition: opacity .4s; pointer-events: none;
-    }
-    .skill-card:hover .sk-glow { opacity: 1; }
-
-    .skill-card .sk-pulse-ring {
-        position: absolute; top: 50%; left: 50%; width: 88px; height: 88px;
-        margin: -44px 0 0 -44px; border-radius: 50%;
-        border: 1px solid rgba(0,217,255,.2); opacity: 0;
-        pointer-events: none; z-index: 1;
-    }
-    .skill-card:hover .sk-pulse-ring { animation: skPulseRing 1.5s ease-out infinite; }
-    @keyframes skPulseRing {
-        0%   { transform: scale(1); opacity: .5; }
-        100% { transform: scale(1.8); opacity: 0; }
-    }
+    html.light-theme .skill-card .skill-percent { color: var(--accent); }
+    .skill-card:hover .skill-percent { opacity: 1; }
     /* Filter Tabs */
     .filter-tabs {
         display: flex; flex-wrap: wrap; gap: 0.6rem;
@@ -3838,10 +3793,9 @@
         .cyber-location { font-size: 0.68rem; }
 
         .skills-grid { gap: 1.2rem; }
-        .skill-card { width: 130px; padding: 1.3rem 1.1rem 1rem; }
-        .skill-card .skill-circle { width: 76px; height: 76px; }
-        .skill-card .skill-icon { font-size: 1.3rem; }
-        .skill-card .skill-name { font-size: 0.72rem; }
+        .skill-card { padding: .5rem .7rem; }
+        .skill-card .sk-bar { width: 80px; }
+        .skill-card .skill-name { font-size: 0.66rem; }
         .skill-card .skill-percent { font-size: 0.58rem; }
         .skills-grid { animation-duration: 20s; }
         
@@ -3945,11 +3899,11 @@
         .about-image .img-wrapper { width: 130px; height: 130px; }
         .about-image .glow-ring { width: 150px; height: 150px; }
         .skills-grid { gap: 1rem; animation-duration: 15s; }
-        .skill-card { width: 116px; padding: 1.1rem 0.9rem 0.8rem; }
-        .skill-card .skill-circle { width: 66px; height: 66px; }
-        .skill-card .skill-icon { font-size: 1.15rem; }
-        .skill-card .skill-name { font-size: 0.66rem; }
-        .skill-card .skill-percent { font-size: 0.54rem; }
+        .skill-card { padding: .45rem .6rem; gap: .5rem; }
+        .skill-card .sk-icon { width: 28px; height: 28px; font-size: .85rem; }
+        .skill-card .sk-bar { width: 64px; }
+        .skill-card .skill-name { font-size: 0.6rem; }
+        .skill-card .skill-percent { font-size: 0.52rem; }
         .about-stats { flex-direction: row; flex-wrap: nowrap; gap: 0.5rem; }
         .stat-item { min-width: 0; flex: 1; padding: 0.6rem 0.3rem; }
         .section-title h2 { font-size: 1.4rem; }
@@ -4719,46 +4673,24 @@
                     <div class="skills-grid">
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="sk-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
                                 <div class="sk-scan"></div>
-                                <div class="sk-pulse-ring"></div>
-                                <div class="skill-circle">
-                                    <svg class="skill-circle-svg" viewBox="0 0 120 120">
-                                        <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
-                                        <circle class="skill-circle-progress" cx="60" cy="60" r="52"
-                                            stroke-dasharray="326.73"
-                                            stroke-dashoffset="326.73"
-                                            data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
-                                    </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
-                                    <span class="skill-percent">{{ $skill->percentage }}%</span>
+                                <span class="sk-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
+                                <div class="sk-info">
+                                    <span class="skill-name">{{ $skill->name }}</span>
+                                    <div class="sk-bar"><span class="sk-bar-fill" data-width="{{ $skill->percentage }}"></span></div>
                                 </div>
-                                <span class="skill-name">{{ $skill->name }}</span>
-                                <span class="sk-status">online</span>
-                                <span class="sk-data-packet">0x{{ str_pad(dechex($index), 2, '0', STR_PAD_LEFT) }} :: encrypted</span>
-                                <div class="sk-glow"></div>
+                                <span class="skill-percent">{{ $skill->percentage }}%</span>
                             </div>
                         @endforeach
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
-                                <div class="sk-corners"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
                                 <div class="sk-scan"></div>
-                                <div class="sk-pulse-ring"></div>
-                                <div class="skill-circle">
-                                    <svg class="skill-circle-svg" viewBox="0 0 120 120">
-                                        <circle class="skill-circle-bg" cx="60" cy="60" r="52"/>
-                                        <circle class="skill-circle-progress" cx="60" cy="60" r="52"
-                                            stroke-dasharray="326.73"
-                                            stroke-dashoffset="326.73"
-                                            data-dashoffset="{{ 326.73 - (326.73 * $skill->percentage / 100) }}"/>
-                                    </svg>
-                                    <span class="skill-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
-                                    <span class="skill-percent">{{ $skill->percentage }}%</span>
+                                <span class="sk-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
+                                <div class="sk-info">
+                                    <span class="skill-name">{{ $skill->name }}</span>
+                                    <div class="sk-bar"><span class="sk-bar-fill" data-width="{{ $skill->percentage }}"></span></div>
                                 </div>
-                                <span class="skill-name">{{ $skill->name }}</span>
-                                <span class="sk-status">online</span>
-                                <span class="sk-data-packet">0x{{ str_pad(dechex($index), 2, '0', STR_PAD_LEFT) }} :: encrypted</span>
-                                <div class="sk-glow"></div>
+                                <span class="skill-percent">{{ $skill->percentage }}%</span>
                             </div>
                         @endforeach
                     </div>
@@ -5520,12 +5452,12 @@
                 }, 30);
             }
         });
-        // Skill circle animation
-        [].forEach.call(document.querySelectorAll('.skill-circle-progress'), function(circle) {
-            if (circle.dataset.animated) return;
-            if (circle.getBoundingClientRect().top < winHeight - 80) {
-                circle.dataset.animated = 'true';
-                circle.style.strokeDashoffset = circle.getAttribute('data-dashoffset');
+        // Skill bar animation
+        [].forEach.call(document.querySelectorAll('.sk-bar-fill'), function(bar) {
+            if (bar.dataset.animated) return;
+            if (bar.getBoundingClientRect().top < winHeight - 80) {
+                bar.dataset.animated = 'true';
+                bar.style.width = bar.getAttribute('data-width') + '%';
             }
         });
     }
@@ -5719,16 +5651,16 @@
     if (!section) return;
     var cards = Array.prototype.slice.call(document.querySelectorAll('.skills-grid .skill-card'));
 
-    // Animate progress rings when section scrolls into view
+    // Animate skill bars when section scrolls into view
     function fillProgress() {
         cards.forEach(function(card) {
-            var bar = card.querySelector('.skill-circle-progress');
+            var bar = card.querySelector('.sk-bar-fill');
             if (!bar) return;
-            var target = parseFloat(bar.getAttribute('data-dashoffset'));
+            var target = bar.getAttribute('data-width');
             if (bar.getAttribute('data-filled') !== '1') {
                 bar.setAttribute('data-filled', '1');
                 setTimeout(function() {
-                    bar.style.strokeDashoffset = target;
+                    bar.style.width = target + '%';
                 }, 60);
             }
         });
