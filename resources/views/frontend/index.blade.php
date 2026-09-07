@@ -63,7 +63,7 @@
     html.light-theme .float-chip i {
         color: #00d9ff;
     }
-    html.light-theme .matrix-rain { opacity: 0.35; }
+    html.light-theme .matrix-rain { opacity: 0.55; }
     html.light-theme .cyber-grid {
         background-image:
             linear-gradient(rgba(0, 255, 136, 0.02) 1px, transparent 1px),
@@ -94,6 +94,25 @@
         color: #00b35c;
     }
     html.light-theme .hero-badge i { color: #00b35c; }
+    html.light-theme .hero h1 { color: #0f172a; }
+    html.light-theme .hero h1 .gradient-text {
+        background: linear-gradient(135deg, #0891b2, #0d9488, #059669, #0891b2);
+        background-size: 300% 300%;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    html.light-theme .hero p { color: #475569; }
+    html.light-theme .hero-buttons .btn-outline-custom {
+        color: #0891b2; border-color: rgba(8, 145, 178, 0.35);
+    }
+    html.light-theme .hero-buttons .btn-outline-custom i { color: #0891b2; }
+    html.light-theme .hero-buttons .btn-outline-custom:hover {
+        background: rgba(8, 145, 178, 0.08); border-color: #0891b2;
+    }
+    html.light-theme .hero-buttons .btn-primary-custom {
+        background: linear-gradient(135deg, #0891b2, #0d9488, #059669);
+        box-shadow: 0 4px 20px rgba(8, 145, 178, 0.3);
+    }
     html.light-theme .stat-item .number {
         filter: drop-shadow(0 0 12px rgba(0, 217, 255, 0.15));
     }
@@ -308,49 +327,67 @@
         100% { transform: translateX(-50%); }
     }
 
-    /* Cyber Security News Ticker (news-channel style, top & bottom) */
+    /* Cyber Security Ticker - diagonal lines flanking hero text */
     .cyber-ticker {
-        position: absolute; left: 0; right: 0;
+        position: absolute;
         display: flex; align-items: center;
         overflow: hidden; pointer-events: none; z-index: 1;
+        height: 32px;
         font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-        font-size: 0.78rem; font-weight: 500; letter-spacing: 0.4px;
-        color: rgba(0, 255, 136, 0.75);
-        text-shadow: 0 0 14px rgba(0, 255, 136, 0.25);
-        -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
-        mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+        font-size: 0.72rem; font-weight: 500; letter-spacing: 0.3px;
+        color: rgba(0, 255, 136, 0.6);
+        text-shadow: 0 0 10px rgba(0, 255, 136, 0.15);
+        background: linear-gradient(90deg, rgba(0,255,136,0.02) 0%, rgba(0,255,136,0.04) 50%, rgba(0,255,136,0.02) 100%);
+        border-top: 1px solid rgba(0, 255, 136, 0.08);
+        border-bottom: 1px solid rgba(0, 255, 136, 0.08);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
     }
     html.light-theme .cyber-ticker {
-        color: rgba(4, 120, 87, 0.9);
+        color: rgba(4, 120, 87, 0.7);
         text-shadow: none;
+        background: linear-gradient(90deg, rgba(0,217,255,0.02) 0%, rgba(0,217,255,0.04) 50%, rgba(0,217,255,0.02) 100%);
+        border-top: 1px solid rgba(2, 132, 199, 0.1);
+        border-bottom: 1px solid rgba(2, 132, 199, 0.1);
     }
-    .cyber-ticker-top { top: 4.6rem; }
-    .cyber-ticker-bottom { bottom: 0.4rem; }
-    html.light-theme .cyber-ticker-top { border-bottom: 1px dashed rgba(2, 132, 199, 0.12); }
-    html.light-theme .cyber-ticker-bottom { border-top: 1px dashed rgba(2, 132, 199, 0.12); }
+    .cyber-ticker-left {
+        top: 65%;
+        left: 15%;
+        width: 30%;
+        transform: translateY(-50%) rotate(45deg);
+        transform-origin: left center;
+    }
+    .cyber-ticker-right {
+        top: 60%;
+        right: 15%;
+        width: 30%;
+        transform: translateY(-50%) rotate(45deg);
+        transform-origin: right center;
+    }
     .cyber-ticker-track {
         display: flex; align-items: center; width: max-content;
         white-space: nowrap;
-        animation: cyberTickerLeft 60s linear infinite;
+        animation: cyberTickerLeft 45s linear infinite;
         will-change: transform;
     }
-    .cyber-ticker-bottom .cyber-ticker-track { animation-name: cyberTickerRight; animation-duration: 70s; }
+    .cyber-ticker-right .cyber-ticker-track { animation-name: cyberTickerRight; animation-duration: 50s; }
     .cyber-ticker-group { display: inline-flex; align-items: center; flex-shrink: 0; }
     .cyber-ticker-item {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        padding: 0.4rem 2rem 0.4rem 0;
-        margin-right: 2rem;
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0 1.5rem 0 0;
+        margin-right: 0.5rem;
         position: relative;
     }
     .cyber-ticker-item::after {
-        content: ''; position: absolute; right: 0.8rem; top: 50%;
+        content: ''; position: absolute; right: -0.15rem; top: 50%;
         transform: translateY(-50%);
-        width: 4px; height: 4px; border-radius: 50%;
-        background: rgba(0, 217, 255, 0.6);
-        box-shadow: 0 0 8px rgba(0, 217, 255, 0.7);
+        width: 3px; height: 3px; border-radius: 50%;
+        background: rgba(0, 217, 255, 0.4);
+        box-shadow: 0 0 4px rgba(0, 217, 255, 0.5);
     }
-    .cyber-ticker-item i { font-size: 0.85rem; color: rgba(0, 217, 255, 0.9); }
-    html.light-theme .cyber-ticker-item i { color: rgba(2, 132, 199, 0.95); }
+    .cyber-ticker-item:last-child::after { display: none; }
+    .cyber-ticker-item i { font-size: 0.75rem; color: rgba(0, 217, 255, 0.7); }
+    html.light-theme .cyber-ticker-item i { color: rgba(2, 132, 199, 0.8); }
     @keyframes cyberTickerLeft {
         from { transform: translateX(0); }
         to { transform: translateX(-33.3333%); }
@@ -360,14 +397,16 @@
         to { transform: translateX(0); }
     }
     @media (max-width: 768px) {
-        .cyber-ticker { font-size: 0.66rem; }
-        .cyber-ticker-top { top: 3.7rem; }
-        .cyber-ticker-item { padding: 0.3rem 1.2rem 0.3rem 0; margin-right: 1.2rem; }
-        .cyber-ticker-item::after { right: 0.45rem; }
+        .cyber-ticker { font-size: 0.58rem; height: 22px; }
+        .cyber-ticker-left { width: 26%; transform: translateY(-50%) rotate(-45deg); }
+        .cyber-ticker-right { width: 26%; transform: translateY(-50%) rotate(45deg); }
+        .cyber-ticker-item { padding: 0 1rem 0 0; margin-right: 0.4rem; }
+        .cyber-ticker-item::after { right: -0.1rem; }
     }
     @media (max-width: 480px) {
-        .cyber-ticker { font-size: 0.6rem; }
-        .cyber-ticker-top { top: 3.3rem; }
+        .cyber-ticker { font-size: 0.55rem; height: 20px; }
+        .cyber-ticker-left { width: 22%; transform: translateY(-50%) rotate(-45deg); }
+        .cyber-ticker-right { width: 22%; transform: translateY(-50%) rotate(45deg); }
     }
 
     /* Matrix Binary Rain Background */
@@ -3205,8 +3244,8 @@
         <div class="hex-pattern" style="bottom: 20%; left: 3%; width: 140px; height: 140px; opacity: 0.2; transform: rotate(15deg);"></div>
         <div class="hex-pattern" style="top: 35%; left: 2%; width: 100px; height: 100px; opacity: 0.25; transform: rotate(-10deg);"></div>
 
-        <!-- Cyber Security News Ticker - TOP -->
-        <div class="cyber-ticker cyber-ticker-top" aria-hidden="true">
+        <!-- Cyber Security Ticker - LEFT DIAGONAL -->
+        <div class="cyber-ticker cyber-ticker-left" aria-hidden="true">
             <div class="cyber-ticker-track">
                 <div class="cyber-ticker-group">
                     <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>System Status: Secure</span>
@@ -3247,8 +3286,8 @@
             </div>
         </div>
 
-        <!-- Cyber Security News Ticker - BOTTOM -->
-        <div class="cyber-ticker cyber-ticker-bottom" aria-hidden="true">
+        <!-- Cyber Security Ticker - RIGHT DIAGONAL -->
+        <div class="cyber-ticker cyber-ticker-right" aria-hidden="true">
             <div class="cyber-ticker-track">
                 <div class="cyber-ticker-group">
                     <span class="cyber-ticker-item"><i class="bi bi-lightning-fill"></i>LIVE: 1,247 Phishing Attempts Blocked Today</span>

@@ -10,8 +10,9 @@
         transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     html.light-theme .navbar-main {
-        background: rgba(248, 250, 252, 0.82);
-        border-bottom: 1px solid rgba(8, 145, 178, 0.14);
+        background: rgba(248, 250, 252, 0.95);
+        border-bottom: 1px solid rgba(8, 145, 178, 0.18);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     }
     .navbar-main::after {
         content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
@@ -77,16 +78,9 @@
         text-decoration: none; white-space: nowrap;
         transition: color 0.25s ease, background 0.25s ease;
     }
-    html.light-theme .nav-links a { color: #475569; }
-    .nav-links li:not(:has(form)) a:not([class*="nav-action-"])::after {
-        content: ''; position: absolute; left: 0.95rem; right: 0.95rem; bottom: 0.35rem; height: 2px;
-        border-radius: 2px;
-        background: linear-gradient(90deg, #00d9ff, #00ff88);
-        transform: scaleX(0); transform-origin: left center;
-        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .nav-links li:not(:has(form)) a:not([class*="nav-action-"]):hover::after,
-    .nav-links li:not(:has(form)) a:not([class*="nav-action-"]).nav-active::after { transform: scaleX(1); }
+    html.light-theme .nav-links a { color: #334155; }
+    html.light-theme .nav-links a.nav-active { color: #0891b2; background: rgba(8, 145, 178, 0.1); font-weight: 600; }
+    /* underline effect disabled */
     .nav-links a:hover { color: #ffffff; background: rgba(0, 217, 255, 0.07); }
     html.light-theme .nav-links a:hover { color: #0f172a; background: rgba(8, 145, 178, 0.06); }
     .nav-links a.nav-active { color: #00d9ff; background: rgba(0, 217, 255, 0.1); }
@@ -96,6 +90,7 @@
         color: #7ce6ff !important; border: 1px solid rgba(0, 217, 255, 0.25); 
         padding: 0.45rem 1rem !important; border-radius: 8px !important; font-weight: 600 !important;
     }
+    html.light-theme .nav-action-login { color: #0891b2 !important; border-color: rgba(8, 145, 178, 0.3) !important; background: rgba(8, 145, 178, 0.06) !important; }
     .nav-action-login:hover { background: rgba(0, 217, 255, 0.12) !important; border-color: #00d9ff !important; }
     .nav-action-signup { 
         background: linear-gradient(135deg, #00d9ff, #00a2c9) !important; color: #fff !important; 
@@ -107,9 +102,11 @@
         background: rgba(0, 217, 255, 0.1) !important; color: #7ce6ff !important; 
         border: 1px solid rgba(0, 217, 255, 0.2) !important; font-weight: 600 !important;
     }
+    html.light-theme .nav-action-admin { color: #0891b2 !important; border-color: rgba(8, 145, 178, 0.25) !important; background: rgba(8, 145, 178, 0.06) !important; }
     .nav-action-logout { 
         color: #f87171 !important; border: 1px solid rgba(248, 113, 113, 0.2) !important; font-weight: 600 !important;
     }
+    html.light-theme .nav-action-logout { color: #dc2626 !important; border-color: rgba(220, 38, 38, 0.25) !important; }
     .nav-action-logout:hover { background: rgba(248, 113, 113, 0.1) !important; }
 
     /* ===== RIGHT GROUP ===== */
@@ -186,7 +183,11 @@
     }
     .lang-btn:hover { color: #7ce6ff; }
     .lang-btn.active { color: #00d9ff; background: rgba(0, 217, 255, 0.12); }
+    html.light-theme .lang-btn { color: #334155; }
+    html.light-theme .lang-btn:hover { color: #0891b2; }
+    html.light-theme .lang-btn.active { color: #0891b2; background: rgba(8, 145, 178, 0.1); }
     .lang-divider { color: #475569; font-size: 0.75rem; }
+    html.light-theme .lang-divider { color: #94a3b8; }
 
     /* ===== Mobile drawer and backdrop ===== */
     .mobile-backdrop {
