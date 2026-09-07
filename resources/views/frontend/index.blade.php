@@ -1458,7 +1458,10 @@
     }
 
     /* Cyber gradient divider (end of every section) */
+    section:has(> .section-divider) { position: relative; }
     .section-divider {
+        position: absolute;
+        bottom: 0; left: 0; right: 0;
         height: 3px;
         background: linear-gradient(90deg,
             transparent 0%,
@@ -1471,6 +1474,7 @@
         animation: dividerFlow 4s linear infinite;
         opacity: 0.8;
         pointer-events: none;
+        z-index: 3;
     }
     html.light-theme .section-divider {
         background: linear-gradient(90deg,
