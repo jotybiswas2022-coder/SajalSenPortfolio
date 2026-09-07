@@ -1,91 +1,94 @@
 ﻿@extends('backend.app')
 
 @section('content')
-<style>
-@media (max-width: 767.98px) {
-    .faq-form-page h4 { font-size: 0.9rem; }
-    .faq-form-page p.text-muted { font-size: 0.75rem; }
-    .faq-form-page .form-label { font-size: 0.75rem; }
-    .faq-form-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
-    .faq-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
-    .faq-form-page .card-body { padding: 0.8rem !important; }
-    .faq-form-page .invalid-feedback { font-size: 0.72rem; }
-}
-</style>
+<div class="container-fluid py-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
 
-<div class="container-fluid py-3 faq-form-page">
+            {{-- Header --}}
+            <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <i class="bi bi-plus-circle" style="font-size:1.5rem;color:#00d9ff;"></i>
+                    </div>
+                    <div class="d-flex flex-column align-items-start gap-1">
+                        <div class="ae-title">Add a New FAQ</div>
+                        <p class="ae-sub">Create a new frequently asked question.</p>
+                    </div>
+                </div>
+                <a href="{{ route('admin.faqs.index') }}" class="ae-btn ae-btn-ghost">
+                    <i class="bi bi-arrow-left"></i> Back
+                </a>
+            </div>
 
-    <div class="mb-4">
-        <h4 class="fw-bold mb-1"><i class="bi bi-plus-circle me-2" style="color:#00d9ff;"></i>Add a New FAQ</h4>
-        <p class="text-muted small mb-0">Create a new frequently asked question.</p>
-    </div>
-
-    <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body px-4 py-4">
             <form action="{{ route('admin.faqs.store') }}" method="POST">
                 @csrf
 
                 {{-- Question --}}
-                <div class="bg-white" style="border-bottom:1px solid #e9ecef; padding-bottom:1rem; margin-bottom:1.5rem;">
-                    <h6 class="fw-semibold mb-1 pb-0" style="color:#00d9ff;">
-                        <i class="bi bi-question-lg me-1"></i> Question
-                    </h6>
-                    <p class="text-muted small mb-3">The question that visitors will see</p>
-                    <input type="text" name="question"
-                           class="form-control form-control-lg @error('question') is-invalid @enderror"
-                           value="{{ old('question') }}" placeholder="e.g. What technologies do you work with?" required>
-                    @error('question')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-question-lg"></i> Question</div>
+                        <span class="ae-head-tag">Required</span>
+                    </div>
+                    <div class="ae-card-body">
+                        <label class="ae-form-label">Question <span class="text-danger">*</span></label>
+                        <input type="text" name="question"
+                               class="form-control ae-input-modern @error('question') is-invalid @enderror"
+                               value="{{ old('question') }}" placeholder="e.g. What technologies do you work with?" required>
+                        @error('question')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
                 </div>
 
                 {{-- Answer --}}
-                <div class="bg-white" style="border-bottom:1px solid #e9ecef; padding-bottom:1rem; margin-bottom:1.5rem;">
-                    <h6 class="fw-semibold mb-1 pb-0" style="color:#00d9ff;">
-                        <i class="bi bi-chat-dots me-1"></i> Answer
-                    </h6>
-                    <p class="text-muted small mb-3">The detailed answer to the question</p>
-                    <textarea name="answer" rows="5"
-                              class="form-control @error('answer') is-invalid @enderror"
-                              placeholder="Write the answer..." required>{{ old('answer') }}</textarea>
-                    @error('answer')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-chat-dots"></i> Answer</div>
+                        <span class="ae-head-tag">Required</span>
+                    </div>
+                    <div class="ae-card-body">
+                        <label class="ae-form-label">Answer <span class="text-danger">*</span></label>
+                        <textarea name="answer" rows="5"
+                                  class="form-control ae-input-modern @error('answer') is-invalid @enderror"
+                                  placeholder="Write the answer..." required>{{ old('answer') }}</textarea>
+                        @error('answer')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
                 </div>
 
                 {{-- Settings --}}
-                <div class="bg-white mb-3">
-                    <h6 class="fw-semibold mb-3 pb-0" style="color:#00d9ff;">
-                        <i class="bi bi-gear me-1"></i> Settings
-                    </h6>
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <label class="form-label fw-semibold small text-muted">Sort Order</label>
-                            <input type="number" name="sort_order" min="0"
-                                   class="form-control form-control-lg"
-                                   value="{{ old('sort_order', 0) }}">
-                        </div>
-                        <div class="col-md-6 d-flex align-items-end pb-1">
-                            <div class="form-check form-switch">
-                                <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked
-                                       style="width:2.5em; height:1.25em; cursor:pointer;">
-                                <label class="form-check-label fw-semibold ms-1" for="is_active" style="cursor:pointer;">Active</label>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-gear"></i> Settings</div>
+                    </div>
+                    <div class="ae-card-body">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="ae-form-label">Sort Order</label>
+                                <input type="number" name="sort_order" min="0"
+                                       class="form-control ae-input-modern @error('sort_order') is-invalid @enderror"
+                                       value="{{ old('sort_order', 0) }}">
+                                @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end pb-1">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" checked>
+                                    <label class="form-check-label fw-medium" for="is_active" style="color:var(--admin-text);">Active</label>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Buttons --}}
-                <div class="d-flex gap-2 pt-3" style="border-top:1px solid #e9ecef;">
-                    <a href="{{ route('admin.faqs.index') }}" class="btn btn-light border rounded-3 px-4 py-2">
-                        <i class="bi bi-arrow-left me-1"></i> Back
-                    </a>
-                    <button type="submit" class="btn rounded-3 px-4 py-2 flex-grow-1 text-white"
-                            style="background:#00d9ff; border-color:#00d9ff;">
-                        <i class="bi bi-check-circle me-1"></i> Create FAQ
+                {{-- Submit --}}
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="{{ route('admin.faqs.index') }}" class="ae-btn ae-btn-ghost">Cancel</a>
+                    <button type="submit" class="ae-btn ae-btn-primary">
+                        <i class="bi bi-check-circle"></i> Create FAQ
                     </button>
                 </div>
 
             </form>
+
         </div>
     </div>
-
 </div>
-
 @endsection

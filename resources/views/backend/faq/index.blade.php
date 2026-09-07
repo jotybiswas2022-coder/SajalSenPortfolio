@@ -1,98 +1,80 @@
 @extends('backend.app')
 
 @section('content')
-<style>
-@media (max-width: 767.98px) {
-    .faqs-page h4 { font-size: 0.9rem; }
-    .faqs-page p.text-muted { font-size: 0.75rem; }
-    .faqs-page .badge { font-size: 0.65rem; padding: 0.2rem 0.5rem !important; }
-    .faqs-page .btn { font-size: 0.72rem; padding: 0.25rem 0.6rem; }
-    .faqs-page .form-control { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .faqs-page .input-group-text { font-size: 0.78rem; padding: 0.35rem 0.5rem; }
-    .faqs-page .small.text-muted { font-size: 0.7rem; }
-    .faqs-page .table thead th { font-size: 0.65rem !important; padding: 0.35rem 0.4rem !important; }
-    .faqs-page .table tbody td { font-size: 0.72rem; padding: 0.35rem 0.4rem; }
-    .faqs-page .table tbody td .btn { font-size: 0.65rem; padding: 0.15rem 0.4rem; }
-    .faqs-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .faqs-page .card-body { padding: 0.6rem !important; }
-}
-</style>
-
-<div class="container-fluid py-3 faqs-page">
+<div class="container-fluid py-3">
 
     {{-- Header --}}
-    <div class="d-flex align-items-center justify-content-between mb-4">
-        <div>
-            <h4 class="fw-bold mb-1"><i class="bi bi-question-circle me-2" style="color:#00d9ff;"></i>FAQs</h4>
-            <p class="text-muted small mb-0">Manage frequently asked questions</p>
+    <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <i class="bi bi-question-circle" style="font-size:1.5rem;color:#00d9ff;"></i>
+            </div>
+            <div class="d-flex flex-column align-items-start gap-1">
+                <div class="ae-title">FAQs</div>
+                <p class="ae-sub">Manage frequently asked questions.</p>
+            </div>
         </div>
         <div class="d-flex align-items-center gap-2">
-            <span class="badge rounded-pill px-3 py-2" style="background:rgba(0,217,255,0.1); color:#00d9ff; font-weight:500;">
-                <i class="bi bi-database me-1"></i> {{ $faqs->count() }} FAQs
-            </span>
-            <a href="{{ route('admin.faqs.create') }}" class="btn btn-primary rounded-3 px-3" style="background:#00d9ff; border-color:#00d9ff;">
-                <i class="bi bi-plus-lg me-1"></i> Add FAQ
+            <span class="ae-badge"><span class="ae-dot"></span> {{ $faqs->count() }} FAQs</span>
+            <a href="{{ route('admin.faqs.create') }}" class="ae-btn ae-btn-primary">
+                <i class="bi bi-plus-lg"></i> Add FAQ
             </a>
         </div>
     </div>
 
-    {{-- Live Search Bar --}}
+    {{-- Live Search --}}
     <div class="mb-4">
         <div class="d-flex gap-2 align-items-center">
-            <div class="input-group" style="max-width:600px;">
-                <span class="input-group-text bg-white border-end-0 rounded-start-3" style="border-color:#e2e8f0;">
-                    <i class="bi bi-search text-muted"></i>
-                </span>
-                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}" 
-                       class="form-control border-start-0 ps-0" 
-                       placeholder="Live search by question or answer..."
-                       style="border-color:#e2e8f0; box-shadow:none;"
+            <div class="input-group" style="max-width:500px;">
+                <span class="input-group-text ae-search-icon"><i class="bi bi-search"></i></span>
+                <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
+                       class="form-control ae-search border-start-0 ps-0"
+                       placeholder="Search by question or answer..."
                        autocomplete="off">
-                <span class="input-group-text bg-white border-start-0 rounded-end-3" style="border-color:#e2e8f0;" id="searchSpinner">
+                <span class="input-group-text ae-search-icon-end" id="searchSpinner">
                     <span class="spinner-border spinner-border-sm d-none" role="status" id="searchLoading"></span>
                 </span>
             </div>
             @if(request()->has('q') && request()->q != '')
-                <a href="{{ route('admin.faqs.index') }}" class="btn btn-outline-secondary rounded-3" style="border-color:#e2e8f0;">
+                <a href="{{ route('admin.faqs.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.7rem;">
                     <i class="bi bi-x-lg"></i>
                 </a>
             @endif
         </div>
         <div class="mt-2" id="searchInfo">
             @if($query ?? false)
-                <small class="text-muted">
+                <small class="ae-note">
                     <i class="bi bi-info-circle me-1"></i>
-                    Showing results for "<strong>{{ $query }}</strong>" — 
+                    Showing results for "<strong>{{ $query }}</strong>" —
                     <span id="resultCount">{{ $faqs->count() }}</span> FAQ(s) found
                 </small>
             @endif
         </div>
     </div>
 
-    {{-- Table Card --}}
+    {{-- Table --}}
     @if($faqs->isEmpty() && !request()->ajax())
-        <div class="text-center py-5">
-            <div class="empty-state">
-                <i class="bi bi-question-circle"></i>
-                <div class="fw-semibold mb-2">No FAQs Found</div>
-                <p class="text-muted small">Add frequently asked questions to help your visitors!</p>
-                <a href="{{ route('admin.faqs.create') }}" class="btn btn-primary rounded-3 px-4" style="background:#00d9ff; border-color:#00d9ff;">
-                    <i class="bi bi-plus-lg me-1"></i> Add FAQ
+        <div class="ae-table-card">
+            <div class="text-center py-5">
+                <i class="bi bi-question-circle" style="font-size:3rem;color:var(--admin-text-muted);display:block;margin-bottom:0.5rem;"></i>
+                <p class="ae-note mb-2">No FAQs found.</p>
+                <a href="{{ route('admin.faqs.create') }}" class="ae-btn ae-btn-primary">
+                    <i class="bi bi-plus-lg"></i> Add FAQ
                 </a>
             </div>
         </div>
     @else
-        <div class="card border-0 shadow-sm rounded-4">
+        <div class="ae-table-card">
             <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0" style="min-width:750px;">
-                    <thead class="bg-light">
+                <table class="table table-hover align-middle" style="min-width:850px;">
+                    <thead>
                         <tr>
-                            <th class="ps-4 py-3 text-muted small fw-semibold" style="width:50px;">#</th>
-                            <th class="py-3 text-muted small fw-semibold">Question</th>
-                            <th class="py-3 text-muted small fw-semibold">Answer</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:65px;">Order</th>
-                            <th class="py-3 text-muted small fw-semibold" style="width:90px;">Status</th>
-                            <th class="pe-4 py-3 text-muted small fw-semibold" style="width:120px;">Actions</th>
+                            <th class="ps-4" style="width:50px;">#</th>
+                            <th>Question</th>
+                            <th>Answer</th>
+                            <th style="width:70px;">Order</th>
+                            <th style="width:90px;">Status</th>
+                            <th class="pe-4" style="width:110px;">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="faqsTableBody">
@@ -105,16 +87,8 @@
 
 </div>
 
-<style>
-.status-badge { transition: all 0.2s; }
-.status-badge:hover { transform: scale(1.05); }
-.active-badge { background: rgba(16,185,129,0.12); color: #059669; }
-.inactive-badge { background: #f1f5f9; color: #94a3b8; }
-</style>
-
 @section('scripts')
 <script>
-// ===== DELETE CONFIRMATION & STATUS TOGGLE =====
 (function() {
     function bindFaqEvents() {
         document.querySelectorAll('.delete-btn').forEach(btn => {
@@ -130,11 +104,15 @@
                     cancelButtonColor: '#64748b',
                     confirmButtonText: '<i class="bi bi-trash me-1"></i> Delete',
                     cancelButtonText: 'Cancel',
-                    reverseButtons: true
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-4',
+                        confirmButton: 'btn btn-danger rounded-3 px-4 py-2',
+                        cancelButton: 'btn btn-light border rounded-3 px-4 py-2',
+                    },
+                    buttonsStyling: false
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        document.getElementById('delete-form-' + id).submit();
-                    }
+                    if (result.isConfirmed) document.getElementById('delete-form-' + id).submit();
                 });
             });
         });
@@ -154,11 +132,15 @@
                     cancelButtonColor: '#64748b',
                     confirmButtonText: '<i class="bi bi-arrow-repeat me-1"></i> Toggle',
                     cancelButtonText: 'Cancel',
-                    reverseButtons: true
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'rounded-4',
+                        confirmButton: 'btn btn-info rounded-3 px-4 py-2',
+                        cancelButton: 'btn btn-light border rounded-3 px-4 py-2',
+                    },
+                    buttonsStyling: false
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = href;
-                    }
+                    if (result.isConfirmed) window.location.href = href;
                 });
             });
         });
@@ -168,7 +150,6 @@
     window.bindFaqEvents = bindFaqEvents;
 })();
 
-// ===== LIVE SEARCH (AJAX) =====
 (function() {
     var searchInput = document.getElementById('liveSearch');
     var tableBody = document.getElementById('faqsTableBody');
@@ -194,14 +175,14 @@
         .then(function(data) {
             tableBody.innerHTML = data.html;
 
-            var countBadge = document.querySelector('.badge.rounded-pill.px-3.py-2');
+            var countBadge = document.querySelector('.ae-badge .ae-dot')?.closest('.ae-badge');
             if (countBadge) {
-                countBadge.innerHTML = '<i class="bi bi-database me-1"></i> ' + data.count + ' FAQs';
+                countBadge.innerHTML = '<span class="ae-dot"></span> ' + data.count + ' FAQs';
             }
 
             if (searchInfo) {
                 if (query) {
-                    searchInfo.innerHTML = '<small class="text-muted"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' FAQ(s) found</small>';
+                    searchInfo.innerHTML = '<small class="ae-note"><i class="bi bi-info-circle me-1"></i>Showing results for "<strong>' + escapeHtml(query) + '</strong>" — ' + data.count + ' FAQ(s) found</small>';
                 } else {
                     searchInfo.innerHTML = '';
                 }
