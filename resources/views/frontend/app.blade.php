@@ -187,7 +187,7 @@
 
     <!-- Loading Overlay (initial page load) -->
     <div class="page-loader" id="pageLoader">
-        <div class="loader-logo">{{ config('app.name', 'Portfolio') }}</div>
+        <div class="loader-logo">Sajal Kumar Sen</div>
         <div class="loader-ring"></div>
         <div class="loader-text">{{ __('messages.loading') }}</div>
     </div>

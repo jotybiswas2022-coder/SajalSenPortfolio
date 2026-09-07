@@ -2,37 +2,64 @@
     /* ===== Navbar (shared across all pages) ===== */
     .navbar-main {
         position: fixed; top: 0; left: 0; right: 0;
-        z-index: 1000; padding: 1rem 2rem;
-        display: flex; justify-content: space-between; align-items: center;
-        background: rgba(8, 11, 18, 0.88);
-        backdrop-filter: blur(24px) saturate(1.4);
-        -webkit-backdrop-filter: blur(24px) saturate(1.4);
-        border-bottom: 1px solid rgba(0, 217, 255, 0.12);
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 1000;
+        background: rgba(8, 11, 18, 0.78);
+        backdrop-filter: blur(26px) saturate(1.6);
+        -webkit-backdrop-filter: blur(26px) saturate(1.6);
+        border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+        transition: background 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
     html.light-theme .navbar-main {
-        background: rgba(248, 250, 252, 0.92);
-        border-bottom: 1px solid rgba(0, 217, 255, 0.12);
+        background: rgba(248, 250, 252, 0.82);
+        border-bottom: 1px solid rgba(8, 145, 178, 0.14);
     }
-    .navbar-main.scrolled {
-        padding: 0.6rem 2rem;
-        background: rgba(8, 11, 18, 0.96);
-        border-bottom: 1px solid rgba(0, 217, 255, 0.25);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    .navbar-main::after {
+        content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.7), rgba(0, 255, 136, 0.7), transparent);
+        opacity: 0; transform: scaleX(0.5);
+        transition: opacity 0.4s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    html.light-theme .navbar-main.scrolled {
-        background: rgba(248, 250, 252, 0.96);
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    .navbar-main.scrolled { background: rgba(8, 11, 18, 0.97); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4); }
+    html.light-theme .navbar-main.scrolled { background: rgba(248, 250, 252, 0.97); box-shadow: 0 10px 40px rgba(15, 23, 42, 0.08); }
+    .navbar-main.scrolled::after { opacity: 1; transform: scaleX(1); }
+    .navbar-inner {
+        max-width: 1280px; margin: 0 auto;
+        padding: 0.85rem 2rem;
+        display: flex; justify-content: space-between; align-items: center; gap: 1rem;
     }
+    .navbar-main.scrolled .navbar-inner { padding: 0.5rem 2rem; }
     .nav-logo {
-        font-size: 1.4rem; font-weight: 800;
-        background: linear-gradient(135deg, #00d9ff, #7ce6ff, #6bffb8, #00d9ff);
-        background-size: 300% 300%;
+        display: inline-flex; align-items: center; gap: 0.65rem;
+        text-decoration: none; flex-shrink: 0;
+    }
+    .nav-logo-icon {
+        width: 40px; height: 40px; border-radius: 12px;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-size: 1.1rem; color: #06121c;
+        background: linear-gradient(135deg, #00d9ff 0%, #00a2c9 55%, #00b35c 100%);
+        box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.3), 0 6px 18px rgba(0, 217, 255, 0.25);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+    }
+    .nav-logo:hover .nav-logo-icon { transform: rotate(-8deg) scale(1.06); box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.5), 0 8px 26px rgba(0, 217, 255, 0.35); }
+    .nav-logo-text, .drawer-logo-text {
+        font-family: 'Space Grotesk', 'Noto Sans Bengali', sans-serif;
+        font-size: 1.3rem; font-weight: 700; letter-spacing: -0.4px;
+        color: #f1f5f9; line-height: 1.15; white-space: nowrap;
+    }
+    html.light-theme .nav-logo-text, html.light-theme .drawer-logo-text { color: #0f172a; }
+    .nav-logo-accent {
+        background: linear-gradient(135deg, #7ce6ff 0%, #00ff88 60%, #00d9ff 100%);
+        background-size: 200% auto;
         -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         background-clip: text;
-        animation: navGradient 4s ease infinite;
-        letter-spacing: -0.5px;
-        text-decoration: none;
+        animation: navGradient 5s ease infinite;
+    }
+    html.light-theme .nav-logo-accent {
+        background: linear-gradient(135deg, #0891b2 0%, #0d9488 50%, #059669 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: navGradient 5s ease infinite;
     }
     @keyframes navGradient {
         0% { background-position: 0% 50%; }
@@ -41,16 +68,29 @@
     }
 
     /* ===== Desktop nav links ===== */
-    .nav-links { display: flex; gap: 0.25rem; list-style: none; align-items: center; margin: 0; padding: 0; }
-    .nav-links a { 
-        color: #94a3b8; font-weight: 500; font-size: 0.88rem;
-        padding: 0.5rem 0.9rem; border-radius: 8px;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    .nav-links { display: flex; gap: 0.3rem; list-style: none; align-items: center; margin: 0; padding: 0; }
+    .nav-links li { list-style: none; }
+    .nav-links a {
+        position: relative;
+        color: #cbd5e1; font-weight: 500; font-size: 0.88rem;
+        padding: 0.55rem 0.95rem; border-radius: 9px;
         text-decoration: none; white-space: nowrap;
+        transition: color 0.25s ease, background 0.25s ease;
     }
     html.light-theme .nav-links a { color: #475569; }
-    .nav-links a:hover { color: #7ce6ff; background: rgba(0, 217, 255, 0.08); }
-    .nav-links a.nav-active { color: #00d9ff; background: rgba(0, 217, 255, 0.12); }
+    .nav-links li:not(:has(form)) a:not([class*="nav-action-"])::after {
+        content: ''; position: absolute; left: 0.95rem; right: 0.95rem; bottom: 0.35rem; height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #00d9ff, #00ff88);
+        transform: scaleX(0); transform-origin: left center;
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .nav-links li:not(:has(form)) a:not([class*="nav-action-"]):hover::after,
+    .nav-links li:not(:has(form)) a:not([class*="nav-action-"]).nav-active::after { transform: scaleX(1); }
+    .nav-links a:hover { color: #ffffff; background: rgba(0, 217, 255, 0.07); }
+    html.light-theme .nav-links a:hover { color: #0f172a; background: rgba(8, 145, 178, 0.06); }
+    .nav-links a.nav-active { color: #00d9ff; background: rgba(0, 217, 255, 0.1); }
+    html.light-theme .nav-links a.nav-active { color: #0891b2; background: rgba(8, 145, 178, 0.09); }
 
     .nav-action-login { 
         color: #7ce6ff !important; border: 1px solid rgba(0, 217, 255, 0.25); 
@@ -202,17 +242,11 @@
         background: rgba(0, 217, 255, 0.03);
     }
     .drawer-logo {
-        font-size: 1.15rem;
-        font-weight: 800;
-        background: linear-gradient(135deg, #00d9ff, #7ce6ff, #6bffb8, #00d9ff);
-        background-size: 300% 300%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        animation: navGradient 4s ease infinite;
-        letter-spacing: -0.5px;
-        text-decoration: none;
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        text-decoration: none; min-width: 0;
     }
+    .drawer-logo .nav-logo-icon { width: 34px; height: 34px; font-size: 0.95rem; border-radius: 10px; }
+    .drawer-logo-text { font-size: 1.15rem; overflow: hidden; text-overflow: ellipsis; }
     .drawer-close {
         width: 34px; height: 34px;
         border-radius: 10px;
@@ -363,15 +397,16 @@
 
     /* ===== Mobile responsive ===== */
     @media (max-width: 768px) {
-        .navbar-main {
+        .navbar-inner {
             padding: 0.7rem 1rem;
         }
-        .navbar-main.scrolled {
+        .navbar-main.scrolled .navbar-inner {
             padding: 0.45rem 1rem;
         }
-        .nav-logo {
-            font-size: 1.15rem;
+        .nav-logo-text, .drawer-logo-text {
+            font-size: 1.12rem;
         }
+        .nav-logo-icon { width: 36px; height: 36px; }
         .nav-links {
             display: none !important;
         }
@@ -387,15 +422,15 @@
     }
 
     @media (max-width: 480px) {
-        .navbar-main {
-            padding: 0.55rem 0.8rem;
+        .navbar-inner {
+            padding: 0.5rem 0.8rem;
         }
-        .navbar-main.scrolled {
+        .navbar-main.scrolled .navbar-inner {
             padding: 0.35rem 0.8rem;
         }
-        .nav-logo {
-            font-size: 1rem;
-        }
+        .nav-logo-text, .drawer-logo-text { font-size: 1rem; }
+        .nav-logo-icon { width: 32px; height: 32px; font-size: 0.9rem; border-radius: 9px; }
+        .nav-logo { gap: 0.45rem; }
         .hamburger {
             padding: 5px;
         }
@@ -413,8 +448,8 @@
         .drawer-header {
             padding: 0.8rem 1rem;
         }
-        .drawer-logo {
-            font-size: 1rem;
+        .drawer-logo-text {
+            font-size: 0.95rem;
         }
         .drawer-close {
             width: 30px; height: 30px; font-size: 0.85rem;
@@ -450,8 +485,12 @@
 </style>
 
 <nav class="navbar-main" id="navbar">
+    <div class="navbar-inner">
     <!-- Logo -->
-    <a href="/" class="nav-logo">{{ config('app.name', 'Portfolio') }}</a>
+    <a href="/" class="nav-logo">
+        <span class="nav-logo-icon"><i class="bi bi-shield-fill-check"></i></span>
+        <span class="nav-logo-text">Sajal Kumar <span class="nav-logo-accent">Sen</span></span>
+    </a>
 
     <!-- Desktop Nav Links -->
     <ul class="nav-links" id="navLinks">
@@ -493,6 +532,7 @@
             <span></span><span></span><span></span>
         </button>
     </div>
+    </div>
 </nav>
 
 <!-- Mobile Backdrop -->
@@ -502,7 +542,10 @@
 <div class="mobile-drawer" id="mobileDrawer">
     <!-- Drawer Header -->
     <div class="drawer-header">
-        <a href="/" class="drawer-logo">{{ config('app.name', 'Portfolio') }}</a>
+        <a href="/" class="drawer-logo">
+            <span class="nav-logo-icon"><i class="bi bi-shield-fill-check"></i></span>
+            <span class="drawer-logo-text">Sajal Kumar <span class="nav-logo-accent">Sen</span></span>
+        </a>
         <button class="drawer-close" id="drawerClose" aria-label="Close menu">
             <i class="bi bi-x-lg"></i>
         </button>

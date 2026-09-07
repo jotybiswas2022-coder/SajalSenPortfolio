@@ -307,6 +307,69 @@
         0% { transform: translateX(0); }
         100% { transform: translateX(-50%); }
     }
+
+    /* Cyber Security News Ticker (news-channel style, top & bottom) */
+    .cyber-ticker {
+        position: absolute; left: 0; right: 0;
+        display: flex; align-items: center;
+        overflow: hidden; pointer-events: none; z-index: 1;
+        font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
+        font-size: 0.78rem; font-weight: 500; letter-spacing: 0.4px;
+        color: rgba(0, 255, 136, 0.75);
+        text-shadow: 0 0 14px rgba(0, 255, 136, 0.25);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+        mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+    }
+    html.light-theme .cyber-ticker {
+        color: rgba(4, 120, 87, 0.9);
+        text-shadow: none;
+    }
+    .cyber-ticker-top { top: 4.6rem; }
+    .cyber-ticker-bottom { bottom: 0.4rem; }
+    html.light-theme .cyber-ticker-top { border-bottom: 1px dashed rgba(2, 132, 199, 0.12); }
+    html.light-theme .cyber-ticker-bottom { border-top: 1px dashed rgba(2, 132, 199, 0.12); }
+    .cyber-ticker-track {
+        display: flex; align-items: center; width: max-content;
+        white-space: nowrap;
+        animation: cyberTickerLeft 60s linear infinite;
+        will-change: transform;
+    }
+    .cyber-ticker-bottom .cyber-ticker-track { animation-name: cyberTickerRight; animation-duration: 70s; }
+    .cyber-ticker-group { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .cyber-ticker-item {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        padding: 0.4rem 2rem 0.4rem 0;
+        margin-right: 2rem;
+        position: relative;
+    }
+    .cyber-ticker-item::after {
+        content: ''; position: absolute; right: 0.8rem; top: 50%;
+        transform: translateY(-50%);
+        width: 4px; height: 4px; border-radius: 50%;
+        background: rgba(0, 217, 255, 0.6);
+        box-shadow: 0 0 8px rgba(0, 217, 255, 0.7);
+    }
+    .cyber-ticker-item i { font-size: 0.85rem; color: rgba(0, 217, 255, 0.9); }
+    html.light-theme .cyber-ticker-item i { color: rgba(2, 132, 199, 0.95); }
+    @keyframes cyberTickerLeft {
+        from { transform: translateX(0); }
+        to { transform: translateX(-33.3333%); }
+    }
+    @keyframes cyberTickerRight {
+        from { transform: translateX(-33.3333%); }
+        to { transform: translateX(0); }
+    }
+    @media (max-width: 768px) {
+        .cyber-ticker { font-size: 0.66rem; }
+        .cyber-ticker-top { top: 3.7rem; }
+        .cyber-ticker-item { padding: 0.3rem 1.2rem 0.3rem 0; margin-right: 1.2rem; }
+        .cyber-ticker-item::after { right: 0.45rem; }
+    }
+    @media (max-width: 480px) {
+        .cyber-ticker { font-size: 0.6rem; }
+        .cyber-ticker-top { top: 3.3rem; }
+    }
+
     /* Matrix Binary Rain Background */
     .matrix-rain {
         position: absolute; top: 0; left: 0;
@@ -3142,12 +3205,88 @@
         <div class="hex-pattern" style="bottom: 20%; left: 3%; width: 140px; height: 140px; opacity: 0.2; transform: rotate(15deg);"></div>
         <div class="hex-pattern" style="top: 35%; left: 2%; width: 100px; height: 100px; opacity: 0.25; transform: rotate(-10deg);"></div>
 
-        <!-- Data Stream -->
-        <div class="data-stream" style="top: 12%; right: 15%; transform: rotate(-45deg);">
-            <span>01101000 01100101 01101100 01101100 01101111 00100000 01100011 01111001 01100010 01100101 01110010 00100000 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 | SYSTEM SECURE | 0x00FF64 | PACKET: VERIFIED | TIMESTAMP: 2026.09.07 08:42:33 UTC | HASH: a3f8c9d2 | SIGNATURE: VALID | PROTOCOL: TLS 1.3 | CIPHER: AES-256-GCM | STATUS: MONITORING ACTIVE | THREAT LEVEL: LOW | FIREWALL: ENABLED | IDS: ACTIVE | IPS: ACTIVE</span>
+        <!-- Cyber Security News Ticker - TOP -->
+        <div class="cyber-ticker cyber-ticker-top" aria-hidden="true">
+            <div class="cyber-ticker-track">
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>System Status: Secure</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-activity"></i>24/7 Threat Monitoring: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>Firewall: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-eye"></i>Intrusion Detection: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>AES-256-GCM Encryption</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>SOC 2 + ISO 27001 Compliant</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-fill-check"></i>DDoS Protection: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-globe"></i>Zero-Trust Architecture</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-cpu"></i>Endpoint Security: All Clear</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-lock-fill"></i>Threat Level: Low</span>
+                </div>
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>System Status: Secure</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-activity"></i>24/7 Threat Monitoring: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>Firewall: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-eye"></i>Intrusion Detection: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>AES-256-GCM Encryption</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>SOC 2 + ISO 27001 Compliant</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-fill-check"></i>DDoS Protection: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-globe"></i>Zero-Trust Architecture</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-cpu"></i>Endpoint Security: All Clear</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-lock-fill"></i>Threat Level: Low</span>
+                </div>
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>System Status: Secure</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-activity"></i>24/7 Threat Monitoring: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>Firewall: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-eye"></i>Intrusion Detection: Active</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>AES-256-GCM Encryption</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>SOC 2 + ISO 27001 Compliant</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-fill-check"></i>DDoS Protection: Enabled</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-globe"></i>Zero-Trust Architecture</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-cpu"></i>Endpoint Security: All Clear</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-lock-fill"></i>Threat Level: Low</span>
+                </div>
+            </div>
         </div>
-        <div class="data-stream" style="top: 12%; left: 15%; transform: rotate(45deg);">
-            <span>01101000 01100101 01101100 01101100 01101111 00100000 01100011 01111001 01100010 01100101 01110010 00100000 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 | SYSTEM SECURE | 0x00FF64 | PACKET: VERIFIED | TIMESTAMP: 2026.09.07 08:42:33 UTC | HASH: a3f8c9d2 | SIGNATURE: VALID | PROTOCOL: TLS 1.3 | CIPHER: AES-256-GCM | STATUS: MONITORING ACTIVE | THREAT LEVEL: LOW | FIREWALL: ENABLED | IDS: ACTIVE | IPS: ACTIVE</span>
+
+        <!-- Cyber Security News Ticker - BOTTOM -->
+        <div class="cyber-ticker cyber-ticker-bottom" aria-hidden="true">
+            <div class="cyber-ticker-track">
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-lightning-fill"></i>LIVE: 1,247 Phishing Attempts Blocked Today</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-virus"></i>Real-Time Malware Scan: Running</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-arrow-repeat"></i>Signature Database Updated</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>VPN Secure Tunnel: Connected</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>Quantum-Resistant Crypto: Ready</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-database"></i>Backups Verified: Daily 00:30 UTC</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>Credential Vault: Sealed</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-broadcast"></i>SIEM Monitoring: 156 Nodes</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-wifi"></i>Secure Channel: TLS 1.3</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>Compliance Audit: Passed</span>
+                </div>
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-lightning-fill"></i>LIVE: 1,247 Phishing Attempts Blocked Today</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-virus"></i>Real-Time Malware Scan: Running</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-arrow-repeat"></i>Signature Database Updated</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>VPN Secure Tunnel: Connected</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>Quantum-Resistant Crypto: Ready</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-database"></i>Backups Verified: Daily 00:30 UTC</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>Credential Vault: Sealed</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-broadcast"></i>SIEM Monitoring: 156 Nodes</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-wifi"></i>Secure Channel: TLS 1.3</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>Compliance Audit: Passed</span>
+                </div>
+                <div class="cyber-ticker-group">
+                    <span class="cyber-ticker-item"><i class="bi bi-lightning-fill"></i>LIVE: 1,247 Phishing Attempts Blocked Today</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-virus"></i>Real-Time Malware Scan: Running</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-arrow-repeat"></i>Signature Database Updated</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-lock-fill"></i>VPN Secure Tunnel: Connected</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-shield-check"></i>Quantum-Resistant Crypto: Ready</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-database"></i>Backups Verified: Daily 00:30 UTC</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-key"></i>Credential Vault: Sealed</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-broadcast"></i>SIEM Monitoring: 156 Nodes</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-wifi"></i>Secure Channel: TLS 1.3</span>
+                    <span class="cyber-ticker-item"><i class="bi bi-patch-check"></i>Compliance Audit: Passed</span>
+                </div>
+            </div>
         </div>
 
         <!-- Matrix Binary Rain Background -->
