@@ -642,7 +642,7 @@
     .about-image { position: relative; display: flex; justify-content: center; align-items: center; }
     .about-name-highlight { color: var(--accent-light); font-weight: 700; }
     .about-image .img-wrapper {
-        width: 320px; height: 320px; border-radius: 32px; overflow: hidden;
+        width: 320px; height: 320px; border-radius: 50%; overflow: hidden;
         border: 3px solid rgba(0, 217, 255, 0.25); position: relative;
         background: linear-gradient(135deg, #1e293b, #111827);
         display: flex; align-items: center; justify-content: center;
@@ -658,7 +658,7 @@
 
     /* ===== About Cyber Security Animations ===== */
     .about-cyber-grid {
-        position: absolute; inset: 0; border-radius: 32px;
+        position: absolute; inset: 0; border-radius: 50%;
         background-image:
             linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
             linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
@@ -677,6 +677,7 @@
     .about-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; border-top-right-radius: 10px; }
     .about-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; border-bottom-left-radius: 10px; }
     .about-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; border-bottom-right-radius: 10px; }
+    .about-corner { display: none; }
     .about-scan { position: absolute; left: 12px; right: 12px; height: 3px; z-index: 2;
         background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.65), rgba(0, 217, 255, 0.8), transparent);
         animation: aboutScan 3s ease-in-out infinite;
@@ -753,7 +754,7 @@
     .about-image .glow-ring {
         position: absolute; width: 340px; height: 340px;
         top: 50%; left: 50%; transform: translate(-50%, -50%);
-        border-radius: 32px; border: 2px solid rgba(0, 217, 255, 0.15);
+        border-radius: 50%; border: 2px solid rgba(0, 217, 255, 0.15);
         animation: rotateRing 8s linear infinite;
     }
     @keyframes rotateRing {
@@ -3464,8 +3465,8 @@
         .skills-grid { animation-duration: 20s; }
         
         .about-grid { gap: 2rem; }
-        .about-image .img-wrapper { width: 150px; height: 150px; border-radius: 24px; }
-        .about-image .glow-ring { width: 170px; height: 170px; border-radius: 24px; }
+        .about-image .img-wrapper { width: 150px; height: 150px; border-radius: 50%; }
+        .about-image .glow-ring { width: 170px; height: 170px; border-radius: 50%; }
         .about-stats .stat-item { padding: 0.8rem 0.6rem; }
         .stat-item .stat-icon { width: 32px; height: 32px; font-size: 0.85rem; margin-bottom: 0.5rem; }
         .about-stats .stat-item .number { font-size: 1.4rem; }
@@ -3718,7 +3719,7 @@
                     <div class="about-cyber-grid"></div>
                     <div class="glow-ring"></div>
                     <div class="img-wrapper">
-                        <img src="{{ config('app.storage_url') }}{{ optional($account)->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 32px;">
+                        <img src="{{ config('app.storage_url') }}{{ optional($account)->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
                     </div>
                     <span class="about-corner tl"></span>
                     <span class="about-corner tr"></span>
