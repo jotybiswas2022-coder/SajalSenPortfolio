@@ -98,7 +98,7 @@
                             <div>
                                 <img id="preview"
                                      @if(isset($account) && $account->image)
-                                         src="{{ asset('storage/' . $account->image) }}"
+                                         src="{{ config('app.storage_url') }}{{ $account->image }}"
                                      @else
                                          src=""
                                      @endif
@@ -199,7 +199,7 @@
                         <div class="form-text mt-1">Maximum 5MB. Accepted: PDF, DOC, DOCX.</div>
                         @if(isset($account) && $account->cv)
                             <div class="mt-3 d-flex align-items-center gap-3 flex-wrap">
-                                <a href="{{ asset('storage/' . $account->cv) }}"
+                                <a href="{{ config('app.storage_url') }}{{ $account->cv }}"
                                    target="_blank" class="btn btn-sm btn-outline-primary rounded-3 px-3">
                                     <i class="bi bi-eye me-1"></i> View Current CV
                                 </a>
