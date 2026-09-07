@@ -655,6 +655,101 @@
         33% { transform: translateY(-10px); }
         66% { transform: translateY(5px); }
     }
+
+    /* ===== About Cyber Security Animations ===== */
+    .about-cyber-grid {
+        position: absolute; inset: 0; border-radius: 32px;
+        background-image:
+            linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
+        background-size: 34px 34px;
+        -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,0,0,0.6), transparent 75%);
+        mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0,0,0,0.6), transparent 75%);
+        pointer-events: none;
+    }
+    .about-corner {
+        position: absolute; width: 26px; height: 26px;
+        border: 2px solid rgba(0, 217, 255, 0.55);
+        z-index: 3; pointer-events: none;
+        filter: drop-shadow(0 0 6px rgba(0, 217, 255, 0.5));
+    }
+    .about-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; border-top-left-radius: 10px; }
+    .about-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; border-top-right-radius: 10px; }
+    .about-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; border-bottom-left-radius: 10px; }
+    .about-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; border-bottom-right-radius: 10px; }
+    .about-scan { position: absolute; left: 12px; right: 12px; height: 3px; z-index: 2;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.65), rgba(0, 217, 255, 0.8), transparent);
+        animation: aboutScan 3s ease-in-out infinite;
+        filter: drop-shadow(0 0 6px rgba(0, 255, 136, 0.6));
+        border-radius: 2px;
+    }
+    @keyframes aboutScan {
+        0% { top: 14%; opacity: 0; }
+        12% { opacity: 1; }
+        88% { opacity: 1; }
+        100% { top: 86%; opacity: 0; }
+    }
+    .about-verify-badge {
+        position: absolute; z-index: 3; right: -10px; bottom: 22px;
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        padding: 0.5rem 0.95rem;
+        background: rgba(6, 30, 22, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 255, 136, 0.35);
+        border-radius: 50px;
+        font-size: 0.72rem; font-weight: 700; letter-spacing: 0.4px;
+        color: #00ff88;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+        animation: float 4s ease-in-out infinite;
+        white-space: nowrap;
+    }
+    html.light-theme .about-verify-badge {
+        background: rgba(255, 255, 255, 0.95);
+        border-color: rgba(8, 145, 178, 0.4);
+        color: #0d9488;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    }
+    .about-verify-badge .pulse-dot {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: #00ff88;
+        box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6);
+        animation: pulseDot 1.6s ease-out infinite;
+    }
+    html.light-theme .about-verify-badge .pulse-dot { background: #0d9488; box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.5); }
+    @keyframes pulseDot {
+        0% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6); }
+        70% { box-shadow: 0 0 0 9px rgba(0, 255, 136, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0); }
+    }
+    .about-status {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.4rem 0.9rem; margin-bottom: 1.1rem;
+        background: rgba(0, 255, 136, 0.06);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 50px;
+        font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px;
+        color: #00ff88;
+    }
+    html.light-theme .about-status {
+        background: rgba(8, 145, 178, 0.06);
+        border-color: rgba(8, 145, 178, 0.25);
+        color: #0d9488;
+    }
+    .about-status .cursor-blink {
+        width: 8px; height: 8px; border-radius: 2px;
+        background: currentColor;
+        animation: blinkCursor 1s steps(2, start) infinite;
+    }
+    @keyframes blinkCursor {
+        to { visibility: hidden; }
+    }
+    @keyframes aboutDataScroll {
+        0% { transform: translateY(0); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(-14px); opacity: 0; }
+    }
+    .about-image .img-wrapper { animation: float 6s ease-in-out infinite; }
     .about-image .glow-ring {
         position: absolute; width: 340px; height: 340px;
         top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -3389,13 +3484,25 @@
             </div>
             <div class="about-grid">
                 <div class="about-image reveal reveal-delay-1">
+                    <div class="about-cyber-grid"></div>
                     <div class="glow-ring"></div>
                     <div class="img-wrapper">
                         <img src="{{ config('app.storage_url') }}{{ optional($account)->image }}" alt="{{ optional($account)->name ?? 'Portfolio' }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 32px;">
                     </div>
+                    <span class="about-corner tl"></span>
+                    <span class="about-corner tr"></span>
+                    <span class="about-corner bl"></span>
+                    <span class="about-corner br"></span>
+                    <div class="about-scan"></div>
+                    <div class="about-verify-badge">
+                        <span class="pulse-dot"></span>
+                        <i class="bi bi-shield-lock-fill"></i>
+                        IDENTITY VERIFIED
+                    </div>
                 </div>
                 <div class="about-text reveal reveal-delay-2">
                     <div class="about-text-main">
+                        <div class="about-status"><span class="cursor-blink"></span> SECURITY MONITOR: ONLINE</div>
                         <h3>{{ __('messages.about_heading') }}</h3>
                         <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
                         <p>{{ __('messages.about_desc_2') }}</p>
