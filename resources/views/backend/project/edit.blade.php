@@ -131,23 +131,44 @@
                         <div class="ae-head-title"><i class="bi bi-image"></i> Project Image</div>
                     </div>
                     <div class="ae-card-body">
-                        @if($project->image)
-                            <div class="mb-3">
-                                <img src="{{ config('app.storage_url') }}{{ $project->image }}"
-                                     alt="{{ $project->title }}"
-                                     class="rounded"
-                                     style="max-width:300px;max-height:180px;object-fit:cover;border:1.5px solid var(--admin-border);">
-                                <button type="button" onclick="confirmDeleteImage()" class="ae-btn ae-btn-ghost mt-2" style="color:#ef4444;border-color:#ef4444;">
-                                    <i class="bi bi-trash3"></i> Delete Image
+                        <div class="d-flex align-items-center gap-3 flex-wrap">
+                            <div>
+                                @if($project->image)
+                                    <div class="d-flex align-items-start gap-2">
+                                        <img src="{{ config('app.storage_url') }}{{ $project->image }}"
+                                             id="preview"
+                                             alt="{{ $project->title }}"
+                                             class="rounded shadow-sm"
+                                             style="width:120px;height:80px;object-fit:cover;border:1px solid rgba(0,217,255,0.3);">
+                                        <button type="button" onclick="confirmDeleteImage()" id="deleteSavedImageBtn" class="ae-action-btn delete" title="Delete saved image">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+                                    </div>
+                                    <div id="previewPlaceholder" style="display:none;"
+                                         class="rounded d-inline-flex align-items-center justify-content-center"
+                                         style="width:120px;height:80px;background:var(--admin-bg-soft);color:var(--admin-text-muted);font-size:2rem;border:1px dashed var(--admin-border);">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                @else
+                                    <div id="previewPlaceholder"
+                                         class="rounded d-inline-flex align-items-center justify-content-center"
+                                         style="width:120px;height:80px;background:var(--admin-bg-soft);color:var(--admin-text-muted);font-size:2rem;border:1px dashed var(--admin-border);">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                    <img id="preview" src="" style="display:none;width:120px;height:80px;object-fit:cover;"
+                                         class="rounded shadow-sm">
+                                @endif
+                                <button type="button" onclick="removeImage()" id="removeImageBtn" title="Remove selected image" style="display:none;"
+                                        class="ae-action-btn delete">
+                                    <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
-                        @endif
-                        <input type="file" accept="image/*" name="image"
-                               class="form-control ae-input-modern @error('image') is-invalid @enderror"
-                               onchange="previewImage(event)">
-                        @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
-                        <div class="mt-2">
-                            <img id="preview" src="" class="rounded" style="display:none;max-width:300px;max-height:180px;object-fit:cover;border:1.5px solid var(--admin-border);">
+                            <div>
+                                <input type="file" accept="image/*" id="image" name="image"
+                                       class="form-control ae-input-modern @error('image') is-invalid @enderror"
+                                       onchange="previewImage(event)">
+                                @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -168,13 +189,37 @@
 
 @section('scripts')
 <script>
+const savedImageUrl = {!! json_encode($project->image ? config('app.storage_url').$project->image : null) !!};
+
 function previewImage(event) {
     const input = event.target;
     const preview = document.getElementById('preview');
+    const placeholder = document.getElementById('previewPlaceholder');
+    const removeBtn = document.getElementById('removeImageBtn');
     if (input.files && input.files[0]) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
+        if (placeholder) placeholder.style.display = 'none';
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
     }
+}
+function removeImage() {
+    const input = document.getElementById('image');
+    const preview = document.getElementById('preview');
+    const placeholder = document.getElementById('previewPlaceholder');
+    const removeBtn = document.getElementById('removeImageBtn');
+    const delSavedBtn = document.getElementById('deleteSavedImageBtn');
+    if (input) input.value = '';
+    if (savedImageUrl) {
+        preview.src = savedImageUrl;
+        preview.style.display = 'inline-block';
+        if (placeholder) placeholder.style.display = 'none';
+        if (delSavedBtn) delSavedBtn.style.display = 'inline-flex';
+    } else {
+        if (preview) { preview.src = ''; preview.style.display = 'none'; }
+        if (placeholder) placeholder.style.display = 'inline-flex';
+    }
+    if (removeBtn) removeBtn.style.display = 'none';
 }
 function confirmDeleteImage() {
     Swal.fire({
