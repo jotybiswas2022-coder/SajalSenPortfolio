@@ -34,11 +34,13 @@
     background: linear-gradient(90deg, transparent, var(--ae-green), var(--ae-cyan), transparent);
     background-size: 60% 100%; background-repeat: no-repeat;
     animation: aeSweep 4s linear infinite;
+    pointer-events: none;
 }
 .ae-page-header::after {
     content: ''; position: absolute; top: -40px; right: -40px;
     width: 160px; height: 160px; border-radius: 50%;
     background: radial-gradient(circle, rgba(0,217,255,0.15), transparent 70%);
+    pointer-events: none;
 }
 @keyframes aeSweep { 0% { background-position: -60% 0; } 100% { background-position: 160% 0; } }
 .ae-title {
@@ -60,6 +62,7 @@
     display: inline-flex; align-items: center; justify-content: center; gap: 0.45rem;
     border-radius: 10px; font-weight: 600; font-size: 0.85rem;
     transition: all .2s ease; border: none; cursor: pointer;
+    text-decoration: none;
 }
 .ae-btn-primary {
     background: linear-gradient(135deg, var(--ae-cyan), var(--ae-cyan-d));
