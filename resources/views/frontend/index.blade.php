@@ -1476,6 +1476,7 @@
         pointer-events: none;
         z-index: 3;
     }
+    .hero > .section-divider { bottom: 5.5rem; }
     html.light-theme .section-divider {
         background: linear-gradient(90deg,
             transparent 0%,
