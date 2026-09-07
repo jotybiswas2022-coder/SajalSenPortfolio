@@ -409,15 +409,15 @@
     }
     @media (max-width: 768px) {
         .cyber-ticker { font-size: 0.58rem; height: 22px; }
-        .cyber-ticker-left { width: 26%; transform: translateY(-50%) rotate(-45deg); }
-        .cyber-ticker-right { width: 26%; transform: translateY(-50%) rotate(45deg); }
+        .cyber-ticker-left { top: 56%; left: -7%; width: 42%; transform: translateY(-50%) rotate(-30deg); transform-origin: left center; }
+        .cyber-ticker-right { top: 56%; right: -7%; width: 42%; transform: translateY(-50%) rotate(30deg); transform-origin: right center; }
         .cyber-ticker-item { padding: 0 1rem 0 0; margin-right: 0.4rem; }
         .cyber-ticker-item::after { right: -0.1rem; }
     }
     @media (max-width: 480px) {
         .cyber-ticker { font-size: 0.55rem; height: 20px; }
-        .cyber-ticker-left { width: 22%; transform: translateY(-50%) rotate(-45deg); }
-        .cyber-ticker-right { width: 22%; transform: translateY(-50%) rotate(45deg); }
+        .cyber-ticker-left { top: 54%; left: -14%; width: 50%; transform: translateY(-50%) rotate(-30deg); transform-origin: left center; }
+        .cyber-ticker-right { top: 54%; right: -14%; width: 50%; transform: translateY(-50%) rotate(30deg); transform-origin: right center; }
     }
 
     /* Matrix Binary Rain Background */
