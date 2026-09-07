@@ -52,13 +52,13 @@ return [
 
     // Experience
     'experience_title'    => 'Work Experience',
-    'experience_subtitle' => 'My professional journey',
+    'experience_subtitle' => 'My professional security journey',
     'no_experience'       => 'No Experience Yet',
     'no_experience_desc'  => 'Experience details coming soon!',
 
     // Skills
     'skills_title'    => 'My Skills',
-    'skills_subtitle' => 'Technologies I work with',
+    'skills_subtitle' => 'Security technologies I work with',
     'no_skills'       => 'No Skills Added Yet',
     'no_skills_desc'  => 'Skills data coming soon!',
 
@@ -73,7 +73,7 @@ return [
 
     // Testimonials
     'testimonials_title'    => 'What Clients Say',
-    'testimonials_subtitle' => 'Testimonials from people I\'ve worked with',
+    'testimonials_subtitle' => 'Security partners I have worked with',
     'no_testimonials'       => 'No Testimonials Yet',
     'no_testimonials_desc'  => 'Testimonials coming soon!',
 
@@ -109,12 +109,12 @@ return [
 
     // Case Studies
     'casestudy_title'    => 'Case Studies',
-    'casestudy_subtitle' => 'Real IT projects. Real challenges. Real outcomes.',
+    'casestudy_subtitle' => 'Threat dissections and defense strategies in action.',
     'problem'            => 'Problem',
     'solution'           => 'Solution',
     'result'             => 'Result',
     'view_project'       => 'View Project',
-    'casestudy_cta'      => 'See how Infinite IT transforms business problems into competitive advantages.',
+    'casestudy_cta'      => 'See how proactive defense turns cyber risks into resilient, hardened systems.',
     'start_project'      => 'Start Your Project',
     'back'               => 'Back',
     'technologies_used'  => 'Technologies Used',
@@ -126,7 +126,7 @@ return [
 
     // Gigs
     'gigs_title'       => 'Pricing Plans',
-    'gigs_subtitle'    => 'Choose the perfect package for your project',
+    'gigs_subtitle'    => 'Choose the perfect security package for your defense needs',
     'no_gigs'          => 'No Gigs Added Yet',
     'no_gigs_desc'     => 'Gig data coming soon!',
     'back_to_gigs'       => 'Back to Gigs',
@@ -134,7 +134,7 @@ return [
     'premium_service'    => 'Premium Service',
     'about_this_gig'     => 'About This Gig',
     'pricing_plans'      => 'Choose Your Plan',
-    'choose_package'     => 'Select the perfect package for your project needs',
+    'choose_package'     => 'Select the perfect security package for your defense needs',
     'starter_package'    => 'Starter Package',
     'popular'            => 'Popular',
     'best_value'         => 'Best Value',
@@ -147,7 +147,7 @@ return [
     // Inbox
     'inbox'                 => 'Inbox',
     'no_conversations'      => 'No Conversations Yet',
-    'no_conversations_desc' => 'Order a gig to start a conversation with an admin.',
+    'no_conversations_desc' => 'Start a security inquiry to connect with me directly.',
     'browse_gigs'           => 'Browse Gigs',
     'package_details'       => 'Package Details',
     'no_messages_yet'       => 'No messages yet. Start the conversation!',
