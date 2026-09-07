@@ -473,7 +473,9 @@
         .ae-card .ae-card-head::after { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: linear-gradient(180deg, #00d9ff, #00ff88); }
         .ae-card .ae-head-title { font-weight: 700; color: var(--admin-text); font-size: 1rem; margin: 0; display: flex; align-items: center; gap: 0.6rem; }
         .ae-card .ae-head-title i { color: #00d9ff; }
-        .ae-card .ae-head-tag { font-size: 0.68rem; color: #00d9ff; font-weight: 600; background: rgba(0,217,255,0.1); padding: 0.2rem 0.6rem; border-radius: 50px; }
+.ae-card .ae-head-tag { font-size: 0.68rem; color: #00d9ff; 
+font-weight: 600; background: rgba(0,217,255,0.1); padding: 0.2rem 0.6rem; border-radius: 50px; }
+        .ae-tag-tier { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; padding: 0.2rem 0.65rem; border-radius: 50px; border: 1px solid; margin-right: 0.4rem; vertical-align: middle; }
         .ae-card .ae-card-body { padding: 1.5rem; }
         .ae-form-label { font-weight: 600; font-size: 0.82rem; color: var(--admin-text); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.3rem; }
         .ae-input-modern { border: 1.5px solid var(--admin-border); border-radius: 10px; padding: 0.62rem 1rem; font-size: 0.9rem; transition: border-color .2s, box-shadow .2s; background: var(--admin-bg-soft); color: var(--admin-text); }

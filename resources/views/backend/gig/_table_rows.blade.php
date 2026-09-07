@@ -12,13 +12,12 @@
                 <h5>{{ $gig->title }}</h5>
                 <span class="gig-id">#{{ $loop->iteration }}</span>
             </div>
-            <div class="gig-card-actions">
-                <a href="{{ route('admin.gigs.edit', $gig->id) }}" class="btn-icon" title="Edit">
+            <div class="d-flex gap-1">
+                <a href="{{ route('admin.gigs.edit', $gig->id) }}" class="ae-action-btn edit" title="Edit">
                     <i class="bi bi-pencil"></i>
                 </a>
-                <button type="button" class="btn-icon danger delete-btn"
-                        data-id="{{ $gig->id }}"
-                        data-title="{{ $gig->title }}" title="Delete">
+                <button type="button" class="ae-action-btn delete delete-btn"
+                        data-id="{{ $gig->id }}" data-title="{{ $gig->title }}" title="Delete">
                     <i class="bi bi-trash"></i>
                 </button>
                 <form id="delete-form-{{ $gig->id }}"
@@ -48,25 +47,20 @@
         </div>
 
         <div class="gig-card-footer">
-            <div class="footer-left">
-                <span class="order-badge"><i class="bi bi-sort-numeric-up"></i> Order {{ $gig->sort_order }}</span>
-            </div>
+            <span class="order-badge"><i class="bi bi-sort-numeric-up"></i> Order {{ $gig->sort_order }}</span>
             <a href="{{ route('admin.gigs.toggleStatus', $gig->id) }}"
                class="status-toggle {{ $gig->is_active ? 'active' : 'inactive' }}"
                data-title="{{ $gig->title }}">
-                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }} me-1"></i>
+                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }}"></i>
                 {{ $gig->is_active ? 'Active' : 'Inactive' }}
             </a>
         </div>
     </div>
 @empty
-    <div class="text-center py-5" style="grid-column:1/-1;">
-        <div class="empty-state">
-            <div style="width:72px;height:72px;border-radius:18px;background:rgba(0,217,255,0.08);display:flex;align-items:center;justify-content:center;margin:0 auto 1.2rem;">
-                <i class="bi bi-search" style="font-size:2rem;color:#00d9ff;"></i>
-            </div>
-            <div class="fw-semibold fs-5 mb-2" style="color:#111827;">No Gigs Found</div>
-            <p class="text-muted mb-0" style="font-size:0.9rem;">Try adjusting your search terms.</p>
+    <div class="ae-table-card" style="grid-column:1/-1;">
+        <div class="text-center py-5">
+            <i class="bi bi-search" style="font-size:2rem;color:var(--admin-text-muted);display:block;margin-bottom:0.5rem;"></i>
+            <p class="ae-note mb-0">No gigs found. Try adjusting your search.</p>
         </div>
     </div>
 @endforelse
