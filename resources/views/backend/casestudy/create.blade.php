@@ -132,13 +132,19 @@
                     <div class="ae-card-body">
                         <div class="d-flex align-items-center gap-3 flex-wrap">
                             <div>
-                                <div id="previewPlaceholder"
-                                     class="rounded d-inline-flex align-items-center justify-content-center"
-                                     style="width:120px; height:80px; background:var(--admin-bg-soft); color:var(--admin-text-muted); font-size:2rem; border:1px dashed var(--admin-border);">
-                                    <i class="bi bi-image"></i>
+                                <div class="d-flex align-items-start gap-2">
+                                    <div id="previewPlaceholder"
+                                         class="rounded d-inline-flex align-items-center justify-content-center"
+                                         style="width:120px; height:80px; background:var(--admin-bg-soft); color:var(--admin-text-muted); font-size:2rem; border:1px dashed var(--admin-border);">
+                                        <i class="bi bi-image"></i>
+                                    </div>
+                                    <img id="preview" src="" style="display:none; width:120px; height:80px; object-fit:cover;"
+                                         class="rounded shadow-sm">
+                                    <button type="button" onclick="removeImage()" id="removeImageBtn" title="Remove image" style="display:none;"
+                                            class="ae-action-btn delete">
+                                        <i class="bi bi-trash3"></i>
+                                    </button>
                                 </div>
-                                <img id="preview" src="" style="display:none; width:120px; height:80px; object-fit:cover;"
-                                     class="rounded shadow-sm">
                             </div>
                             <div>
                                 <input type="file" accept="image/*" id="image" name="image"
@@ -180,11 +186,23 @@ function previewImage(event) {
     const input = event.target;
     const preview = document.getElementById('preview');
     const placeholder = document.getElementById('previewPlaceholder');
+    const removeBtn = document.getElementById('removeImageBtn');
     if (input.files && input.files[0]) {
         preview.src = URL.createObjectURL(input.files[0]);
         preview.style.display = 'inline-block';
         if (placeholder) placeholder.style.display = 'none';
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
     }
+}
+function removeImage() {
+    const input = document.getElementById('image');
+    const preview = document.getElementById('preview');
+    const placeholder = document.getElementById('previewPlaceholder');
+    const removeBtn = document.getElementById('removeImageBtn');
+    if (input) input.value = '';
+    if (preview) { preview.src = ''; preview.style.display = 'none'; }
+    if (placeholder) placeholder.style.display = 'inline-flex';
+    if (removeBtn) removeBtn.style.display = 'none';
 }
 </script>
 @endsection
