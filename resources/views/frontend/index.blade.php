@@ -362,15 +362,15 @@
         border-bottom: 1px solid rgba(2, 132, 199, 0.1);
     }
     .cyber-ticker-left {
-        top: 65%;
-        left: 15%;
+        top: 57%;
+        left: 12%;
         width: 30%;
-        transform: translateY(-50%) rotate(45deg);
+        transform: translateY(-50%) rotate(-45deg);
         transform-origin: left center;
     }
     .cyber-ticker-right {
-        top: 60%;
-        right: 15%;
+        top: 57%;
+        right: 12%;
         width: 30%;
         transform: translateY(-50%) rotate(45deg);
         transform-origin: right center;
