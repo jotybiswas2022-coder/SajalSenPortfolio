@@ -134,7 +134,7 @@
     html.light-theme .project-card {
         background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
     }
-    html.light-theme .timeline-card,
+    html.light-theme .cyber-card,
     html.light-theme .contact-form,
     html.light-theme .contact-item,
     html.light-theme .testimonial-card,
@@ -1764,79 +1764,167 @@
         .casestudy-body { padding: 1.25rem; }
     }
 
-    /* Timeline section */
-    .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080b12 100%); }
-    html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
-    .timeline { position: relative; max-width: 900px; margin: 0 auto; padding: 1rem 0; }
-    .timeline-line {
-        position: absolute; left: 50%; top: 0; bottom: 0; width: 2px;
-        background: linear-gradient(180deg, transparent, rgba(0,217,255,0.3), rgba(0,217,255,0.5), rgba(0,217,255,0.3), transparent);
-        transform: translateX(-50%);
+    /* ─── Cyber-security work experience feed ─── */
+    .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #05080f 100%); }
+    html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
+    .cyber-feed {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0.5rem 0;
     }
-    .timeline-item { position: relative; width: 50%; padding: 1.5rem 2.5rem; }
-    .timeline-item.left { left: 0; text-align: right; padding-right: 3rem; }
-    .timeline-item.right { left: 50%; text-align: left; padding-left: 3rem; }
-    .timeline-dot {
-        position: absolute; width: 46px; height: 46px;
-        background: var(--accent-gradient); border-radius: 50%;
+    .cyber-grid {
+        position: absolute; inset: -30px 0;
+        pointer-events: none;
+        background-image:
+            linear-gradient(rgba(0, 217, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.045) 1px, transparent 1px);
+        background-size: 42px 42px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 0%, black 30%, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 60% at 50% 0%, black 30%, transparent 80%);
+    }
+    .cyber-line {
+        position: absolute; left: 19px; top: 0; bottom: 0;
+        width: 2px;
+        background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.55), rgba(0, 255, 136, 0.45), rgba(0, 217, 255, 0.55), transparent);
+        box-shadow: 0 0 14px rgba(0, 217, 255, 0.35);
+    }
+    .cyber-line::after {
+        content: ''; position: absolute; left: 50%; top: 0; width: 7px; height: 7px;
+        transform: translateX(-50%) rotate(45deg);
+        background: #00ff88; box-shadow: 0 0 10px #00ff88;
+        animation: cyberPacket 2.8s linear infinite;
+    }
+    @keyframes cyberPacket {
+        0%   { top: -10px; opacity: 0; }
+        8%   { opacity: 1; }
+        92%  { opacity: 1; }
+        100% { top: 100%; opacity: 0; }
+    }
+
+    .cyber-entry { position: relative; padding-left: 60px; margin-bottom: 2rem; }
+    .cyber-entry:last-child { margin-bottom: 0; }
+    .cyber-node {
+        position: absolute; left: 0; top: 1.3rem;
+        width: 40px; height: 40px; border-radius: 10px;
         display: flex; align-items: center; justify-content: center;
-        color: #fff; font-size: 1.1rem; z-index: 2;
-        box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
-        border: 3px solid var(--bg-primary);
+        font-size: 1rem; z-index: 2;
+        color: #00d9ff;
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.16), rgba(0, 255, 136, 0.06));
+        border: 1px solid rgba(0, 217, 255, 0.45);
+        box-shadow: 0 0 18px rgba(0, 217, 255, 0.18);
     }
-    .timeline-item.left .timeline-dot { right: -23px; top: 1.8rem; }
-    .timeline-item.right .timeline-dot { left: -23px; top: 1.8rem; }
-    .timeline-card {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg); padding: 1.5rem;
-        transition: var(--transition); position: relative; overflow: hidden;
+    .cyber-entry.live .cyber-node {
+        color: #00ff88;
+        border-color: rgba(0, 255, 136, 0.5);
+        background: linear-gradient(135deg, rgba(0, 255, 136, 0.14), rgba(0, 217, 255, 0.06));
+        animation: cyberNodePulse 2.2s ease-in-out infinite;
     }
-    .timeline-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0,217,255,0.5) 0%, rgba(0,217,255,0.2) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
+    @keyframes cyberNodePulse {
+        0%, 100% { box-shadow: 0 0 14px rgba(0, 255, 136, 0.2); }
+        50%       { box-shadow: 0 0 30px rgba(0, 255, 136, 0.45); }
     }
-    .timeline-card:hover::before { opacity: 1; }
-    html.light-theme .timeline-card::before {
-        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%), rgba(0,217,255,0.4) 0%, rgba(0,217,255,0.15) 30%, transparent 60%);
+    .cyber-node::after {
+        content: ''; position: absolute; inset: -7px;
+        border-radius: 13px;
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        animation: cyberRadar 2.4s ease-out infinite;
     }
-    .timeline-card:hover {
-        border-color: var(--border-hover); transform: translateY(-5px);
-        box-shadow: var(--shadow-md);
+    .cyber-entry.live .cyber-node::after { border-color: rgba(0, 255, 136, 0.45); }
+    @keyframes cyberRadar {
+        0%   { transform: scale(0.72); opacity: 0.9; }
+        100% { transform: scale(1.4); opacity: 0; }
     }
-    .timeline-date {
-        display: inline-flex; align-items: center; gap: 0.3rem;
-        font-size: 0.78rem; color: var(--accent-light); font-weight: 600;
+
+    .cyber-card {
+        position: relative; overflow: hidden;
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-left: 3px solid #00d9ff;
+        border-radius: var(--radius-lg);
+        padding: 1.35rem 1.5rem;
+        transition: var(--transition);
+    }
+    .cyber-entry.live .cyber-card { border-left-color: #00ff88; }
+    .cyber-card::before {
+        content: ''; position: absolute; top: 0; left: -110%;
+        width: 55%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.07), transparent);
+        transform: skewX(-20deg);
+        transition: left 0.7s ease;
+        pointer-events: none;
+    }
+    .cyber-card:hover::before { left: 170%; }
+    .cyber-card::after {
+        content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 100%;
+        background: linear-gradient(90deg, #00d9ff, #00ff88);
+        transform: scaleX(0); transform-origin: left;
+        transition: transform 0.5s ease;
+    }
+    .cyber-entry.live .cyber-card::after { background: linear-gradient(90deg, #00ff88, #00d9ff); }
+    .cyber-card:hover::after { transform: scaleX(1); }
+    .cyber-card:hover {
+        border-color: var(--border-hover);
+        border-left-color: #00d9ff;
+        transform: translateY(-4px);
+        box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.15), var(--shadow-md);
+    }
+    html.light-theme .cyber-card { border-left-color: #0891b2; }
+
+    .cyber-card-top {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.6rem;
+    }
+    .cyber-date {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 0.74rem; font-weight: 600;
+        color: var(--accent-light); letter-spacing: 0.02em;
         background: rgba(0, 217, 255, 0.08);
-        padding: 0.25rem 0.9rem; border-radius: 20px; margin-bottom: 0.6rem;
+        border: 1px solid rgba(0, 217, 255, 0.16);
+        padding: 0.25rem 0.8rem; border-radius: 6px;
     }
-    .current-badge {
-        display: inline-block; font-size: 0.6rem; font-weight: 700;
-        background: #10b981; color: #fff;
-        padding: 0.2rem 0.6rem; border-radius: 20px;
-        margin-left: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;
+    .cyber-date::before { content: '$'; color: #00ff88; font-weight: 700; margin-right: 0.15rem; }
+    html.light-theme .cyber-date::before { color: #059669; }
+    .cyber-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        text-transform: uppercase; letter-spacing: 0.08em;
+        font-size: 0.6rem; font-weight: 700;
+        color: var(--text-muted);
+        background: rgba(148, 163, 184, 0.12);
+        border: 1px solid rgba(148, 163, 184, 0.28);
+        padding: 0.26rem 0.7rem; border-radius: 6px;
     }
-    .timeline-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
-    .timeline-company { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.8rem; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
-    .timeline-item.left .timeline-company { justify-content: flex-end; }
-    .timeline-location { font-size: 0.82rem; color: var(--text-muted); }
-    .timeline-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0; }
-    .timeline-item.left .timeline-card p { text-align: right; }
+    .cyber-status.live { color: #00ff88; background: rgba(0, 255, 136, 0.1); border-color: rgba(0, 255, 136, 0.32); }
+    html.light-theme .cyber-status.live { color: #059669; background: rgba(16, 185, 129, 0.1); border-color: rgba(16, 185, 129, 0.3); }
+    .cyber-pulse { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 8px #00ff88; animation: cyberBlink 1.1s steps(2, start) infinite; }
+    html.light-theme .cyber-pulse { background: #059669; box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); }
+    @keyframes cyberBlink { 50% { opacity: 0.25; } }
+
+    .cyber-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.25rem; }
+    .cyber-company {
+        display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem;
+        font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 0.8rem;
+    }
+    .cyber-company i { color: #00d9ff; }
+    .cyber-entry.live .cyber-company i { color: #00ff88; }
+    html.light-theme .cyber-company i { color: #0891b2; }
+    html.light-theme .cyber-entry.live .cyber-company i { color: #059669; }
+    .cyber-location { font-size: 0.82rem; color: var(--text-muted); }
+    .cyber-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0; }
     @media (max-width: 768px) {
-        .timeline-line { left: 28px; }
-        .timeline-item { width: 100%; padding: 1rem 0 1rem 4rem !important; text-align: left !important; }
-        .timeline-item.left { left: 0; padding-right: 0; }
-        .timeline-item.right { left: 0; }
-        .timeline-item .timeline-dot { left: 6px !important; right: auto !important; width: 38px; height: 38px; font-size: 0.9rem; top: 1.5rem; }
-        .timeline-item.left .timeline-company { justify-content: flex-start; }
-        .timeline-item.left .timeline-card p { text-align: left; }
-        .timeline-card { padding: 1rem; }
-        .timeline-card h3 { font-size: 0.95rem; }
-        .timeline-company { font-size: 0.78rem; margin-bottom: 0.5rem; }
-        .timeline-card p { font-size: 0.78rem; line-height: 1.6; }
-        .timeline-date { font-size: 0.68rem; padding: 0.2rem 0.7rem; }
-        .current-badge { font-size: 0.55rem; }
-        .timeline-location { font-size: 0.72rem; }
+        .cyber-entry { padding-left: 3.4rem; }
+        .cyber-line { left: 12px; }
+        .cyber-node { width: 34px; height: 34px; font-size: 0.85rem; top: 1.2rem; }
+        .cyber-card { padding: 1rem; }
+        .cyber-card-top { gap: 0.3rem; }
+        .cyber-card h3 { font-size: 0.95rem; }
+        .cyber-company { font-size: 0.78rem; margin-bottom: 0.5rem; }
+        .cyber-card p { font-size: 0.78rem; line-height: 1.6; }
+        .cyber-date { font-size: 0.66rem; padding: 0.22rem 0.65rem; }
+        .cyber-status { font-size: 0.55rem; padding: 0.22rem 0.6rem; }
+        .cyber-location { font-size: 0.72rem; }
     }
 
     /* Skills section */
@@ -3598,13 +3686,15 @@
         .hero-badge { font-size: 0.68rem; padding: 0.35rem 0.9rem; margin-bottom: 1.2rem; gap: 0.4rem; }
         .hero-badge i { font-size: 0.8rem; }
         
-        .timeline-card { padding: 0.85rem; }
-        .timeline-card h3 { font-size: 0.88rem; }
-        .timeline-company { font-size: 0.72rem; margin-bottom: 0.4rem; }
-        .timeline-card p { font-size: 0.72rem; line-height: 1.5; }
-        .timeline-date { font-size: 0.62rem; padding: 0.15rem 0.6rem; }
-        .current-badge { font-size: 0.5rem; padding: 0.15rem 0.5rem; }
-        .timeline-location { font-size: 0.68rem; }
+        .cyber-entry { padding-left: 2.9rem; }
+        .cyber-node { width: 30px; height: 30px; font-size: 0.78rem; top: 1.1rem; }
+        .cyber-card { padding: 0.85rem; }
+        .cyber-card h3 { font-size: 0.88rem; }
+        .cyber-company { font-size: 0.72rem; margin-bottom: 0.4rem; }
+        .cyber-card p { font-size: 0.72rem; line-height: 1.5; }
+        .cyber-date { font-size: 0.62rem; padding: 0.15rem 0.6rem; }
+        .cyber-status { font-size: 0.5rem; padding: 0.15rem 0.5rem; }
+        .cyber-location { font-size: 0.68rem; }
 
         .skills-grid { gap: 1.2rem; }
         .skill-card .skill-circle { width: 100px; height: 100px; }
@@ -4166,28 +4256,29 @@
             </div>
 
             @if($experiences->isNotEmpty())
-                <div class="timeline reveal">
-                    <div class="timeline-line"></div>
+                <div class="cyber-feed reveal">
+                    <div class="cyber-grid"></div>
+                    <div class="cyber-line"></div>
 
-                    @foreach($experiences as $index => $exp)
-                        <div class="timeline-item {{ $index % 2 == 0 ? 'left' : 'right' }}">
-                            <div class="timeline-dot">
-                                <i class="bi bi-briefcase-fill"></i>
+                    @foreach($experiences as $exp)
+                        <div class="cyber-entry {{ $exp->is_current ? 'live' : '' }} reveal">
+                            <div class="cyber-node">
+                                <i class="bi {{ $exp->is_current ? 'bi-shield-fill-check' : 'bi-shield-fill' }}"></i>
                             </div>
-                            <div class="timeline-card">
-                                <div class="timeline-date">
-                                    <i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}
+                            <div class="cyber-card">
+                                <div class="cyber-card-top">
+                                    <span class="cyber-date"><i class="bi bi-calendar3 me-1"></i>{{ $exp->duration }}</span>
+                                    @if($exp->is_current)
+                                        <span class="cyber-status live"><span class="cyber-pulse"></span>{{ __('messages.current') }}</span>
+                                    @else
+                                        <span class="cyber-status"><i class="bi bi-check2-circle me-1"></i>Closed</span>
+                                    @endif
                                 </div>
-                                @if($exp->is_current)
-                                    <span class="current-badge">{{ __('messages.current') }}</span>
-                                @endif
                                 <h3>{{ $exp->position }}</h3>
-                                <div class="timeline-company">
+                                <div class="cyber-company">
                                     <i class="bi bi-building me-1"></i>{{ $exp->company }}
                                     @if($exp->location)
-                                        <span class="timeline-location ms-3">
-                                            <i class="bi bi-geo-alt me-1"></i>{{ $exp->location }}
-                                        </span>
+                                        <span class="cyber-location"><i class="bi bi-geo-alt me-1"></i>{{ $exp->location }}</span>
                                     @endif
                                 </div>
                                 @if($exp->description)
@@ -5589,7 +5680,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .timeline-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card';
+    var selectors = '.cs-step, .cyber-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
