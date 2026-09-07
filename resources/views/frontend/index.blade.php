@@ -434,8 +434,8 @@
     }
 
     /* Floating Chips */
-    .float-chip { position: absolute; display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.75rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; }
-    .float-chip i { color: #00ff88; font-size: 0.8rem; }
+    .float-chip { position: absolute; display: flex; align-items: center; justify-content: center; gap: 0.4rem; min-width: 148px; padding: 0.45rem 1rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.72rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; }
+    .float-chip i { color: #00ff88; font-size: 0.78rem; flex-shrink: 0; }
     .float-chip.c1 { top: 18%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
     .float-chip.c2 { top: 15%; left: 4%; animation: floatChip 6s ease-in-out infinite 1s; }
     .float-chip.c3 { bottom: 22%; left: 3%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
