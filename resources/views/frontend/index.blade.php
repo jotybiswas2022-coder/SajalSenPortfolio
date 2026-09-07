@@ -436,10 +436,10 @@
     /* Floating Chips */
     .float-chip { position: absolute; display: flex; align-items: center; justify-content: center; box-sizing: border-box; gap: 0.4rem; width: 158px; padding: 0.45rem 0.75rem; background: rgba(0, 20, 10, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 50px; font-size: 0.72rem; color: #00ff88; pointer-events: none; z-index: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .float-chip i { color: #00ff88; font-size: 0.78rem; flex-shrink: 0; }
-    .float-chip.c1 { top: 18%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
+    .float-chip.c1 { top: 18%; right: 5%; height: 26px; padding: 0 0.75rem; font-size: 0.68rem; animation: floatChip 5s ease-in-out infinite; }
     .float-chip.c2 { top: 15%; left: 4%; height: 26px; padding: 0 0.75rem; font-size: 0.68rem; animation: floatChip 6s ease-in-out infinite 1s; }
     .float-chip.c3 { bottom: 22%; left: 3%; height: 26px; padding: 0 0.75rem; font-size: 0.68rem; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
-    .float-chip.c4 { bottom: 25%; right: 3%; animation: floatChip 5.5s ease-in-out infinite 0.2s; }
+    .float-chip.c4 { bottom: 25%; right: 3%; height: 26px; padding: 0 0.75rem; font-size: 0.68rem; animation: floatChip 5.5s ease-in-out infinite 0.2s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
     /* Shimmer Text */
