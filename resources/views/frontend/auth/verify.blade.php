@@ -11,8 +11,8 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Space Grotesk + Hind Siliguri Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Space Grotesk + Noto Sans Bengali Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         if (localStorage.getItem('theme') === 'light') {
@@ -31,7 +31,7 @@
     html.light-theme .verify-text { color: #475569 !important; }
     html.light-theme .verify-text-small { color: #94a3b8 !important; }
 
-    body { font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif; background: #111827; margin:0; padding:0; overflow-x: hidden; }
+    body { font-family: 'Inter', 'Noto Sans Bengali', sans-serif; background: #111827; margin:0; padding:0; overflow-x: hidden; }
     .login-container { min-height: 100vh; display: flex; justify-content: center; align-items: center; position: relative; padding: 20px; }
     .login-container::before {
         content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
@@ -120,7 +120,10 @@
         .particle { animation: none; }
         .header-icon { transition: none; }
     }
-    </style>
+            h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', 'Noto Sans Bengali', sans-serif;
+        }
+</style>
 </head>
 <body>
     <div class="login-container">

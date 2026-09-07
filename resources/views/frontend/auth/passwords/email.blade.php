@@ -11,8 +11,8 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
 
-    <!-- Space Grotesk + Hind Siliguri Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Space Grotesk + Noto Sans Bengali Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <script>
         if (localStorage.getItem('theme') === 'light') {
@@ -30,7 +30,7 @@
     html.light-theme .login-input:focus { border-color: #00d9ff !important; box-shadow: 0 0 0 5px rgba(0,217,255,0.15) !important; }
     html.light-theme .instructions { color: #475569 !important; }
 
-    body { font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif; background: #111827; margin:0; padding:0; overflow-x: hidden; }
+    body { font-family: 'Inter', 'Noto Sans Bengali', sans-serif; background: #111827; margin:0; padding:0; overflow-x: hidden; }
     .login-container {
         min-height: 100vh; display: flex; align-items: center; justify-content: center;
         padding: 40px 12px; position: relative;
@@ -136,7 +136,10 @@
         .login-card { animation: none; }
         .login-container::before, .login-container::after { animation: none; }
     }
-    </style>
+            h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', 'Noto Sans Bengali', sans-serif;
+        }
+</style>
 </head>
 <body>
     <div class="login-container">

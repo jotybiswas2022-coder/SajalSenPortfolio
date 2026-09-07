@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Page loading animation -->
     <style>
@@ -84,7 +84,7 @@
             100% { transform: rotate(360deg); }
         }
         .loader-text {
-            font-family: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+            font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
             font-size: 0.85rem;
             font-weight: 600;
             color: var(--text-muted, #64748b);
@@ -162,6 +162,17 @@
 
         /* Prevent overflow from decorative elements */
         section, .hero { overflow: hidden; }
+
+        /* ===== Font System: Space Grotesk / Inter / Noto Sans Bengali / JetBrains Mono ===== */
+        body, button, input, select, textarea {
+            font-family: 'Inter', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .loader-logo {
+            font-family: 'Space Grotesk', 'Noto Sans Bengali', sans-serif;
+        }
+        code, pre, kbd, samp, .data-stream, .terminal-text {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+        }
     </style>
 </head>
 <body>

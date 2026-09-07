@@ -27,7 +27,7 @@
         --radius-lg: 20px;
         --radius-xl: 24px;
         --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        --font: 'Space Grotesk', 'Hind Siliguri', sans-serif;
+        --font: 'Inter', 'Noto Sans Bengali', sans-serif;
     }
 
     /* Light Theme — full override with higher specificity than :root */
@@ -260,7 +260,7 @@
     
     /* Data Stream Animation - Terminal Text */
     .data-stream {
-        position: absolute; font-family: 'Courier New', monospace;
+        position: absolute; font-family: 'JetBrains Mono', 'Courier New', monospace;
         font-size: 0.65rem; color: rgba(0, 255, 136, 0.5);
         pointer-events: none; z-index: 0;
         white-space: nowrap; 
@@ -3146,8 +3146,8 @@
         <div class="data-stream" style="top: 12%; right: 15%; transform: rotate(-45deg);">
             <span>01101000 01100101 01101100 01101100 01101111 00100000 01100011 01111001 01100010 01100101 01110010 00100000 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 | SYSTEM SECURE | 0x00FF64 | PACKET: VERIFIED | TIMESTAMP: 2026.09.07 08:42:33 UTC | HASH: a3f8c9d2 | SIGNATURE: VALID | PROTOCOL: TLS 1.3 | CIPHER: AES-256-GCM | STATUS: MONITORING ACTIVE | THREAT LEVEL: LOW | FIREWALL: ENABLED | IDS: ACTIVE | IPS: ACTIVE</span>
         </div>
-        <div class="data-stream" style="bottom: 22%; left: 8%; transform: rotate(30deg);">
-            <span>SCAN: NETWORK-TOPOLOGY | NODES: 156 | ANOMALIES: 0 | LATENCY: 12ms | THROUGHPUT: 947Mbps | UPTIME: 99.997% | ENDPOINTS: SECURED | CRYPTO: QUANTUM-RESISTANT | PKI: VALID | CERT EXPIRY: +365d | VULNERABILITIES: 0 CRITICAL | PATCHES: CURRENT | COMPLIANCE: SOC2+ISO27001+NIST | AUDIT: PASSED | LOGGING: CENTRALIZED | SIEM: ACTIVE</span>
+        <div class="data-stream" style="top: 12%; left: 15%; transform: rotate(45deg);">
+            <span>01101000 01100101 01101100 01101100 01101111 00100000 01100011 01111001 01100010 01100101 01110010 00100000 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 | SYSTEM SECURE | 0x00FF64 | PACKET: VERIFIED | TIMESTAMP: 2026.09.07 08:42:33 UTC | HASH: a3f8c9d2 | SIGNATURE: VALID | PROTOCOL: TLS 1.3 | CIPHER: AES-256-GCM | STATUS: MONITORING ACTIVE | THREAT LEVEL: LOW | FIREWALL: ENABLED | IDS: ACTIVE | IPS: ACTIVE</span>
         </div>
 
         <!-- Matrix Binary Rain Background -->
@@ -4273,7 +4273,7 @@
         var h = hero.clientHeight;
         var bottomLimit = h + TRAIL * FONT;
         ctx.clearRect(0, 0, hero.clientWidth, h);
-        ctx.font = FONT + 'px Consolas, "Courier New", monospace';
+        ctx.font = FONT + 'px "JetBrains Mono", Consolas, monospace';
         ctx.textBaseline = 'alphabetic';
 
         for (var i = 0; i < streams.length; i++) {

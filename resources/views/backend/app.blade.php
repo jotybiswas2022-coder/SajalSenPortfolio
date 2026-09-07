@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-4.0.0.js" integrity="sha256-9fsHeVnKBvqh3FB2HYu7g2xseAZ5MlN6Kz/qnkASV8U=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -33,7 +33,7 @@
     }
     html, body { overflow-x: hidden; }
     body {
-        font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        font-family: 'Inter', 'Noto Sans Bengali', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         background: var(--admin-bg);
         color: var(--admin-text);
         -webkit-font-smoothing: antialiased;
@@ -323,6 +323,13 @@
         .admin-main .stat-card .stat-number { font-size: 1.3rem; }
         .admin-main .stat-card .stat-label { font-size: 0.7rem; }
     }
+        /* ===== Font System: Space Grotesk / Inter / Noto Sans Bengali / JetBrains Mono ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Space Grotesk', 'Noto Sans Bengali', sans-serif;
+        }
+        code, pre, kbd, samp, .data-stream {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+        }
     </style>
 </head>
 <body>

@@ -3,10 +3,10 @@
 @section('content')
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 .dsb-body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
     position: relative;
 }
 .dsb-body::before {
