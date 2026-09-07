@@ -764,6 +764,58 @@
     .about-text h3 { font-size: 1.75rem; font-weight: 700; margin-bottom: 1rem; line-height: 1.3; }
     .about-text p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 1rem; }
     .about-text-main { flex: 1; min-width: 0; }
+    .about-text-main h3 {
+        background: linear-gradient(135deg, #00d9ff, #7ce6ff, #6bffb8);
+        background-size: 200% auto;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: navGradient 6s ease infinite;
+    }
+    html.light-theme .about-text-main h3 {
+        background: linear-gradient(135deg, #0891b2, #0d9488, #059669);
+        background-size: 200% auto;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: navGradient 6s ease infinite;
+    }
+    @keyframes navGradient {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+    .about-bio-lead { position: relative; padding-left: 1.1rem; border-left: 3px solid rgba(0, 217, 255, 0.5); }
+    .about-bio-lead p { margin-bottom: 0.8rem; }
+    .about-bio-lead p:first-child::first-letter { font-size: 2.6em; float: left; line-height: 0.85; padding-right: 0.4rem; font-weight: 800; color: var(--text-secondary); opacity: 0.85; }
+    .about-bio-lead p:last-child { margin-bottom: 0; }
+    .about-bio-tags {
+        display: flex; flex-wrap: wrap; gap: 0.55rem;
+        margin-top: 1.4rem;
+    }
+    .about-bio-tag {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.4rem 0.85rem;
+        background: rgba(0, 217, 255, 0.06);
+        border: 1px solid rgba(0, 217, 255, 0.18);
+        border-radius: 50px;
+        font-size: 0.72rem; font-weight: 600; letter-spacing: 0.3px;
+        color: #7ce6ff;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    html.light-theme .about-bio-tag { color: #0d9488; border-color: rgba(8, 145, 178, 0.25); background: rgba(8, 145, 178, 0.05); }
+    .about-bio-tag i { font-size: 0.75rem; }
+    .about-bio-tag:hover {
+        transform: translateY(-3px);
+        background: rgba(0, 217, 255, 0.14);
+        border-color: rgba(0, 217, 255, 0.4);
+        box-shadow: 0 6px 18px rgba(0, 217, 255, 0.15);
+    }
+    html.light-theme .about-bio-tag:hover { background: rgba(8, 145, 178, 0.1); border-color: rgba(8, 145, 178, 0.4); box-shadow: 0 6px 18px rgba(8, 145, 178, 0.12); }
+    .about-tags-label {
+        display: inline-flex; align-items: center; gap: 0.45rem;
+        font-size: 0.68rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+        color: var(--text-muted);
+        margin-top: 1.6rem; margin-bottom: 0.1rem;
+    }
     .about-social-sidebar {
         display: flex; flex-direction: column; align-items: center; gap: 1rem;
         padding: 1.25rem 0.75rem; position: sticky; top: 2rem;
@@ -3504,8 +3556,18 @@
                     <div class="about-text-main">
                         <div class="about-status"><span class="cursor-blink"></span> SECURITY MONITOR: ONLINE</div>
                         <h3>{{ __('messages.about_heading') }}</h3>
-                        <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
-                        <p>{{ __('messages.about_desc_2') }}</p>
+                        <div class="about-bio-lead">
+                            <p>Hi, I'm <span class="about-name-highlight">{{ optional($account)->name ?? 'Portfolio' }}</span>. {{ __('messages.about_desc_1') }}</p>
+                            <p>{{ __('messages.about_desc_2') }}</p>
+                        </div>
+                        <div class="about-tags-label"><i class="bi bi-shield-check"></i> Cyber Specialties</div>
+                        <div class="about-bio-tags">
+                            <span class="about-bio-tag"><i class="bi bi-bug-fill"></i> Penetration Testing</span>
+                            <span class="about-bio-tag"><i class="bi bi-shield-lock-fill"></i> Network Defense</span>
+                            <span class="about-bio-tag"><i class="bi bi-radioactive"></i> Threat Intel</span>
+                            <span class="about-bio-tag"><i class="bi bi-incognito"></i> Incident Response</span>
+                            <span class="about-bio-tag"><i class="bi bi-cpu-fill"></i> Zero-Trust Arch</span>
+                        </div>
                         <div class="about-stats">
                             <div class="stat-item">
                                 <div class="stat-glow"></div>
