@@ -1,37 +1,27 @@
 @extends('backend.app')
 
 @section('content')
-<style>
-@media (max-width: 767.98px) {
-    .project-form-page h4 { font-size: 0.9rem; }
-    .project-form-page p.text-muted { font-size: 0.75rem; }
-    .project-form-page h6 { font-size: 0.82rem; }
-    .project-form-page .form-label { font-size: 0.75rem; }
-    .project-form-page .form-control, .project-form-page .form-select { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
-    .project-form-page .form-text { font-size: 0.7rem; }
-    .project-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
-    .project-form-page .card-body { padding: 0.8rem !important; }
-    .project-form-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .project-form-page .invalid-feedback { font-size: 0.72rem; }
-}
-</style>
-
-<div class="container-fluid py-3 project-form-page">
+<div class="container-fluid py-3">
     <div class="row justify-content-center">
         <div class="col-lg-9 col-md-11">
 
             {{-- Header --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square me-2" style="color:#00d9ff;"></i>Edit Project</h4>
-                    <p class="text-muted small mb-0">Update details for <strong>{{ $project->title }}</strong>.</p>
+            <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <i class="bi bi-pencil-square" style="font-size:1.5rem;color:#00d9ff;"></i>
+                    </div>
+                    <div class="d-flex flex-column align-items-start gap-1">
+                        <div class="ae-title">Edit Project</div>
+                        <p class="ae-sub">Update details for <strong style="color:#00d9ff;">{{ $project->title }}</strong>.</p>
+                    </div>
                 </div>
-                <a href="{{ route('admin.projects.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
-                    <i class="bi bi-arrow-left me-1"></i> Back
+                <a href="{{ route('admin.projects.index') }}" class="ae-btn ae-btn-ghost">
+                    <i class="bi bi-arrow-left"></i> Back
                 </a>
             </div>
 
-            {{-- Delete Image Form (outside the main form to avoid nested form issue) --}}
+            {{-- Delete Image Form (outside main form) --}}
             @if($project->image)
                 <form action="{{ route('admin.projects.deleteImage', $project->id) }}" method="POST" id="deleteImageForm" style="display:none;">
                     @csrf
@@ -43,30 +33,31 @@
                 @method('PUT')
 
                 {{-- Basic Info --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-info-circle me-2" style="color:#00d9ff;"></i>Basic Information</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-info-circle"></i> Basic Information</div>
+                        <span class="ae-head-tag">Required</span>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         <div class="row g-3">
                             <div class="col-md-8">
-                                <label for="title" class="form-label fw-medium">Title <span class="text-danger">*</span></label>
-                                <input type="text" id="title" name="title"
-                                       class="form-control @error('title') is-invalid @enderror"
+                                <label class="ae-form-label">Title <span class="text-danger">*</span></label>
+                                <input type="text" name="title"
+                                       class="form-control ae-input-modern @error('title') is-invalid @enderror"
                                        value="{{ old('title', $project->title) }}" placeholder="e.g. E-Commerce Platform" required>
                                 @error('title')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
-                                <label for="category" class="form-label fw-medium">Category</label>
-                                <input type="text" id="category" name="category"
-                                       class="form-control @error('category') is-invalid @enderror"
+                                <label class="ae-form-label">Category</label>
+                                <input type="text" name="category"
+                                       class="form-control ae-input-modern @error('category') is-invalid @enderror"
                                        value="{{ old('category', $project->category) }}" placeholder="e.g. Web App">
                                 @error('category')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-12">
-                                <label for="description" class="form-label fw-medium">Description</label>
-                                <textarea id="description" name="description" rows="4"
-                                          class="form-control @error('description') is-invalid @enderror"
+                                <label class="ae-form-label">Description</label>
+                                <textarea name="description" rows="4"
+                                          class="form-control ae-input-modern @error('description') is-invalid @enderror"
                                           placeholder="Describe your project...">{{ old('description', $project->description) }}</textarea>
                                 @error('description')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -75,24 +66,25 @@
                 </div>
 
                 {{-- Tech Stack & Status --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-gear me-2" style="color:#00d9ff;"></i>Tech Stack & Status</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-gear"></i> Tech Stack & Status</div>
+                        <span class="ae-head-tag">Optional</span>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="tech_stack" class="form-label fw-medium">Tech Stack</label>
-                                <input type="text" id="tech_stack" name="tech_stack"
-                                       class="form-control @error('tech_stack') is-invalid @enderror"
+                                <label class="ae-form-label">Tech Stack</label>
+                                <input type="text" name="tech_stack"
+                                       class="form-control ae-input-modern @error('tech_stack') is-invalid @enderror"
                                        value="{{ old('tech_stack', $project->tech_stack) }}" placeholder="e.g. Laravel, MySQL, Stripe">
-                                <div class="form-text mt-1">Separate technologies with commas.</div>
+                                <div class="form-text mt-1" style="color:var(--admin-text-muted);">Separate technologies with commas.</div>
                                 @error('tech_stack')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-3">
-                                <label for="sort_order" class="form-label fw-medium">Sort Order</label>
-                                <input type="number" id="sort_order" name="sort_order" min="0"
-                                       class="form-control @error('sort_order') is-invalid @enderror"
+                                <label class="ae-form-label">Sort Order</label>
+                                <input type="number" name="sort_order" min="0"
+                                       class="form-control ae-input-modern @error('sort_order') is-invalid @enderror"
                                        value="{{ old('sort_order', $project->sort_order) }}">
                                 @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -100,31 +92,32 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="is_active" name="is_active"
                                            value="1" {{ old('is_active', $project->is_active) ? 'checked' : '' }}>
-                                    <label class="form-check-label fw-medium" for="is_active">Active</label>
+                                    <label class="form-check-label fw-medium" for="is_active" style="color:var(--admin-text);">Active</label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Links --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-link-45deg me-2" style="color:#00d9ff;"></i>Project Links</h6>
+                {{-- Project Links --}}
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-link-45deg"></i> Project Links</div>
+                        <span class="ae-head-tag">Optional</span>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label for="live_link" class="form-label fw-medium"><i class="bi bi-globe me-1"></i> Live Link</label>
-                                <input type="url" id="live_link" name="live_link"
-                                       class="form-control @error('live_link') is-invalid @enderror"
+                                <label class="ae-form-label"><i class="bi bi-globe me-1"></i> Live Link</label>
+                                <input type="url" name="live_link"
+                                       class="form-control ae-input-modern @error('live_link') is-invalid @enderror"
                                        value="{{ old('live_link', $project->live_link) }}" placeholder="https://example.com">
                                 @error('live_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
-                                <label for="github_link" class="form-label fw-medium"><i class="bi bi-github me-1"></i> GitHub Link</label>
-                                <input type="url" id="github_link" name="github_link"
-                                       class="form-control @error('github_link') is-invalid @enderror"
+                                <label class="ae-form-label"><i class="bi bi-github me-1"></i> GitHub Link</label>
+                                <input type="url" name="github_link"
+                                       class="form-control ae-input-modern @error('github_link') is-invalid @enderror"
                                        value="{{ old('github_link', $project->github_link) }}" placeholder="https://github.com/username/repo">
                                 @error('github_link')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -133,38 +126,37 @@
                 </div>
 
                 {{-- Project Image --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-image me-2" style="color:#00d9ff;"></i>Project Image</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-image"></i> Project Image</div>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         @if($project->image)
                             <div class="mb-3">
                                 <img src="{{ config('app.storage_url') }}{{ $project->image }}"
                                      alt="{{ $project->title }}"
-                                     class="rounded shadow-sm"
-                                     style="max-width:300px; max-height:180px; object-fit:cover;">
-                                <button type="button" onclick="confirmDeleteImage()" class="btn btn-sm btn-outline-danger rounded-3 mt-2">
-                                    <i class="bi bi-trash3 me-1"></i> Delete Image
+                                     class="rounded"
+                                     style="max-width:300px;max-height:180px;object-fit:cover;border:1.5px solid var(--admin-border);">
+                                <button type="button" onclick="confirmDeleteImage()" class="ae-btn ae-btn-ghost mt-2" style="color:#ef4444;border-color:#ef4444;">
+                                    <i class="bi bi-trash3"></i> Delete Image
                                 </button>
                             </div>
                         @endif
-                        <input type="file" accept="image/*" id="image" name="image"
-                               class="form-control @error('image') is-invalid @enderror"
+                        <input type="file" accept="image/*" name="image"
+                               class="form-control ae-input-modern @error('image') is-invalid @enderror"
                                onchange="previewImage(event)">
                         @error('image')<div class="invalid-feedback">{{ $message }}</div>@enderror
                         <div class="mt-2">
-                            <img id="preview" src="" style="display:none; max-width:300px; max-height:180px; object-fit:cover;"
-                                 class="rounded shadow-sm">
+                            <img id="preview" src="" class="rounded" style="display:none;max-width:300px;max-height:180px;object-fit:cover;border:1.5px solid var(--admin-border);">
                         </div>
                     </div>
                 </div>
 
                 {{-- Submit --}}
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('admin.projects.index') }}" class="btn btn-light border rounded-3 px-4">Cancel</a>
-                    <button type="submit" class="btn btn-primary rounded-3 px-5" style="background:#00d9ff; border-color:#00d9ff;">
-                        <i class="bi bi-check-circle me-1"></i> Update Project
+                    <a href="{{ route('admin.projects.index') }}" class="ae-btn ae-btn-ghost">Cancel</a>
+                    <button type="submit" class="ae-btn ae-btn-primary">
+                        <i class="bi bi-check-circle"></i> Update Project
                     </button>
                 </div>
 
@@ -190,10 +182,10 @@ function confirmDeleteImage() {
         text: 'This action cannot be undone.',
         icon: 'warning',
         showCancelButton: true,
-        confirmButtonColor: '#ef4444',
+        confirmButtonColor: '#dc2626',
         cancelButtonColor: '#64748b',
         confirmButtonText: '<i class="bi bi-trash3 me-1"></i> Yes, delete it!',
-        cancelButtonText: '<i class="bi bi-x-lg me-1"></i> Cancel',
+        cancelButtonText: 'Cancel',
         reverseButtons: true,
         customClass: {
             popup: 'rounded-4',
