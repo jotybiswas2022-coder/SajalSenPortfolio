@@ -3141,6 +3141,66 @@
         box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
     }
 
+    /* ===== CONTACT — CYBER HUD OVERLAY ===== */
+    .contact-section { position: relative; overflow: hidden; }
+    .contact-section .container { position: relative; z-index: 2; }
+    .contact-radar {
+        position: absolute; z-index: 1; top: 42%; left: 50%;
+        width: 680px; height: 680px; transform: translate(-50%, -50%);
+        border-radius: 50%; pointer-events: none;
+        border: 1px solid rgba(0, 217, 255, 0.07); opacity: 0.8;
+    }
+    .contact-radar::before {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.1); animation: wsRadarSpin 26s linear infinite;
+    }
+    .contact-radar::after {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        background: conic-gradient(from 0deg, rgba(0, 217, 255, 0.09), transparent 60deg, transparent 360deg);
+        animation: wsRadarSpin 6s linear infinite;
+    }
+    .contact-particle {
+        position: absolute; z-index: 1; color: rgba(0, 255, 136, 0.45);
+        font-size: 0.7rem; font-family: 'Consolas', monospace; font-weight: 700;
+        pointer-events: none; user-select: none; animation: wsFloat linear infinite; opacity: 0;
+    }
+    .ct-corner { position: absolute; width: 16px; height: 16px; border: 2px solid rgba(0, 217, 255, 0.6); z-index: 6; }
+    .ct-corner.tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; border-top-left-radius: 9px; }
+    .ct-corner.tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; border-top-right-radius: 9px; }
+    .ct-corner.bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; border-bottom-left-radius: 9px; }
+    .ct-corner.br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; border-bottom-right-radius: 9px; }
+    .ct-topbar {
+        position: absolute; top: 0; left: 0; right: 0; height: 3px; z-index: 6;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.8), transparent);
+        background-size: 60% 100%; background-repeat: no-repeat;
+        animation: tmTopbar 4s linear infinite; opacity: 0.6;
+    }
+    .ct-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        padding: 0.24rem 0.7rem; margin-bottom: 1rem;
+        font-size: 0.62rem; font-weight: 700; letter-spacing: 0.6px;
+        color: #00ff88; background: rgba(0, 255, 136, 0.06);
+        border: 1px solid rgba(0, 255, 136, 0.22); border-radius: 50px; text-transform: uppercase;
+    }
+    html.light-theme .ct-status { color: #0d9488; background: rgba(13,148,136,0.06); border-color: rgba(13,148,136,0.25); }
+    .ct-status .ct-dot { width: 6px; height: 6px; border-radius: 50%; background: #00ff88; box-shadow: 0 0 0 0 rgba(0,255,136,0.6); animation: wsDot 1.8s ease-out infinite; }
+    html.light-theme .ct-status .ct-dot { background: #0d9488; box-shadow: 0 0 0 0 rgba(13,148,136,0.5); }
+    .contact-info-card, .contact-form { overflow: hidden; }
+    .map-scan {
+        position: absolute; top: 0; left: 0; right: 0; height: 40px; z-index: 6;
+        background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.06), rgba(0, 255, 136, 0.16), transparent);
+        pointer-events: none; animation: mapScan 6s ease-in-out infinite; opacity: 0;
+    }
+    @keyframes mapScan {
+        0%, 12% { top: -10%; opacity: 0; }
+        18% { opacity: 0.8; }
+        82% { opacity: 0.8; }
+        88%, 100% { top: 108%; opacity: 0; }
+    }
+    .map-status { position: absolute; top: 12px; left: 12px; margin: 0; z-index: 7; background: rgba(8,18,30,0.75); }
+    html.light-theme .map-status { background: rgba(255,255,255,0.9); }
+    .contact-section .section-title .line { background: linear-gradient(90deg, var(--accent), #00ff88); }
+
     /* Map */
     .map-wrapper { margin-top: 3rem; }
     .map-container {
@@ -4524,6 +4584,12 @@
         <!-- Contact Section — REDESIGNED MODERN -->
     <section class="contact-section section-padding" id="contact">
         <div class="contact-bg-grid"></div>
+        <div class="contact-radar"></div>
+        <div class="contact-particle" style="left:8%; top:28%; animation-duration:8s;">0110</div>
+        <div class="contact-particle" style="left:44%; top:12%; animation-duration:7s; animation-delay:1s;">101</div>
+        <div class="contact-particle" style="left:90%; top:22%; animation-duration:9s; animation-delay:0.4s;">1101</div>
+        <div class="contact-particle" style="left:6%; top:70%; animation-duration:9.5s; animation-delay:1.6s;">1001</div>
+        <div class="contact-particle" style="left:85%; top:80%; animation-duration:7.5s; animation-delay:2s;">010</div>
         <div class="container">
             <div class="section-title reveal">
                 <div class="line"></div>
@@ -4533,6 +4599,12 @@
 
             <div class="contact-grid">
                 <div class="contact-info-card reveal reveal-delay-1">
+                    <span class="ct-corner tl"></span>
+                    <span class="ct-corner tr"></span>
+                    <span class="ct-corner bl"></span>
+                    <span class="ct-corner br"></span>
+                    <div class="ct-topbar"></div>
+                    <span class="ct-status"><span class="ct-dot"></span> Secure Channel</span>
                     <h3><i class="bi bi-chat-dots-fill me-2"></i>{{ __("messages.contact_heading") }}</h3>
                     <p>{{ __("messages.contact_desc") }}</p>
 
@@ -4589,7 +4661,13 @@
                 </div>
 
                 <div class="contact-form reveal reveal-delay-2">
+                    <span class="ct-corner tl"></span>
+                    <span class="ct-corner tr"></span>
+                    <span class="ct-corner bl"></span>
+                    <span class="ct-corner br"></span>
+                    <div class="ct-topbar"></div>
                     <div class="form-header">
+                        <span class="ct-status"><span class="ct-dot"></span> Encrypted Transmission</span>
                         <h4><i class="bi bi-pencil-square me-2"></i>{{ __("messages.send_message") }}</h4>
                         <p>{{ __("messages.contact_desc") }}</p>
                     </div>
@@ -4630,6 +4708,12 @@
 
             <div class="map-wrapper reveal reveal-delay-1">
                 <div class="map-container">
+                    <span class="ct-corner tl"></span>
+                    <span class="ct-corner tr"></span>
+                    <span class="ct-corner bl"></span>
+                    <span class="ct-corner br"></span>
+                    <span class="ct-status map-status"><span class="ct-dot"></span> Live Location Feed</span>
+                    <div class="map-scan"></div>
                     <iframe
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749427.7985686358!2d88.0190403004489!3d23.684993584973406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30ada8e30e97f93d%3A0x8e70e7e2225e28a2!2sBangladesh!5e0!3m2!1sen!2sbd!4v1!4m2!3m1!1s0x30ada8e30e97f93d%3A0x8e70e7e2225e28a2"
                         width="100%" height="350" style="border:0; border-radius: 16px;"
