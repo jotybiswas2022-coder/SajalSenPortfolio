@@ -438,7 +438,7 @@
     .float-chip i { color: #00ff88; font-size: 0.78rem; flex-shrink: 0; }
     .float-chip.c1 { top: 18%; right: 5%; animation: floatChip 5s ease-in-out infinite; }
     .float-chip.c2 { top: 15%; left: 4%; animation: floatChip 6s ease-in-out infinite 1s; }
-    .float-chip.c3 { bottom: 22%; left: 3%; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
+    .float-chip.c3 { bottom: 22%; left: 3%; width: 118px; padding: 0.4rem 0.6rem; font-size: 0.66rem; animation: floatChip 4.5s ease-in-out infinite 0.5s; }
     .float-chip.c4 { bottom: 25%; right: 3%; animation: floatChip 5.5s ease-in-out infinite 0.2s; }
     @keyframes floatChip { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
 
