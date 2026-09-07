@@ -89,11 +89,18 @@
     }
     html.light-theme .float-chip i { color: #00b35c; }
     html.light-theme .hero-badge {
-        background: rgba(0, 255, 136, 0.06);
-        border-color: rgba(0, 255, 136, 0.2);
-        color: #00b35c;
+        background: rgba(8, 145, 178, 0.06);
+        border-color: rgba(8, 145, 178, 0.25);
+        color: #0d9488;
     }
-    html.light-theme .hero-badge i { color: #00b35c; }
+    html.light-theme .hero-badge i { color: #0d9488; }
+    html.light-theme .hero-badge .shimmer-text {
+        background: linear-gradient(90deg, #059669 0%, #0d9488 30%, #0891b2 50%, #0d9488 70%, #059669 100%);
+        background-size: 200% auto;
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        animation: shimmerMove 3s linear infinite;
+    }
     html.light-theme .hero h1 { color: #0f172a; }
     html.light-theme .hero h1 .gradient-text {
         background: linear-gradient(135deg, #0891b2, #0d9488, #059669, #0891b2);
@@ -4412,6 +4419,7 @@
     var CHAR_SET = '01アイウエオカキクケコサシスセソタチツテトナニヌネノ0123456789';
     var streams = [];
     var lastTime = 0;
+    var isLight = document.documentElement.classList.contains('light-theme');
 
     function randomGlyph() {
         return CHAR_SET.charAt(Math.floor(Math.random() * CHAR_SET.length));
@@ -4475,10 +4483,12 @@
                 if (y < -FONT || y > h) continue;
                 var distFromHead = s.glyphs.length - 1 - j;
                 if (distFromHead === 0) {
-                    ctx.fillStyle = 'rgba(180, 255, 210, 0.9)';
+                    ctx.fillStyle = isLight ? 'rgba(3, 105, 88, 0.75)' : 'rgba(180, 255, 210, 0.9)';
                 } else {
                     var a = Math.pow(1 - distFromHead / TRAIL, 1.6) * 0.65;
-                    ctx.fillStyle = 'rgba(0, 255, 136, ' + a.toFixed(3) + ')';
+                    ctx.fillStyle = isLight
+                        ? 'rgba(13, 148, 136, ' + (a * 0.85).toFixed(3) + ')'
+                        : 'rgba(0, 255, 136, ' + a.toFixed(3) + ')';
                 }
                 ctx.fillText(s.glyphs[j], s.x, y + FONT - 3);
             }
