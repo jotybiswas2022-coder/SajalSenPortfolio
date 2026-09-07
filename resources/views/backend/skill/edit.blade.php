@@ -1,33 +1,23 @@
 @extends('backend.app')
 
 @section('content')
-<style>
-@media (max-width: 767.98px) {
-    .skill-form-page h4 { font-size: 0.9rem; }
-    .skill-form-page p.text-muted { font-size: 0.75rem; }
-    .skill-form-page h6 { font-size: 0.82rem; }
-    .skill-form-page .form-label { font-size: 0.75rem; }
-    .skill-form-page .form-control { font-size: 0.78rem; padding: 0.4rem 0.6rem; }
-    .skill-form-page .form-text { font-size: 0.7rem; }
-    .skill-form-page .btn { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
-    .skill-form-page .card-body { padding: 0.8rem !important; }
-    .skill-form-page .card-header { padding: 0.6rem 0.8rem !important; }
-    .skill-form-page .invalid-feedback { font-size: 0.72rem; }
-}
-</style>
-
-<div class="container-fluid py-3 skill-form-page">
+<div class="container-fluid py-3">
     <div class="row justify-content-center">
         <div class="col-lg-7 col-md-9">
 
             {{-- Header --}}
-            <div class="d-flex align-items-center justify-content-between mb-4">
-                <div>
-                    <h4 class="fw-bold mb-1"><i class="bi bi-pencil-square me-2" style="color:#00d9ff;"></i>Edit Skill</h4>
-                    <p class="text-muted small mb-0">Update details for <strong>{{ $skill->name }}</strong></p>
+            <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                        <i class="bi bi-pencil-square" style="font-size:1.5rem;color:#00d9ff;"></i>
+                    </div>
+                    <div class="d-flex flex-column align-items-start gap-1">
+                        <div class="ae-title">Edit Skill</div>
+                        <p class="ae-sub">Update details for <strong style="color:#00d9ff;">{{ $skill->name }}</strong>.</p>
+                    </div>
                 </div>
-                <a href="{{ route('admin.skills.index') }}" class="btn btn-outline-secondary rounded-3 px-3">
-                    <i class="bi bi-arrow-left me-1"></i> Back
+                <a href="{{ route('admin.skills.index') }}" class="ae-btn ae-btn-ghost">
+                    <i class="bi bi-arrow-left"></i> Back
                 </a>
             </div>
 
@@ -36,25 +26,26 @@
                 @method('PUT')
 
                 {{-- Skill Info --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-info-circle me-2" style="color:#00d9ff;"></i>Skill Information</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-info-circle"></i> Skill Information</div>
+                        <span class="ae-head-tag">Required</span>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         <div class="row g-3">
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Skill Name <span class="text-danger">*</span></label>
+                                <label class="ae-form-label">Skill Name <span class="text-danger">*</span></label>
                                 <input type="text" name="name"
-                                       class="form-control @error('name') is-invalid @enderror"
+                                       class="form-control ae-input-modern @error('name') is-invalid @enderror"
                                        value="{{ old('name', $skill->name) }}" required>
                                 @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-medium">Icon (Bootstrap Icons class)</label>
+                                <label class="ae-form-label">Icon (Bootstrap Icons class)</label>
                                 <input type="text" name="icon" id="iconInput"
-                                       class="form-control @error('icon') is-invalid @enderror"
+                                       class="form-control ae-input-modern @error('icon') is-invalid @enderror"
                                        value="{{ old('icon', $skill->icon) }}" placeholder="e.g. bi-fire, bi-code-slash">
-                                <div class="form-text mt-1">Browse at <a href="https://icons.getbootstrap.com" target="_blank">icons.getbootstrap.com</a></div>
+                                <div class="form-text mt-1" style="color:var(--admin-text-muted);">Browse at <a href="https://icons.getbootstrap.com" target="_blank" style="color:#00d9ff;">icons.getbootstrap.com</a></div>
                                 @error('icon')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                         </div>
@@ -62,24 +53,25 @@
                 </div>
 
                 {{-- Level & Settings --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-sliders me-2" style="color:#00d9ff;"></i>Level & Settings</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-sliders"></i> Level & Settings</div>
+                        <span class="ae-head-tag">Optional</span>
                     </div>
-                    <div class="card-body px-4 pb-4">
+                    <div class="ae-card-body">
                         <div class="row g-3">
                             <div class="col-md-4">
-                                <label class="form-label fw-medium">Percentage <span class="text-danger">*</span></label>
+                                <label class="ae-form-label">Percentage <span class="text-danger">*</span></label>
                                 <input type="number" name="percentage" min="0" max="100"
-                                       class="form-control @error('percentage') is-invalid @enderror"
+                                       class="form-control ae-input-modern @error('percentage') is-invalid @enderror"
                                        value="{{ old('percentage', $skill->percentage) }}" required>
-                                <div class="form-text mt-1">Value between 0 and 100</div>
+                                <div class="form-text mt-1" style="color:var(--admin-text-muted);">Value between 0 and 100</div>
                                 @error('percentage')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
                             <div class="col-md-4">
-                                <label class="form-label fw-medium">Sort Order</label>
+                                <label class="ae-form-label">Sort Order</label>
                                 <input type="number" name="sort_order" min="0"
-                                       class="form-control @error('sort_order') is-invalid @enderror"
+                                       class="form-control ae-input-modern @error('sort_order') is-invalid @enderror"
                                        value="{{ old('sort_order', $skill->sort_order) }}">
                                 @error('sort_order')<div class="invalid-feedback">{{ $message }}</div>@enderror
                             </div>
@@ -87,7 +79,7 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1"
                                            {{ old('is_active', $skill->is_active) ? 'checked' : '' }}>
-                                    <label class="form-check-label fw-medium" for="is_active">Active</label>
+                                    <label class="form-check-label fw-medium" for="is_active" style="color:var(--admin-text);">Active</label>
                                 </div>
                             </div>
                         </div>
@@ -95,29 +87,30 @@
                 </div>
 
                 {{-- Preview --}}
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                    <div class="card-header bg-white border-bottom-0 pt-3 px-4">
-                        <h6 class="fw-bold mb-0"><i class="bi bi-eye me-2" style="color:#00d9ff;"></i>Preview</h6>
+                <div class="ae-card mb-4">
+                    <div class="ae-card-head">
+                        <div class="ae-head-title"><i class="bi bi-eye"></i> Preview</div>
                     </div>
-                    <div class="card-body px-4 pb-4 text-center">
-                        <div class="d-inline-flex align-items-center gap-3 p-3 rounded-3" style="background:#f8fafc; border:1px dashed #e2e8f0;">
-                            <i class="bi {{ $skill->icon ?: 'bi-star' }}" id="iconPreview" style="font-size:2rem; color:#00d9ff;"></i>
+                    <div class="ae-card-body text-center">
+                        <div class="d-inline-flex align-items-center gap-3 p-3 rounded-3"
+                             style="background:rgba(0,217,255,0.05);border:1px dashed rgba(0,217,255,0.3);">
+                            <i class="bi {{ $skill->icon ?: 'bi-star' }}" id="iconPreview" style="font-size:2rem;color:#00d9ff;text-shadow:0 0 12px rgba(0,217,255,0.4);"></i>
                             <div class="text-start">
                                 <div class="fw-semibold" id="previewName">{{ $skill->name }}</div>
-                                <div class="progress mt-1" style="width:180px; height:6px; border-radius:10px; background:#e2e8f0;">
-                                    <div class="progress-bar rounded-pill" style="width:{{ $skill->percentage }}%; background:linear-gradient(90deg,#00d9ff,#7ce6ff);" id="previewBar"></div>
+                                <div class="progress mt-1" style="width:180px;height:6px;border-radius:10px;background:rgba(0,217,255,0.1);">
+                                    <div class="progress-bar rounded-pill" style="width:{{ $skill->percentage }}%;background:linear-gradient(90deg,#00d9ff,#7ce6ff);box-shadow:0 0 10px rgba(0,217,255,0.4);" id="previewBar"></div>
                                 </div>
                             </div>
-                            <span class="badge rounded-pill px-3 py-1 fw-semibold" style="background:rgba(0,217,255,0.1); color:#00d9ff;" id="previewPercent">{{ $skill->percentage }}%</span>
+                            <span class="ae-status-badge" id="previewPercent">{{ $skill->percentage }}%</span>
                         </div>
                     </div>
                 </div>
 
                 {{-- Submit --}}
                 <div class="d-flex justify-content-end gap-2">
-                    <a href="{{ route('admin.skills.index') }}" class="btn btn-light border rounded-3 px-4">Cancel</a>
-                    <button type="submit" class="btn btn-primary rounded-3 px-5" style="background:#00d9ff; border-color:#00d9ff;">
-                        <i class="bi bi-check-circle me-1"></i> Update Skill
+                    <a href="{{ route('admin.skills.index') }}" class="ae-btn ae-btn-ghost">Cancel</a>
+                    <button type="submit" class="ae-btn ae-btn-primary">
+                        <i class="bi bi-check-circle"></i> Update Skill
                     </button>
                 </div>
 
