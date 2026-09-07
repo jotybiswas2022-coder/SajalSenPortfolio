@@ -1901,6 +1901,127 @@
         .casestudy-body { padding: 1rem; }
     }
 
+    /* ─── Cyber FAQ: knowledge-base console ─── */
+    .faq-section {
+        background: linear-gradient(180deg, var(--bg-primary) 0%, #05080f 100%);
+        position: relative; overflow: hidden;
+    }
+    html.light-theme .faq-section { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
+    .faq-section::before {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background-image:
+            linear-gradient(90deg, rgba(0,217,255,.03) 1px, transparent 1px),
+            linear-gradient(rgba(0,217,255,.03) 1px, transparent 1px);
+        background-size: 46px 46px;
+        -webkit-mask-image: radial-gradient(ellipse 65% 60% at 50% 30%, black 20%, transparent 80%);
+        mask-image: radial-gradient(ellipse 65% 60% at 50% 30%, black 20%, transparent 80%);
+    }
+    html.light-theme .faq-section::before {
+        background-image:
+            linear-gradient(90deg, rgba(0,100,140,.04) 1px, transparent 1px),
+            linear-gradient(rgba(0,100,140,.04) 1px, transparent 1px);
+    }
+
+    .faq-list { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+
+    .faq-item {
+        position: relative;
+        background: rgba(8,12,20,.6);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(0,217,255,.12);
+        border-left: 3px solid rgba(0,217,255,.25);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+        overflow: hidden;
+        transition: all .35s cubic-bezier(.16,1,.3,1);
+    }
+    .faq-item::before {
+        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, #00d9ff, transparent);
+        opacity: 0; transition: opacity .3s;
+    }
+    .faq-item:hover, .faq-item.open {
+        border-color: rgba(0,217,255,.3);
+        border-left-color: var(--accent);
+        box-shadow: 0 8px 30px rgba(0,217,255,.08);
+    }
+    .faq-item.open::before { opacity: 1; }
+    html.light-theme .faq-item { background: rgba(255,255,255,.78); border-color: rgba(0,100,140,.15); }
+    html.light-theme .faq-item:hover, html.light-theme .faq-item.open { box-shadow: 0 8px 30px rgba(0,100,140,.12); }
+
+    .faq-item .faq-question {
+        width: 100%;
+        padding: 1.1rem 1.5rem;
+        background: none; border: none;
+        color: var(--text-primary);
+        font-size: .94rem; font-weight: 600;
+        text-align: left; cursor: pointer;
+        display: flex; align-items: center; gap: 1rem;
+        font-family: var(--font);
+        transition: color .3s;
+        position: relative; z-index: 2;
+    }
+    .faq-item.open .faq-question { color: var(--accent); }
+
+    .faq-qid {
+        flex-shrink: 0;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: .58rem; font-weight: 700; letter-spacing: .06em;
+        color: var(--accent);
+        background: rgba(0,217,255,.06);
+        border: 1px solid rgba(0,217,255,.25);
+        border-radius: 6px;
+        padding: .2rem .5rem;
+    }
+    html.light-theme .faq-qid { background: rgba(0,100,140,.06); border-color: rgba(0,100,140,.25); color: var(--accent); }
+
+    .faq-question .faq-chev {
+        margin-left: auto; flex-shrink: 0;
+        font-size: .8rem; color: var(--accent);
+        transition: transform .3s ease;
+        width: 28px; height: 28px;
+        display: flex; align-items: center; justify-content: center;
+        border-radius: 6px;
+        border: 1px solid rgba(0,217,255,.2);
+        background: rgba(0,217,255,.04);
+    }
+    .faq-item.open .faq-chev { transform: rotate(180deg); border-color: rgba(0,217,255,.5); }
+
+    .faq-answer {
+        max-height: 0; overflow: hidden;
+        transition: max-height .4s cubic-bezier(.16,1,.3,1), padding .4s ease;
+        padding: 0 1.5rem;
+        position: relative; z-index: 1;
+    }
+    .faq-answer p {
+        margin: 0; padding: 0 0 1.2rem 1.2rem;
+        color: var(--text-secondary);
+        font-size: .88rem; line-height: 1.8;
+        border-left: 1px solid rgba(0,217,255,.15);
+        position: relative;
+    }
+    .faq-answer p::before {
+        content: '>';
+        position: absolute; left: 0; top: 0;
+        font-family: 'JetBrains Mono', Consolas, monospace;
+        color: #00ff88;
+        font-weight: 700;
+    }
+    html.light-theme .faq-answer p::before { color: #00884a; }
+
+    .faq-item .faq-scanline {
+        position: absolute; left: 0; right: 0; height: 1px; top: 0;
+        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.4) 50%, transparent 95%);
+        opacity: 0; pointer-events: none;
+    }
+    .faq-item.open .faq-scanline { opacity: 1; animation: faqScan 1.2s ease-in-out infinite; }
+    @keyframes faqScan {
+        0%   { top: 0; opacity: 0; }
+        10%  { opacity: 1; }
+        90%  { opacity: .8; }
+        100% { top: 100%; opacity: 0; }
+    }
+
     /* ─── Cyber-security work experience feed ─── */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #05080f 100%); }
     html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
@@ -5137,15 +5258,15 @@
             @if($faqs->isNotEmpty())
                 <div class="faq-list reveal" style="max-width: 800px; margin: 0 auto;">
                     @foreach($faqs as $index => $faq)
-                        <div class="faq-item" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); margin-bottom: 1rem; overflow: hidden; transition: var(--transition); filter: drop-shadow(0 4px 30px rgba(0, 217, 255, 0.15));">
-                            <button class="faq-question" 
-                                    onclick="toggleFaq(this)"
-                                    style="width: 100%; padding: 1.2rem 1.5rem; background: none; border: none; color: var(--text-primary); font-size: 0.98rem; font-weight: 600; text-align: left; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--font); transition: var(--transition);">
-                                <span>{{ $faq->question }}</span>
-                                <i class="bi bi-chevron-down" style="font-size: 0.8rem; color: var(--accent); transition: transform 0.3s ease; flex-shrink: 0;"></i>
+                        <div class="faq-item" data-faq-index="{{ $index }}">
+                            <div class="faq-scanline"></div>
+                            <button class="faq-question" onclick="toggleFaq(this)">
+                                <span class="faq-qid">Q-{{ str_pad($index + 1, 3, '0', STR_PAD_LEFT) }}</span>
+                                <span class="faq-qtext">{{ $faq->question }}</span>
+                                <span class="faq-chev"><i class="bi bi-chevron-down"></i></span>
                             </button>
-                            <div class="faq-answer" style="max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), padding 0.4s ease; padding: 0 1.5rem;">
-                                <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8; padding-bottom: 1.2rem; margin: 0;">{{ $faq->answer }}</p>
+                            <div class="faq-answer">
+                                <p>{{ $faq->answer }}</p>
                             </div>
                         </div>
                     @endforeach
@@ -5154,28 +5275,25 @@
                 function toggleFaq(btn) {
                     var item = btn.parentElement;
                     var answer = item.querySelector('.faq-answer');
-                    var icon = btn.querySelector('i');
-                    var isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
-                    
+                    var isOpen = item.classList.contains('open');
+
                     // Close all
                     document.querySelectorAll('.faq-item').forEach(function(el) {
+                        el.classList.remove('open');
                         el.querySelector('.faq-answer').style.maxHeight = '0';
                         el.querySelector('.faq-answer').style.padding = '0 1.5rem';
-                        el.querySelector('i').style.transform = 'rotate(0deg)';
-                        el.querySelector('.faq-question').style.color = 'var(--text-primary)';
                     });
-                    
+
                     if (!isOpen) {
+                        item.classList.add('open');
                         answer.style.maxHeight = answer.scrollHeight + 'px';
                         answer.style.padding = '0 1.5rem 0';
-                        icon.style.transform = 'rotate(180deg)';
-                        btn.style.color = 'var(--accent)';
                     }
                 }
                 </script>
             @else
                 <div class="empty-state reveal">
-                    <i class="bi bi-question-circle"></i>
+                    <i class="bi bi-terminal"></i>
                     <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_faqs') }}</p>
                     <p>{{ __('messages.no_faqs_desc') }}</p>
                 </div>
