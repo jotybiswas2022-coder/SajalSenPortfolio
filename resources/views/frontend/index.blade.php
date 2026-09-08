@@ -2167,6 +2167,38 @@
     html.light-theme .cyber-entry.live .cyber-company i { color: #059669; }
     .cyber-location { font-size: 0.82rem; color: var(--text-muted); }
     .cyber-card p { color: var(--text-secondary); font-size: 0.88rem; line-height: 1.7; margin-bottom: 0; }
+
+    /* ===== Light-theme polish for cyber timeline ===== */
+    html.light-theme .cyber-date { color: #0e7490; background: rgba(8, 145, 178, 0.08); border-color: rgba(8, 145, 178, 0.2); }
+    html.light-theme .cyber-status { color: #64748b; background: rgba(100, 116, 139, 0.1); border-color: rgba(100, 116, 139, 0.25); }
+    html.light-theme .cyber-node {
+        color: #0e7490;
+        background: linear-gradient(135deg, rgba(8, 145, 178, 0.14), rgba(5, 150, 105, 0.06));
+        border-color: rgba(8, 145, 178, 0.4);
+        box-shadow: 0 0 16px rgba(8, 145, 178, 0.16);
+    }
+    html.light-theme .cyber-entry.live .cyber-node {
+        color: #059669;
+        border-color: rgba(5, 150, 105, 0.45);
+        background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(8, 145, 178, 0.06));
+    }
+    html.light-theme .cyber-node::after,
+    html.light-theme .cyber-entry.live .cyber-node::after { border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .cyber-entry.live .cyber-card { border-left-color: #059669; }
+    html.light-theme .cyber-card:hover { border-left-color: #0891b2; box-shadow: 0 0 0 1px rgba(8, 145, 178, 0.2), var(--shadow-md); }
+    html.light-theme .cyber-card::after { background: linear-gradient(90deg, #0891b2, #059669); }
+    html.light-theme .cyber-entry.live .cyber-card::after { background: linear-gradient(90deg, #059669, #0891b2); }
+    html.light-theme .cyber-line {
+        background: linear-gradient(180deg, transparent, rgba(8, 145, 178, 0.5), rgba(5, 150, 105, 0.4), rgba(8, 145, 178, 0.5), transparent);
+        box-shadow: 0 0 10px rgba(8, 145, 178, 0.2);
+    }
+    html.light-theme .cyber-line::after { background: #059669; box-shadow: 0 0 8px rgba(5, 150, 105, 0.5); }
+    html.light-theme .cyber-feed .cyber-grid {
+        background-image:
+            linear-gradient(rgba(8, 145, 178, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(8, 145, 178, 0.06) 1px, transparent 1px);
+    }
+
     @media (max-width: 768px) {
         .cyber-entry { padding-left: 3.4rem; }
         .cyber-line { left: 12px; }
