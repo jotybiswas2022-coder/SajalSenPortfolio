@@ -262,8 +262,8 @@
     .csd-title-line .seg.c { width: 18px; background: var(--green); }
 
     /* ===== Body grid ===== */
-    .csd-grid { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
-    .csd-main { display: flex; flex-direction: column; gap: 1.5rem; }
+    .csd-body { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 2rem; align-items: start; position: relative; z-index: 2; margin-top: 2.2rem; }
+    .csd-main { display: flex; flex-direction: column; gap: 1.5rem; min-width: 0; }
 
     /* ===== Terminal blocks ===== */
     .csd-term {
@@ -447,7 +447,7 @@
 
     /* ===== Responsive ===== */
     @media (max-width: 968px) {
-        .csd-grid { grid-template-columns: 1fr; }
+        .csd-body { grid-template-columns: 1fr; }
         .csd-side { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
     }
     @media (max-width: 768px) {
@@ -532,7 +532,7 @@
             <div class="csd-title-line"><span class="seg a"></span><span class="seg b"></span><span class="seg c"></span></div>
         </div>
 
-        <div class="csd-grid">
+        <div class="csd-body">
             <div class="csd-main">
                 @if($caseStudy->problem)
                     <div class="csd-term cs-problem">
