@@ -1716,7 +1716,26 @@
         font-size: .62rem; font-weight: 700; color: var(--accent);
         letter-spacing: .08em; text-transform: uppercase;
     }
-    html.light-theme .cs-header .cs-fileid { color: var(--accent); }
+    html.light-theme .cs-header .cs-fileid { color: #0e7490; }
+    html.light-theme .cs-analyze-btn { color: #0e7490; }
+    html.light-theme .casestudy-card:hover .cs-analyze-btn {
+        color: #fff;
+        background: linear-gradient(135deg, #0891b2, #0e7490);
+        border-color: transparent;
+        box-shadow: 0 0 12px rgba(8, 145, 178, 0.25);
+    }
+    html.light-theme .cs-meta i { color: #0e7490; }
+    html.light-theme .cs-grid-bg {
+        background-image:
+            linear-gradient(90deg, rgba(8, 145, 178, 0.05) 1px, transparent 1px),
+            linear-gradient(rgba(8, 145, 178, 0.05) 1px, transparent 1px);
+    }
+    html.light-theme .casestudy-cta::before {
+        background: linear-gradient(90deg, transparent, #0891b2, #059669, transparent);
+    }
+    html.light-theme .casestudy-image::after {
+        background: linear-gradient(180deg, rgba(8, 145, 178, 0.1), transparent 30%, transparent 70%, rgba(15, 23, 42, 0.15));
+    }
     .cs-header .cs-status {
         display: inline-flex; align-items: center; gap: .35rem;
         font-family: 'JetBrains Mono', Consolas, monospace;
