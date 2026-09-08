@@ -348,10 +348,6 @@
         {{-- Mini stats row inside header --}}
         <div class="row g-2 mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.06);">
             <div class="col-4 col-md-2">
-                <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">Projects</div>
-                <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $activeProjects }}/{{ $projectsCount }}</div>
-            </div>
-            <div class="col-4 col-md-2">
                 <div style="font-size:0.65rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.5px;">FAQs</div>
                 <div style="font-size:1.2rem;font-weight:700;color:#fff;">{{ $faqsCount }}</div>
             </div>
@@ -378,7 +374,6 @@
     <div class="row g-3 mb-4">
         @php
             $stats = [
-                ['count' => $projectsCount, 'active' => $activeProjects, 'label' => 'Projects', 'icon' => 'bi-folder2-open', 'color' => '#00d9ff', 'bg' => 'rgba(0,217,255,0.08)'],
                 ['count' => $servicesCount, 'active' => $activeServices, 'label' => 'Services', 'icon' => 'bi-gear', 'color' => '#10b981', 'bg' => 'rgba(16,185,129,0.08)'],
                 ['count' => $experiencesCount, 'active' => $activeExperiences, 'label' => 'Experiences', 'icon' => 'bi-briefcase', 'color' => '#f59e0b', 'bg' => 'rgba(245,158,11,0.08)'],
                 ['count' => $skillsCount, 'active' => $activeSkills, 'label' => 'Skills', 'icon' => 'bi-lightning-charge', 'color' => '#00ff88', 'bg' => 'rgba(0,255,136,0.08)'],
@@ -436,37 +431,6 @@
 
     {{-- ─── RECENT ITEMS GRID ─── --}}
     <div class="row g-4">
-
-        {{-- Recent Projects --}}
-        <div class="col-lg-6 dsb-fade">
-            <div class="dsb-card">
-                <div class="dsb-card-hd">
-                    <span><i class="bi bi-folder2-open" style="color:#00d9ff;"></i> Recent Projects</span>
-                    <a href="{{ route('admin.projects.index') }}" class="ae-btn ae-btn-ghost">
-                        View All <i class="bi bi-arrow-right ms-1"></i>
-                    </a>
-                </div>
-                <div class="dsb-card-bd">
-                    @forelse($recentProjects as $p)
-                        <a href="{{ route('admin.projects.edit', $p->id) }}" class="dsb-item" style="--accent:#00d9ff;">
-                            <span class="dsb-item-av" style="background:rgba(0,217,255,0.08); color:#00d9ff;">
-                                <i class="bi bi-folder2"></i>
-                            </span>
-                            <span class="dsb-item-info">
-                                <span class="dsb-item-title">{{ $p->title }}</span>
-                                <span class="dsb-item-meta">
-                                    @if($p->category)<span><i class="bi bi-tag"></i>{{ $p->category }} &middot; </span>@endif
-                                    <span><i class="bi bi-clock"></i>{{ $p->created_at->diffForHumans() }}</span>
-                                </span>
-                            </span>
-                            <span class="ae-status-badge {{ $p->is_active ? '' : 'inactive' }}" style="cursor:default;"><span class="ae-dot"></span> {{ $p->is_active ? 'Active' : 'Draft' }}</span>
-                        </a>
-                    @empty
-                        <div class="text-center py-4 text-muted small"><i class="bi bi-folder2-open fs-2 d-block mb-2"></i>No projects yet</div>
-                    @endforelse
-                </div>
-            </div>
-        </div>
 
         {{-- Recent Services --}}
         <div class="col-lg-6 dsb-fade">
@@ -565,7 +529,6 @@
                 </div>
                 <div class="p-3 dsb-qa-wrap">
                     <div class="d-flex flex-nowrap gap-2">
-                        <a href="{{ route('admin.projects.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#00d9ff;"></i> Project</a>
                         <a href="{{ route('admin.services.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#10b981;"></i> Service</a>
                         <a href="{{ route('admin.experiences.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#f59e0b;"></i> Experience</a>
                         <a href="{{ route('admin.skills.create') }}" class="dsb-qa"><i class="bi bi-plus-circle" style="color:#00ff88;"></i> Skill</a>

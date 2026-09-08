@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\AccountController;
 use App\Http\Controllers\admin\ContactController;
-use App\Http\Controllers\admin\ProjectController;
 use App\Http\Controllers\admin\TestimonialController;
 use App\Http\Controllers\admin\ExperienceController;
 use App\Http\Controllers\admin\SkillController;
@@ -34,18 +33,6 @@ Route::prefix('/admin')->middleware('admin')->group(function () {
      // Contact
     Route::prefix('/contact')->name('admin.contact.')->controller(ContactController::class)->group(function () {
         Route::get('/', 'index')->name('index');
-    });
-
-    // Projects
-    Route::prefix('/projects')->name('admin.projects.')->controller(ProjectController::class)->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/create', 'create')->name('create');
-        Route::post('/store', 'store')->name('store');
-        Route::get('/edit/{id}', 'edit')->name('edit');
-        Route::put('/update/{id}', 'update')->name('update');
-        Route::delete('/delete/{id}', 'destroy')->name('destroy');
-        Route::get('/toggle-status/{id}', 'toggleStatus')->name('toggleStatus');
-        Route::post('/delete-image/{id}', 'deleteImage')->name('deleteImage');
     });
 
     // Testimonials

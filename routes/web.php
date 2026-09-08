@@ -19,7 +19,6 @@ Route::controller(SiteController::class)->group(function () {
     Route::get('/', 'index')->name('home');
     Route::get('/gig/{id}', 'gigDetail')->name('gig.detail');
     Route::get('/case-study/{id}', 'caseStudyDetail')->name('case-study.detail');
-    Route::get('/project/{id}', 'projectDetail')->name('project.detail');
 });
 
 Route::prefix('/inbox')->name('inbox.')->controller(InboxController::class)->middleware('auth')->group(function () {

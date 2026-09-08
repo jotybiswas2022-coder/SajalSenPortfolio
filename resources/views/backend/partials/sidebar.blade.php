@@ -73,14 +73,6 @@
             </a>
         </li>
         <li style="margin-bottom:1px;">
-            <a href="{{ route('admin.projects.index') }}"
-               class="{{ request()->is('admin/projects*') ? 'active' : '' }}"
-               style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.875rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">
-                <i class="bi bi-folder2-open" style="font-size:15px; width:20px; text-align:center; color:rgba(255,255,255,0.35); transition:all 0.2s; flex-shrink:0;"></i>
-                <span>Projects</span>
-            </a>
-        </li>
-        <li style="margin-bottom:1px;">
             <a href="{{ route('admin.gigs.index') }}"
                class="{{ request()->is('admin/gigs*') ? 'active' : '' }}"
                style="display:flex; align-items:center; gap:10px; padding:7px 14px; margin:0 8px; color:rgba(255,255,255,0.6); text-decoration:none; font-weight:500; font-size:0.875rem; border-radius:8px; border-left:none; transition:all 0.2s cubic-bezier(0.16,1,0.3,1); position:relative;">

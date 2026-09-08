@@ -131,9 +131,6 @@
         filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.3));
     }
 
-    html.light-theme .project-card {
-        background: linear-gradient(145deg, #ffffff, #f8fafc) !important;
-    }
     html.light-theme .cyber-card,
     html.light-theme .contact-form,
     html.light-theme .contact-item,
@@ -2204,10 +2201,15 @@
     .skills-radar .r-ring {
         position: absolute; border-radius: 50%; border: 1px solid #00d9ff;
         top: 50%; left: 50%; transform: translate(-50%,-50%);
+        animation: radarPulse 3s ease-in-out infinite;
     }
-    .skills-radar .r-ring:nth-child(1) { width: 300px; height: 300px; }
-    .skills-radar .r-ring:nth-child(2) { width: 200px; height: 200px; }
-    .skills-radar .r-ring:nth-child(3) { width: 100px; height: 100px; }
+    .skills-radar .r-ring:nth-child(1) { width: 300px; height: 300px; animation-delay: 0s; }
+    .skills-radar .r-ring:nth-child(2) { width: 200px; height: 200px; animation-delay: 0.5s; }
+    .skills-radar .r-ring:nth-child(3) { width: 100px; height: 100px; animation-delay: 1s; }
+    @keyframes radarPulse {
+        0%, 100% { opacity: 0.4; transform: translate(-50%,-50%) scale(1); }
+        50% { opacity: 0.8; transform: translate(-50%,-50%) scale(1.05); }
+    }
     .skills-radar .r-line {
         position: absolute; width: 200px; height: 1px; background: linear-gradient(90deg,transparent,#00d9ff);
         top: 50%; left: 50%; transform-origin: left center;
@@ -2253,6 +2255,12 @@
         opacity: 0; transition: opacity .3s;
     }
     .skill-card:hover::before { opacity: 1; }
+    .skill-card::after {
+        content: ''; position: absolute; inset: 0; border-radius: 12px; pointer-events: none;
+        background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,217,255,.015) 2px, rgba(0,217,255,.015) 4px);
+        opacity: 0; transition: opacity .4s;
+    }
+    .skill-card:hover::after { opacity: 1; }
     .skill-card:hover {
         border-color: rgba(0,217,255,.45);
         background: rgba(0,217,255,.07);
@@ -2265,9 +2273,10 @@
     }
 
     .skill-card .sk-scan {
-        position: absolute; left: 0; right: 0; height: 1px;
-        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.45) 50%, transparent 95%);
+        position: absolute; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent 5%, rgba(0,217,255,.6) 30%, #00d9ff 50%, rgba(0,217,255,.6) 70%, transparent 95%);
         opacity: 0; z-index: 2; pointer-events: none; top: 0;
+        box-shadow: 0 0 8px rgba(0,217,255,.4), 0 0 20px rgba(0,217,255,.15);
     }
     .skill-card:hover .sk-scan { opacity: 1; animation: skScanLine 1.1s ease-in-out infinite; }
     @keyframes skScanLine {
@@ -2286,14 +2295,24 @@
         color: var(--accent-light);
         font-size: 1rem;
         transition: all .3s;
+        position: relative;
     }
     html.light-theme .skill-card .sk-icon { border-color: rgba(0,100,140,.3); color: var(--accent); }
     .skill-card:hover .sk-icon {
         color: #fff; border-color: rgba(0,217,255,.5);
         background: rgba(0,217,255,.12);
         box-shadow: 0 0 12px rgba(0,217,255,.25);
+        animation: iconGlitch 0.3s ease-in-out;
     }
     html.light-theme .skill-card:hover .sk-icon { color: var(--accent); }
+    @keyframes iconGlitch {
+        0% { transform: translate(0); }
+        20% { transform: translate(-1px, 1px); }
+        40% { transform: translate(1px, -1px); }
+        60% { transform: translate(-1px, 0); }
+        80% { transform: translate(1px, 1px); }
+        100% { transform: translate(0); }
+    }
 
     .skill-card .sk-info {
         display: flex; flex-direction: column; gap: .3rem; min-width: 0;
@@ -2302,29 +2321,82 @@
         font-weight: 600; font-size: .72rem; color: var(--text-primary);
         line-height: 1; white-space: nowrap;
         font-family: 'JetBrains Mono', Consolas, monospace;
+        position: relative;
     }
     html.light-theme .skill-card .skill-name { color: var(--text-primary); }
+    .skill-card:hover .skill-name {
+        animation: textGlitch 0.4s ease-in-out;
+    }
+    @keyframes textGlitch {
+        0%, 100% { text-shadow: none; }
+        10% { text-shadow: -1px 0 #ff0040, 1px 0 #00d9ff; }
+        20% { text-shadow: 1px 0 #ff0040, -1px 0 #00d9ff; }
+        30% { text-shadow: none; }
+        40% { text-shadow: -1px 0 #ff0040, 1px 0 #00d9ff; }
+        50% { text-shadow: none; }
+    }
 
     .skill-card .sk-bar {
         width: 96px; height: 3px; border-radius: 4px;
         background: rgba(0,217,255,.12);
         overflow: hidden;
+        position: relative;
     }
     html.light-theme .skill-card .sk-bar { background: rgba(0,100,140,.15); }
+    .skill-card .sk-bar::after {
+        content: ''; position: absolute; top: 0; left: -100%; width: 40%; height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+        animation: barSweep 2s ease-in-out infinite;
+    }
+    @keyframes barSweep {
+        0% { left: -40%; }
+        100% { left: 140%; }
+    }
     .skill-card .sk-bar-fill {
         display: block; height: 100%; width: 0;
         background: var(--accent-gradient);
         border-radius: 4px;
         transition: width 1.2s cubic-bezier(.16,1,.3,1);
+        position: relative;
     }
+    .skill-card .sk-bar-fill::after {
+        content: ''; position: absolute; right: 0; top: -1px; width: 6px; height: 5px;
+        background: #00d9ff; border-radius: 50%;
+        box-shadow: 0 0 6px #00d9ff, 0 0 12px rgba(0,217,255,.5);
+        opacity: 0; transition: opacity .3s;
+    }
+    .skill-card:hover .sk-bar-fill::after { opacity: 1; }
 
     .skill-card .skill-percent {
         font-size: .62rem; font-weight: 700;
         font-family: 'JetBrains Mono', Consolas, monospace;
         color: var(--accent); opacity: .8; flex-shrink: 0;
+        position: relative;
     }
     html.light-theme .skill-card .skill-percent { color: var(--accent); }
-    .skill-card:hover .skill-percent { opacity: 1; }
+    .skill-card:hover .skill-percent { opacity: 1; animation: percentFlicker 0.6s ease-in-out; }
+    @keyframes percentFlicker {
+        0%, 100% { opacity: 1; }
+        15% { opacity: 0.4; }
+        30% { opacity: 1; }
+        45% { opacity: 0.6; }
+        60% { opacity: 1; }
+    }
+    .cyber-particles {
+        position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; opacity: 0; transition: opacity .5s;
+    }
+    .skill-card:hover .cyber-particles { opacity: 1; }
+    .cyber-particle {
+        position: absolute; font-family: 'JetBrains Mono', Consolas, monospace;
+        font-size: 8px; color: rgba(0,217,255,.25); white-space: nowrap;
+        animation: matrixFall linear infinite;
+    }
+    @keyframes matrixFall {
+        0% { transform: translateY(-100%); opacity: 0; }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { transform: translateY(200%); opacity: 0; }
+    }
     /* Filter Tabs */
     .filter-tabs {
         display: flex; flex-wrap: wrap; gap: 0.6rem;
@@ -2354,46 +2426,7 @@
         color: #fff;
     }
 
-    /* Projects */
-    .projects-section { background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 2rem; }
-    .project-card {
-        background: linear-gradient(145deg, rgba(30, 41, 59, 0.5), rgba(22, 32, 50, 0.5));
-        border: 1px solid var(--border-color); border-radius: var(--radius-lg);
-        overflow: hidden; transition: var(--transition); position: relative;
-        text-decoration: none; display: block; cursor: pointer;
-    }
-    html.light-theme .project-card {
-        background: rgba(255,255,255,0.7);
-        border-color: rgba(0,217,255,0.12);
-    }
-    .project-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, transparent);
-        opacity: 0; transition: opacity 0.5s ease; z-index: 2;
-    }
-    .project-card:hover::before { opacity: 1; }
-    .project-card:hover {
-        transform: translateY(-6px); border-color: rgba(0,217,255,0.25);
-        box-shadow: 0 20px 60px rgba(0,217,255,0.08), 0 8px 20px rgba(0,0,0,0.12);
-    }
-    html.light-theme .project-card:hover {
-        box-shadow: 0 20px 60px rgba(0,217,255,0.1);
-    }
-    .project-card .card-image { height: 210px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-    .project-card .card-image .project-icon { font-size: 4rem; opacity: 0.5; transition: var(--transition); }
-    .project-card:hover .card-image .project-icon { transform: scale(1.3); opacity: 1; }
-    .project-card .card-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-    .project-card:hover .card-image img { transform: scale(1.08); }
-    .project-card .card-image::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 60%; background: linear-gradient(0deg, rgba(8,11,18,0.8) 0%, transparent 100%); pointer-events: none; }
-    html.light-theme .project-card .card-image::after { background: linear-gradient(0deg, rgba(248,250,252,0.8) 0%, transparent 100%); }
-    .project-card .card-body { padding: 1.75rem 1.75rem 1.5rem; position: relative; z-index: 1; }
-    .project-card .card-body h3 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0; color: #fff; letter-spacing: -0.3px; }
-    html.light-theme .project-card .card-body h3 { color: #111827; }
-    .project-card:hover .view-details-btn { background: rgba(0,217,255,0.12); gap: 0.7rem; }
-    .project-card:hover .view-details-btn i { transform: translateX(3px); }
-
-/* ===== GIGS — CYBER PRICING PLANS ===== */
+    /* ===== GIGS — CYBER PRICING PLANS ===== */
     .gigs-section { position: relative; overflow: hidden; }
     .gigs-section::before {
         content: '';
@@ -3971,7 +4004,6 @@
     @media (max-width: 968px) {
         .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
         .about-image { order: -1; }
-        .projects-grid { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
         .hero { padding: 5rem 1.5rem 2rem; }
         .hero-content { max-width: 100%; padding: 0 0.5rem; }
         .hero h1 { font-size: clamp(2.4rem, 7vw, 4rem); }
@@ -4018,10 +4050,6 @@
         
 
         
-        .project-card .card-body { padding: 1.4rem; }
-        .project-card .card-body h3 { font-size: 1.1rem; }
-        .project-card .card-image { height: 180px; }
-        .project-card .card-body .view-details-btn { font-size: 0.8rem; }
         .gigs-grid { gap: 1.5rem; }
         .gig-card { width: calc(50% - 0.75rem); min-width: 240px; }
         .filter-tabs { gap: 0.4rem; }
@@ -4100,12 +4128,6 @@
         .about-social-sidebar .social-label { writing-mode: horizontal-tb; }
         .about-social-sidebar .social-links { flex-direction: row; }
         .about-social-sidebar .social-link { width: 38px; height: 38px; font-size: 0.95rem; }
-
-
-        .projects-grid { grid-template-columns: 1fr; gap: 1.2rem; }
-        .project-card .card-image { height: 160px; }
-        .project-card .card-body { padding: 1.2rem; }
-        .project-card .card-body h3 { font-size: 1rem; }
         .gigs-grid { display: block !important; gap: unset; width: 100% !important; }
         .gig-card { width: 100% !important; min-width: 0 !important; display: block; max-width: none !important; }
         .gig-card + .gig-card { margin-top: 1rem; }
@@ -4164,8 +4186,6 @@
         /* Disable some heavy animations on mobile */
         #particles-canvas { display: none; }
         .magnetic { transition: none !important; }
-        .project-card { transform: none !important; }
-        .project-card:hover { transform: translateY(-4px) !important; }
         
         /* Hero decorative responsive */
         .matrix-rain { opacity: 0.35; }
@@ -4314,8 +4334,8 @@
             <div class="hero-badge"><i class="bi bi-shield-fill"></i> <span class="shimmer-text">{{ __('messages.hero_badge') }}</span></div>
             <h1>{{ __('messages.hero_greeting') }}<br><span class="gradient-text">{{ optional($account)->name ?? 'Security Force' }}</span></h1>
             <p>{{ __('messages.hero_tagline') }}</p>
-            <div class="hero-buttons">
-                <a href="#projects" class="btn-primary-custom magnetic">
+<div class="hero-buttons">
+                <a href="#services" class="btn-primary-custom magnetic">
                     <i class="bi bi-shield-lock"></i> {{ __('messages.see_my_work') }}
                 </a>
                 <a href="#contact" class="btn-outline-custom magnetic">
@@ -4972,6 +4992,7 @@
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
                                 <div class="sk-scan"></div>
+                                <div class="cyber-particles"></div>
                                 <span class="sk-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
                                 <div class="sk-info">
                                     <span class="skill-name">{{ $skill->name }}</span>
@@ -4983,6 +5004,7 @@
                         @foreach($skills as $index => $skill)
                             <div class="skill-card" data-skill-index="{{ $index }}">
                                 <div class="sk-scan"></div>
+                                <div class="cyber-particles"></div>
                                 <span class="sk-icon"><i class="bi {{ $skill->icon ?: 'bi-shield-lock' }}"></i></span>
                                 <div class="sk-info">
                                     <span class="skill-name">{{ $skill->name }}</span>
@@ -5000,86 +5022,6 @@
                     <p>{{ __('messages.no_skills_desc') }}</p>
                 </div>
             @endif
-        </div>
-        <div class="section-divider"></div>
-    </section>
-
-    <!-- Projects Section -->
-    <section class="projects-section section-padding" id="projects">
-        <div class="container">
-            <div class="section-title reveal">
-                <div class="line"></div>
-                <h2>{{ __('messages.projects_title') }}</h2>
-                <p>{{ __('messages.projects_subtitle') }}</p>
-            </div>
-            <!-- Filter Buttons -->
-            <div class="filter-tabs reveal">
-                <button class="filter-btn active" data-filter="all">{{ __('messages.all') }}</button>
-                @php
-                    $allTechs = [];
-                    foreach($projects as $p) {
-                        foreach($p->getTechStackArray() as $t) {
-                            $slug = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $t));
-                            $allTechs[$slug] = $t;
-                        }
-                    }
-                @endphp
-                @foreach($allTechs as $slug => $label)
-                    <button class="filter-btn" data-filter="{{ $slug }}">{{ $label }}</button>
-                @endforeach
-            </div>
-
-            <div class="projects-grid">
-                @forelse($projects as $index => $project)
-                    @php
-                        $techSlugs = [];
-                        foreach($project->getTechStackArray() as $t) {
-                            $techSlugs[] = strtolower(preg_replace('/[^a-zA-Z0-9]/', '', $t));
-                        }
-                        $gradients = [
-                            'linear-gradient(135deg, #0f2d3b, #0b1f28)',
-                            'linear-gradient(135deg, #0d2f27, #0c2530)',
-                            'linear-gradient(135deg, #17303c, #0b1f28)',
-                            'linear-gradient(135deg, #1f3a2e, #0b1f28)',
-                            'linear-gradient(135deg, #162b3a, #0b1f28)',
-                            'linear-gradient(135deg, #24351f, #10241b)',
-                        ];
-                        $icons = [
-                            'bi bi-cart-fill',
-                            'bi bi-palette-fill',
-                            'bi bi-card-checklist',
-                            'bi bi-phone-fill',
-                            'bi bi-globe',
-                            'bi bi-cpu-fill',
-                        ];
-                        $delay = ($index % 4) + 1;
-                    @endphp
-                    <a href="{{ route('project.detail', $project->id) }}" class="project-card reveal reveal-delay-{{ $delay }}" data-tech="{{ implode(' ', $techSlugs) }}">
-                        <div class="card-image" style="background: {{ $gradients[$index % count($gradients)] }};">
-                            @if($project->image)
-                                <img src="{{ config('app.storage_url') }}{{ $project->image }}"
-                                     alt="{{ $project->title }} screenshot"
-                                     style="width: 100%; height: 100%; object-fit: cover; opacity: 0.8;">
-                            @else
-                                <span class="project-icon"><i class="{{ $icons[$index % count($icons)] }}"></i></span>
-                            @endif
-                            @if($project->category)<span class="casestudy-category">{{ $project->category }}</span>@endif
-                        </div>
-                        <div class="card-body">
-                            <h3>{{ $project->title }}</h3>
-                            <div class="project-links d-flex gap-3" style="margin-top: 1rem;">
-                                <span class="view-details-btn">{{ __('messages.view_project') }} <i class="bi bi-arrow-right"></i></span>
-                            </div>
-                        </div>
-                    </a>
-                @empty
-                    <div class="empty-state" style="grid-column: 1 / -1;">
-                        <i class="bi bi-folder-plus"></i>
-                    <p class="fw-semibold fs-5 mb-2" style="color: var(--text-primary);">{{ __('messages.no_projects') }}</p>
-                    <p>{{ __('messages.no_projects_desc') }}</p>
-                    </div>
-                @endforelse
-            </div>
         </div>
         <div class="section-divider"></div>
     </section>
@@ -5378,7 +5320,6 @@
                 <a href="#about">{{ __('messages.about') }}</a>
                 <a href="#services">{{ __('messages.services') }}</a>
                 <a href="#skills">{{ __('messages.skills') }}</a>
-                <a href="#projects">{{ __('messages.projects') }}</a>
                 <a href="#faq">FAQ</a>
                 <a href="#contact">{{ __('messages.contact') }}</a>
             </div>
@@ -5663,7 +5604,7 @@
         glow.style.left = e.clientX + 'px';
         glow.style.top = e.clientY + 'px';
     });
-    document.querySelectorAll('a, button, .magnetic, .project-card, .gig-card, .skill-card, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
+    document.querySelectorAll('a, button, .magnetic, .gig-card, .skill-card, .social-link, .btn-primary-custom, .btn-outline-custom, .freelance-btn').forEach(function(el) {
         el.addEventListener('mouseenter', function() { glow.classList.add('active'); });
         el.addEventListener('mouseleave', function() { glow.classList.remove('active'); });
     });
@@ -5780,23 +5721,6 @@
     window.addEventListener('resize', onScroll);
 })();
 
-// ===== PROJECT CARD TILT =====
-(function() {
-    document.querySelectorAll('.project-card').forEach(function(card) {
-        card.addEventListener('mousemove', function(e) {
-            var rect = card.getBoundingClientRect();
-            var x = e.clientX - rect.left;
-            var y = e.clientY - rect.top;
-            var rotateX = (y - rect.height/2) / 20;
-            var rotateY = (rect.width/2 - x) / 20;
-            card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-8px)';
-        });
-        card.addEventListener('mouseleave', function() {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-})();
-
 // ===== SMOOTH ANCHOR SCROLL =====
 (function() {
     document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
@@ -5868,6 +5792,33 @@
     });
 })();
 
+// ===== CYBER PARTICLES FOR SKILL CARDS =====
+(function() {
+    var binaryChars = ['0', '1', '01', '10', '11', '0x', 'FF', 'A3', '>>', '<<', '##', '@@'];
+    document.querySelectorAll('.skill-card').forEach(function(card) {
+        var container = card.querySelector('.cyber-particles');
+        if (!container) return;
+        var spawned = false;
+        card.addEventListener('mouseenter', function() {
+            if (spawned) return;
+            spawned = true;
+            for (var i = 0; i < 8; i++) {
+                var span = document.createElement('span');
+                span.className = 'cyber-particle';
+                span.textContent = binaryChars[Math.floor(Math.random() * binaryChars.length)];
+                span.style.left = Math.random() * 90 + '%';
+                span.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+                span.style.animationDelay = (Math.random() * 1.5) + 's';
+                container.appendChild(span);
+            }
+        });
+        card.addEventListener('mouseleave', function() {
+            spawned = false;
+            container.innerHTML = '';
+        });
+    });
+})();
+
 // ===== CONTACT FORM AJAX =====
 (function() {
     var form = document.getElementById('contactForm');
@@ -5914,39 +5865,6 @@
     });
 })();
 
-// ===== PROJECT FILTER TABS =====
-(function() {
-    var filterBtns = document.querySelectorAll('.filter-btn');
-    var projectCards = document.querySelectorAll('.project-card');
-    if (!filterBtns.length || !projectCards.length) return;
-
-    filterBtns.forEach(function(btn) {
-        btn.addEventListener('click', function() {
-            filterBtns.forEach(function(b) { b.classList.remove('active'); });
-            this.classList.add('active');
-            var filter = this.getAttribute('data-filter');
-
-            projectCards.forEach(function(card) {
-                if (filter === 'all') {
-                    card.style.display = '';
-                    card.style.opacity = '1';
-                } else {
-                    var techs = (card.getAttribute('data-tech') || '').toLowerCase().split(' ');
-                    if (techs.indexOf(filter) > -1) {
-                        card.style.display = '';
-                        card.style.opacity = '1';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                }
-                // Re-trigger reveal animation
-                card.classList.remove('active');
-                setTimeout(function() { card.classList.add('active'); }, 50);
-            });
-        });
-    });
-})();
-
 // ===== CYBER SKILLS: RADAR SWEEP + PROGRESS FILL ON SCROLL =====
 (function() {
     var section = document.querySelector('.skills-section');
@@ -5990,7 +5908,7 @@
 
 // ===== GLASS CARD SHINE EFFECT (all glass cards) =====
 (function() {
-    var selectors = '.cs-step, .cyber-card, .project-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .skill-card';
+    var selectors = '.cs-step, .cyber-card, .gig-card, .testimonial-card, .faq-item, .wave-service, .contact-info-card, .contact-item, .casestudy-card, .edu-card, .skill-card';
     document.querySelectorAll(selectors).forEach(function(card) {
         var rafId = null;
         card.addEventListener('mousemove', function(e) {
