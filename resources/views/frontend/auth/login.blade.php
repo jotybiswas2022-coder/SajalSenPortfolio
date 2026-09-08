@@ -69,7 +69,6 @@
             flex: 1;
             display: none;
             flex-direction: column;
-            justify-content: space-between;
             padding: 3rem 3.5rem;
             overflow: hidden;
             background:
@@ -124,7 +123,7 @@
         .aside .brand-name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
         .aside .brand-sub { font-size: 0.72rem; color: var(--txt-mute); }
 
-        .aside .claims { position: relative; z-index: 2; max-width: 420px; margin-top: 4.5rem; margin-bottom: 3rem; }
+        .aside .claims { position: relative; z-index: 2; max-width: 420px; margin-top: 4.5rem; margin-bottom: 0.5rem; }
         .aside .claims h2 {
             font-size: 2rem; font-weight: 600; line-height: 1.25;
             letter-spacing: -0.03em; margin-bottom: 1rem;
@@ -137,10 +136,13 @@
         .aside .point i { color: var(--accent); font-size: 1rem; }
 
         .aside .foot {
-            position: relative; z-index: 2; margin-top: auto;
+            position: relative; z-index: 2; margin-top: 2.6rem;
+            display: inline-flex; align-items: center; gap: 0.6rem;
             font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
             letter-spacing: 0.06em; color: var(--txt-mute);
-            display: flex; align-items: center; gap: 0.5rem;
+            border-top: 1px solid var(--line);
+            padding-top: 1.3rem;
+            max-width: 420px;
         }
         .aside .foot .dot {
             width: 7px; height: 7px; border-radius: 50%;
