@@ -58,9 +58,24 @@
 
         /* ==================== LAYOUT ==================== */
         .page {
+            position: relative;
             display: flex;
             min-height: 100vh;
             min-height: 100dvh;
+            background:
+                radial-gradient(700px 500px at 100% 0%, rgba(45, 212, 191, 0.06), transparent 60%),
+                var(--bg);
+        }
+        html.light-theme .page {
+            background:
+                radial-gradient(700px 500px at 100% 0%, rgba(13, 148, 136, 0.05), transparent 60%),
+                var(--bg);
+        }
+
+        /* live cipher-rain backdrop */
+        .rain {
+            position: absolute; inset: 0; z-index: 0;
+            pointer-events: none;
         }
 
         /* ---- Left panel ---- */
@@ -161,14 +176,7 @@
             overflow-y: auto;
             padding: max(3rem, env(safe-area-inset-top)) 1.5rem max(3rem, env(safe-area-inset-bottom));
             position: relative;
-            background:
-                radial-gradient(700px 500px at 100% 0%, rgba(45, 212, 191, 0.06), transparent 60%),
-                var(--bg);
-        }
-        html.light-theme .main {
-            background:
-                radial-gradient(700px 500px at 100% 0%, rgba(13, 148, 136, 0.05), transparent 60%),
-                var(--bg);
+            background: transparent;
         }
 
         .theme-toggle {
@@ -199,16 +207,51 @@
             animation: rise 0.55s cubic-bezier(0.16, 1, 0.3, 1);
         }
         html.light-theme .card { box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08); }
+        html.light-theme .card:hover { box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12); }
         @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
         .card:hover {
             border-color: rgba(45, 212, 191, 0.28);
             box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(45, 212, 191, 0.05);
         }
-        html.light-theme .card:hover { box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12); }
+
+        /* periodic security scan sweep across the card */
+        .sweep {
+            position: absolute; left: 4%; right: 4%; top: -30%;
+            height: 34%;
+            background: linear-gradient(180deg, transparent, rgba(45, 212, 191, 0.05), rgba(45, 212, 191, 0.09), transparent);
+            border-bottom: 1px solid rgba(45, 212, 191, 0.12);
+            animation: sweepPass 7s ease-in-out infinite;
+            pointer-events: none;
+        }
+        html.light-theme .sweep {
+            background: linear-gradient(180deg, transparent, rgba(13, 148, 136, 0.05), rgba(13, 148, 136, 0.09), transparent);
+            border-bottom-color: rgba(13, 148, 136, 0.14);
+        }
+        @keyframes sweepPass {
+            0%, 55% { transform: translateY(0); opacity: 0; }
+            62%, 66% { opacity: 1; }
+            95%, 100% { transform: translateY(500px); opacity: 0; }
+        }
+
+        .card { overflow: hidden; }
 
         .card-header { text-align: center; margin-bottom: 1.9rem; }
+        .mark-wrap { position: relative; width: 56px; height: 56px; margin: 0 auto 1.1rem; }
+        .mark-wrap .ping {
+            position: absolute; inset: -6px; border-radius: 18px;
+            border: 1px solid rgba(45, 212, 191, 0.35);
+            animation: sonar 3.2s cubic-bezier(0, 0.6, 0.4, 1) infinite;
+            pointer-events: none;
+        }
+        .mark-wrap .ping.ping2 { animation-delay: 1.6s; }
+        html.light-theme .mark-wrap .ping { border-color: rgba(13, 148, 136, 0.35); }
+        @keyframes sonar {
+            0% { transform: scale(0.7); opacity: 0; }
+            35% { opacity: 0.9; }
+            100% { transform: scale(1.6); opacity: 0; }
+        }
         .card-header .mark {
-            width: 56px; height: 56px; margin: 0 auto 1.1rem;
+            width: 56px; height: 56px;
             border-radius: 15px;
             display: flex; align-items: center; justify-content: center;
             background: linear-gradient(135deg, var(--accent), #0891b2);
@@ -341,6 +384,19 @@
             font-size: 0.64rem; letter-spacing: 0.05em; color: var(--txt-mute);
         }
         .strip .lock { font-size: 0.72rem; color: var(--accent); }
+        .strip::after {
+            content: '▍'; margin-left: 2px;
+            color: var(--accent); font-size: 0.8rem;
+            animation: caretBlink 1.1s step-end infinite;
+        }
+        @keyframes caretBlink { 50% { opacity: 0; } }
+        .enc-live {
+            text-align: center; margin-top: 0.55rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem; letter-spacing: 0.06em; color: var(--txt-mute);
+            transition: color .2s;
+        }
+        .enc-live.busy { color: var(--accent); }
 
         /* autofill */
         input:-webkit-autofill {
@@ -417,6 +473,9 @@
 <body>
 
     <div class="page">
+
+        <!-- live cipher-rain backdrop -->
+        <canvas class="rain" id="rain" aria-hidden="true"></canvas>
         <!-- ======= LEFT / BRAND PANEL ======= -->
         <aside class="aside">
             <div class="orb" aria-hidden="true"></div>
@@ -460,8 +519,13 @@
                 </div>
 
                 <div class="card">
+                    <div class="sweep" aria-hidden="true"></div>
                     <div class="card-header">
-                        <div class="mark"><i class="bi bi-shield-lock"></i></div>
+                        <div class="mark-wrap">
+                            <span class="ping" aria-hidden="true"></span>
+                            <span class="ping ping2" aria-hidden="true"></span>
+                            <div class="mark"><i class="bi bi-shield-lock"></i></div>
+                        </div>
                         <h1>{{ __('Welcome back') }}</h1>
                         <p>{{ __('Sign in to continue to your account.') }}</p>
                     </div>
@@ -532,6 +596,7 @@
                     </form>
 
                     <div class="strip"><i class="bi bi-lock-fill lock"></i> <span id="stripStatus">ENCRYPTED · SESSION TRACKED</span></div>
+                    <div class="enc-live mono" id="encLive">0x00000000 · KEYSIDE IDLE</div>
 
                     <div class="divider">{{ __('New here?') }}</div>
 
@@ -548,6 +613,92 @@
 
     <script>
     document.addEventListener('DOMContentLoaded', function () {
+
+        // ============ LIVE CIPHER RAIN ============
+        var rainEl = document.getElementById('rain');
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (rainEl && !reduced && rainEl.getContext) {
+            var ctx = rainEl.getContext('2d');
+            var columns = [], STEP = 14, GLYPHS = '01ABCDEFADBEEF0123456789AC';
+            function sizeRain() {
+                var dpr = window.devicePixelRatio || 1;
+                var w = rainEl.parentElement.clientWidth;
+                var h = rainEl.parentElement.clientHeight;
+                rainEl.width = w * dpr;
+                rainEl.height = h * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                columns = [];
+                var n = Math.max(20, Math.round(w / STEP));
+                for (var i = 0; i < n; i++) {
+                    columns.push({
+                        x: i * STEP + (Math.random() * 5),
+                        y: Math.random() * h,
+                        s: 0.5 + Math.random() * 0.8,
+                        a: 0.08 + Math.random() * 0.08
+                    });
+                }
+            }
+            function drawRain() {
+                ctx.clearRect(0, 0, rainEl.width, rainEl.height);
+                var h = rainEl.clientHeight;
+                ctx.font = '11px "JetBrains Mono", monospace';
+                var light = document.documentElement.classList.contains('light-theme');
+                ctx.fillStyle = light ? 'rgba(13,148,136,0.7)' : 'rgba(45,212,191,0.7)';
+                for (var i = 0; i < columns.length; i++) {
+                    var c = columns[i];
+                    ctx.globalAlpha = c.a;
+                    ctx.fillText(GLYPHS.charAt(Math.floor(Math.random() * GLYPHS.length)), c.x, c.y);
+                    c.y += c.s;
+                    if (c.y > h + 16) { c.y = -12; c.s = 0.5 + Math.random() * 0.8; }
+                }
+                ctx.globalAlpha = 1;
+                requestAnimationFrame(drawRain);
+            }
+            sizeRain();
+            window.addEventListener('resize', sizeRain);
+            drawRain();
+        }
+
+        // ============ LIVE KEYSTROKE ENCRYPTION READOUT ============
+        var encLive = document.getElementById('encLive');
+        var emailIn = document.getElementById('email');
+        var passIn = document.getElementById('password');
+        if (encLive && emailIn && passIn) {
+            var encTimer = null, encIdle = null;
+            function fnv(s) {
+                var h = 2166136261;
+                for (var i = 0; i < s.length; i++) {
+                    h ^= s.charCodeAt(i);
+                    h = Math.imul(h, 16777619);
+                }
+                return (h >>> 0);
+            }
+            function kickEnc() {
+                if (encTimer) return;
+                encLive.classList.add('busy');
+                encTimer = setInterval(function () {
+                    var val = emailIn.value + passIn.value;
+                    if (val.length === 0) {
+                        encLive.textContent = '0x00000000 · KEYSIDE IDLE';
+                        return;
+                    }
+                    var h = fnv(val + Date.now());
+                    var len = (val.length * 4) % 512;
+                    encLive.textContent = '0x' + h.toString(16).toUpperCase().padStart(8, '0') + ' · ENC ' + val.length + ' BYTES';
+                    if (len === 0) len = 512;
+                }, 80);
+                clearTimeout(encIdle);
+            }
+            function idleEnc() {
+                clearTimeout(encIdle);
+                encIdle = setTimeout(function () {
+                    if (encTimer) { clearInterval(encTimer); encTimer = null; }
+                    encLive.classList.remove('busy');
+                }, 1500);
+            }
+            emailIn.addEventListener('input', function () { kickEnc(); idleEnc(); });
+            passIn.addEventListener('input', function () { kickEnc(); idleEnc(); });
+        }
 
         // password visibility
         var eyeToggle = document.getElementById('eyeToggle');
