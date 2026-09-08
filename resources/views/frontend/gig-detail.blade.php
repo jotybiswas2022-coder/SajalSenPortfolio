@@ -21,6 +21,8 @@
         --bg-primary: #f8fafc;
         --bg-secondary: #f1f5f9;
         --bg-card: rgba(255, 255, 255, 0.92);
+        --accent: #0891b2;
+        --accent-light: #0e7490;
         --text-primary: #111827;
         --text-secondary: #475569;
         --text-muted: #94a3b8;
@@ -432,6 +434,37 @@
     html.light-theme .gd-s-card .s-long .l-price { color: #0891b2; }
 
     @keyframes gdBlink { 50% { opacity: 0.25; } }
+
+    /* ===== Light-theme polish for gig detail ===== */
+    html.light-theme .gd-path .sep { color: #0891b2; }
+    html.light-theme .gd-chip.cat { background: rgba(8, 145, 178, 0.08); border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .gd-chip.tier { background: rgba(180, 83, 9, 0.08); border-color: rgba(180, 83, 9, 0.3); }
+    html.light-theme .gd-chip.live { background: rgba(5, 150, 105, 0.08); border-color: rgba(5, 150, 105, 0.3); }
+    html.light-theme .back-cyber:hover { color: #0891b2; border-color: rgba(8, 145, 178, 0.5); box-shadow: 0 0 22px rgba(8, 145, 178, 0.1); }
+    html.light-theme .gd-fallback .fb-icon { color: rgba(8, 145, 178, 0.45); }
+    html.light-theme .gd-fallback .fb-icon::before,
+    html.light-theme .gd-fallback .fb-icon::after { border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .gd-fallback .fb-tags { color: #0e7490; }
+    html.light-theme .gd-term-bar { border-color: rgba(8, 145, 178, 0.2); }
+    html.light-theme .gd-term-bar .t-dot.r { background: #e11d48; }
+    html.light-theme .gd-term-body { border-color: rgba(8, 145, 178, 0.2); }
+    html.light-theme .gd-term-body::before {
+        background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.55), transparent);
+    }
+    html.light-theme .gd-plan-hud { background: rgba(8, 145, 178, 0.05); border-bottom-color: rgba(8, 145, 178, 0.12); }
+    html.light-theme .gd-plan-hud .tag-featured { color: #b45309; }
+    html.light-theme .gd-plan-hub { background: rgba(8, 145, 178, 0.07); border-color: rgba(8, 145, 178, 0.25); }
+    html.light-theme .gd-plan-hub::before, html.light-theme .gd-plan-hub::after { border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .gd-plan:hover .gd-plan-hub { box-shadow: 0 0 22px rgba(8, 145, 178, 0.18); }
+    html.light-theme .gd-plan-price .cur { color: #0891b2; }
+    html.light-theme .gd-plan-price .amt { color: #0891b2; text-shadow: none; animation: none; }
+    html.light-theme .gd-order { background: rgba(8, 145, 178, 0.07); border-color: rgba(8, 145, 178, 0.35); }
+    html.light-theme .gd-order:hover { background: rgba(8, 145, 178, 0.12); border-color: rgba(8, 145, 178, 0.6); box-shadow: 0 0 20px rgba(8, 145, 178, 0.14); }
+    html.light-theme .gd-suggest-mark .code { color: #0e7490; }
+    html.light-theme .gd-suggest-mark .rule { background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.5)); }
+    html.light-theme .gd-s-card .s-top { color: #0e7490; background: rgba(8, 145, 178, 0.05); border-bottom-color: rgba(8, 145, 178, 0.12); }
+    html.light-theme .gd-s-card .s-long { background: rgba(8, 145, 178, 0.08); border-color: rgba(8, 145, 178, 0.28); }
+    html.light-theme .gd-s-card .s-img { background: #eef3fa; }
 
     @media (max-width: 968px) {
         .gd-price-grid { grid-template-columns: repeat(2, 1fr); gap: 1.4rem; }
