@@ -2,687 +2,597 @@
 
 @section('content')
 <style>
-    /* ===== CSS variables ===== */
-    body { font-family: 'Inter', 'Noto Sans Bengali', sans-serif; background: #080b12; margin:0; padding:0; }
-
     :root {
-        --bg-primary: #080b12;
-        --bg-secondary: #111827;
-        --bg-card: rgba(17, 24, 39, 0.8);
         --accent: #00d9ff;
         --accent-light: #7ce6ff;
-        --text-primary: #f1f5f9;
-        --text-secondary: #94a3b8;
-        --text-muted: #94a3b8;
-        --border-color: #1e293b;
-        --border-hover: rgba(0, 217, 255, 0.3);
-        --radius-sm: 8px;
-        --radius-md: 12px;
-        --radius-lg: 20px;
-        --radius-xl: 24px;
+        --green: #00ff88;
+        --red: #f43f5e;
+        --amber: #f59e0b;
+        --mono: 'JetBrains Mono', 'Courier New', monospace;
+        --border-color: rgba(0, 217, 255, 0.14);
         --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
-
-    /* ===== CHAT PAGE — MODERN GLASS DESIGN ===== */
-    .chat-page {
-        padding-top: 100px;
-        padding-bottom: 4rem;
-        min-height: 100vh;
-        background: linear-gradient(180deg, var(--bg-primary) 0%, #080b12 100%);
-    }
     html.light-theme {
-        --text-primary: #111827;
-        --text-secondary: #475569;
-        --text-muted: #94a3b8;
-        --border-color: #e2e8f0;
-        --bg-card: rgba(255, 255, 255, 0.9);
-    }
-    html.light-theme .chat-page {
-        background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    }
-    html.light-theme body { background: #f8fafc; }
-
-    .chat-container {
-        max-width: 820px;
-        margin: 0 auto;
+        --accent: #0891b2;
+        --accent-light: #0e7490;
+        --green: #059669;
+        --red: #dc2626;
+        --amber: #b45309;
+        --border-color: rgba(8, 145, 178, 0.16);
     }
 
-    /* ===== HEADER ===== */
-    .chat-header {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        margin-bottom: 1.5rem;
-        padding: 1rem 1.4rem;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        transition: all 0.3s ease;
-    }
-    .chat-header:hover {
-        border-color: var(--border-hover);
-        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.05);
-    }
-    .chat-header .back-btn {
-        width: 38px;
-        height: 38px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 1.1rem;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        flex-shrink: 0;
-        background: rgba(0, 217, 255, 0.06);
-        border: 1px solid var(--border-color);
-    }
-    .chat-header .back-btn:hover {
-        background: rgba(0, 217, 255, 0.12);
-        color: var(--accent-light);
-        transform: translateX(-3px);
-    }
-    .chat-header .header-info {
-        flex: 1;
-        min-width: 0;
-    }
-    .chat-header .header-info h2 {
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--text-primary);
-        margin: 0;
-        white-space: nowrap;
+    .ibx-page {
+        position: relative;
+        min-height: 620px;
+        padding: 5.5rem 1.2rem 5rem;
         overflow: hidden;
-        text-overflow: ellipsis;
-        letter-spacing: -0.2px;
+        background: linear-gradient(180deg, #080b12, #0a0f18);
     }
-    .chat-header .header-info .header-sub {
-        font-size: 0.78rem;
-        color: var(--text-muted);
-        margin-top: 0.1rem;
-    }
-    .chat-header .header-status {
-        flex-shrink: 0;
-    }
-    .header-status .status-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.35rem;
-        padding: 0.35rem 0.9rem;
-        border-radius: 20px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-    }
-    .header-status .status-badge.open {
-        background: rgba(34, 197, 94, 0.1);
-        color: #22c55e;
-        border: 1px solid rgba(34, 197, 94, 0.15);
-        box-shadow: 0 0 12px rgba(34, 197, 94, 0.08);
-    }
-    .header-status .status-badge.closed {
-        background: rgba(248, 113, 113, 0.08);
-        color: #f87171;
-        border: 1px solid rgba(248, 113, 113, 0.12);
+    html.light-theme .ibx-page {
+        background:
+            radial-gradient(1100px 480px at 50% -8%, rgba(8, 145, 178, 0.09), transparent 60%),
+            radial-gradient(900px 520px at 88% 55%, rgba(5, 150, 105, 0.05), transparent 60%),
+            linear-gradient(180deg, #f8fafc, #eef2f7);
     }
 
-    /* ===== Package summary ===== */
-    .package-summary {
-        background: var(--bg-card);
+    .ibx-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .ibx-grid {
+        position: absolute; inset: 0;
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.045) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+    }
+    .ibx-radar {
+        position: absolute; left: 78%; top: 22%; width: 520px; height: 520px;
+        transform: translate(-50%, -50%); border-radius: 50%;
+        border: 1px solid rgba(0, 217, 255, 0.05);
+        animation: ibxSpin 26s linear infinite;
+    }
+    .ibx-radar::before, .ibx-radar::after {
+        content: ''; position: absolute; inset: 14%; border-radius: 50%;
+        border: 1px solid rgba(0, 217, 255, 0.04);
+    }
+    .ibx-radar::after { inset: 32%; border-color: rgba(0, 217, 255, 0.03); }
+    html.light-theme .ibx-radar { border-color: rgba(8, 145, 178, 0.07); }
+    @keyframes ibxSpin { to { transform: translate(-50%, -50%) rotate(360deg); } }
+    .ibx-scan {
+        position: absolute; left: 0; right: 0; height: 140px; top: 0;
+        background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.04), transparent);
+        animation: ibxScan 6s linear infinite;
+    }
+    html.light-theme .ibx-scan { background: linear-gradient(180deg, transparent, rgba(8, 145, 178, 0.05), transparent); }
+    @keyframes ibxScan { 0% { top: -20%; } 100% { top: 120%; } }
+    .ibx-particle {
+        position: absolute; font-family: var(--mono); font-size: 0.66rem;
+        letter-spacing: 1.5px; color: rgba(0, 217, 255, 0.4);
+    }
+    html.light-theme .ibx-particle { color: rgba(8, 145, 178, 0.4); }
+    .ibx-particle.p1 { top: 15%; left: 10%; animation: ibxFloat 7s ease-in-out infinite; }
+    .ibx-particle.p2 { bottom: 20%; right: 8%; animation: ibxFloat 9s ease-in-out infinite; animation-delay: 1.2s; }
+    .ibx-particle.p3 { bottom: 30%; left: 12%; animation: ibxFloat 8s ease-in-out infinite; animation-delay: 0.6s; }
+    @keyframes ibxFloat { 0%, 100% { transform: translateY(0); opacity: 0.5; } 50% { transform: translateY(-14px); opacity: 1; } }
+
+    .ibx-inner {
+        position: relative; z-index: 2;
+        max-width: 980px; margin: 0 auto;
+    }
+
+    .ibx-top {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1rem; margin-bottom: 1.6rem;
+    }
+    .ibx-path {
+        display: flex; align-items: center; gap: 0.6rem;
+        font-family: var(--mono); font-size: 0.72rem;
+        letter-spacing: 1px; color: var(--accent);
+    }
+    html.light-theme .ibx-path { color: #0e7490; }
+    .ibx-live {
+        width: 8px; height: 8px; border-radius: 50%;
+        background: #00ff88; box-shadow: 0 0 10px rgba(0, 255, 136, 0.7);
+        animation: ibxPing 1.6s ease-in-out infinite;
+    }
+    html.light-theme .ibx-live { background: #059669; box-shadow: 0 0 10px rgba(5, 150, 105, 0.6); }
+    @keyframes ibxPing { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+    .ibx-path .sep { color: var(--text-muted, #64748b); }
+    .ibx-path span:last-child { color: #00ff88; }
+    html.light-theme .ibx-path span:last-child { color: #047857; }
+    .ibx-back {
+        display: inline-flex; align-items: center; gap: 0.5rem;
+        font-family: var(--mono); font-size: 0.75rem; letter-spacing: 1px;
+        color: var(--text-secondary, #94a3b8);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 1.2rem 1.5rem;
-        margin-bottom: 1.5rem;
+        padding: 0.5rem 1.1rem; border-radius: 10px;
+        transition: var(--transition);
+    }
+    .ibx-back:hover { color: var(--accent); border-color: var(--accent); transform: translateX(-3px); }
+
+    .ibx-conv-head {
         position: relative;
+        display: flex; align-items: center; gap: 1rem;
+        padding: 1rem 1.4rem; margin-bottom: 1.2rem;
+        background: rgba(6, 11, 20, 0.78);
+        border: 1px solid var(--border-color);
+        border-radius: 14px;
         overflow: hidden;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
     }
-    .package-summary::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 3px;
-        height: 100%;
-        background: linear-gradient(180deg, #00d9ff, #00ff88);
-        border-radius: 0 3px 3px 0;
+    html.light-theme .ibx-conv-head { background: rgba(255, 255, 255, 0.92); }
+    .ibx-conv-head::before {
+        content: 'CHANNEL' ; position: absolute; right: 1.1rem; top: -8px;
+        font-family: var(--mono); font-size: 0.56rem; letter-spacing: 3px;
+        color: rgba(0, 217, 255, 0.2);
     }
-    .package-summary:hover {
-        border-color: var(--border-hover);
-        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.05);
-    }
-    .package-summary .pkg-header {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-        margin-bottom: 0.4rem;
-    }
-    .package-summary .pkg-header h5 {
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        margin: 0;
-        text-transform: uppercase;
-        letter-spacing: 0.8px;
-        font-weight: 600;
-    }
-    .package-summary .pkg-header .pkg-icon {
-        font-size: 0.8rem;
-        color: var(--accent-light);
-    }
-    .package-summary .pkg-body {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.75rem 1.5rem;
-    }
-    .package-summary .pkg-name {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: var(--accent-light);
-    }
-    .package-summary .pkg-price {
-        font-size: 1rem;
-        font-weight: 700;
-        color: var(--text-primary);
-    }
-    .package-summary .pkg-price span {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: var(--text-muted);
-    }
-    .package-summary .pkg-details {
-        width: 100%;
-        margin-top: 0.5rem;
-        padding-top: 0.6rem;
-        border-top: 1px solid var(--border-color);
-        font-size: 0.85rem;
-        color: var(--text-secondary);
-        white-space: pre-line;
-        line-height: 1.6;
-    }
-
-    /* ===== Messages box ===== */
-    .messages-box {
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        max-height: 520px;
-        overflow-y: auto;
-        display: flex;
-        flex-direction: column;
-        gap: 1.2rem;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        position: relative;
-    }
-    .messages-box::-webkit-scrollbar { width: 4px; }
-    .messages-box::-webkit-scrollbar-track { background: transparent; }
-    .messages-box::-webkit-scrollbar-thumb { background: rgba(0,217,255,0.25); border-radius: 2px; }
-    .messages-box::-webkit-scrollbar-thumb:hover { background: rgba(0,217,255,0.4); }
-
-    /* Date divider */
-    .msg-date-divider {
-        text-align: center;
-        margin: 0.5rem 0;
-        position: relative;
-    }
-    .msg-date-divider::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: 1px;
-        background: var(--border-color);
-    }
-    .msg-date-divider span {
-        display: inline-block;
-        padding: 0.2rem 1rem;
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: 20px;
-        font-size: 0.7rem;
-        color: var(--text-muted);
-        font-weight: 500;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* ===== Single message ===== */
-    .message {
-        display: flex;
-        gap: 0.75rem;
-        max-width: 85%;
-        animation: msgFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        opacity: 0;
-        transform: translateY(12px);
-    }
-    @keyframes msgFadeIn {
-        to { opacity: 1; transform: translateY(0); }
-    }
-    .message.incoming { align-self: flex-start; }
-    .message.outgoing { align-self: flex-end; flex-direction: row-reverse; }
-
-    .msg-avatar {
-        width: 34px;
-        height: 34px;
-        min-width: 34px;
+    html.light-theme .ibx-conv-head::before { color: rgba(8, 145, 178, 0.2); }
+    .ibx-avatar {
+        width: 50px; height: 50px; min-width: 50px;
         border-radius: 12px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--mono); font-size: 0.9rem; font-weight: 700;
+        color: #071018;
         background: linear-gradient(135deg, #00d9ff, #00ff88);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.8rem;
-        font-weight: 700;
-        color: #fff;
-        flex-shrink: 0;
-        box-shadow: 0 2px 10px rgba(0, 217, 255, 0.15);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+        box-shadow: 0 4px 14px rgba(0, 217, 255, 0.2);
     }
-    .message.outgoing .msg-avatar {
-        background: linear-gradient(135deg, #00d9ff, #00ff88);
-        box-shadow: 0 2px 10px rgba(0, 217, 255, 0.2);
+    html.light-theme .ibx-avatar { color: #fff; box-shadow: 0 4px 14px rgba(8, 145, 178, 0.18); }
+    .ibx-conv-info { flex: 1; min-width: 0; }
+    .ibx-conv-info h2 {
+        font-size: 1.1rem; font-weight: 700; color: #f1f5f9; margin: 0;
+        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
+    html.light-theme .ibx-conv-info h2 { color: #0f172a; }
+    .ibx-conv-info .sub {
+        font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.5px;
+        color: var(--text-muted, #64748b); margin-top: 0.2rem;
+    }
+    .ibx-status {
+        display: inline-flex; align-items: center; gap: 0.4rem;
+        font-family: var(--mono); font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+        padding: 0.4rem 0.9rem; border-radius: 8px; flex-shrink: 0;
+    }
+    .ibx-status .st { animation: ibxPing 2s ease-in-out infinite; }
+    .ibx-status.open { color: #00ff88; background: rgba(0, 255, 136, 0.07); border: 1px solid rgba(0, 255, 136, 0.2); }
+    .ibx-status.closed { color: #f87171; background: rgba(248, 113, 113, 0.07); border: 1px solid rgba(248, 113, 113, 0.2); }
+    html.light-theme .ibx-status.open { color: #059669; background: rgba(5, 150, 105, 0.07); border-color: rgba(5, 150, 105, 0.2); }
+    html.light-theme .ibx-status.closed { color: #dc2626; background: rgba(220, 38, 38, 0.07); border-color: rgba(220, 38, 38, 0.2); }
 
-    .msg-bubble {
-        padding: 0.75rem 1.1rem;
-        border-radius: 18px;
-        font-size: 0.92rem;
-        line-height: 1.55;
-        word-break: break-word;
+    .ibx-meta-card {
         position: relative;
-    }
-    .message.incoming .msg-bubble {
-        background: rgba(0, 217, 255, 0.06);
-        border: 1px solid rgba(0, 217, 255, 0.1);
-        color: var(--text-primary);
-        border-bottom-left-radius: 4px;
-    }
-    .message.outgoing .msg-bubble {
-        background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(0, 217, 255, 0.1));
-        border: 1px solid rgba(0, 217, 255, 0.18);
-        color: var(--text-primary);
-        border-bottom-right-radius: 4px;
-    }
-    html.light-theme .message.outgoing .msg-bubble {
-        background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 217, 255, 0.06));
-    }
-    .msg-bubble .sender-label {
-        font-size: 0.68rem;
-        font-weight: 600;
-        color: var(--accent-light);
-        margin-bottom: 0.25rem;
-        display: block;
-    }
-    .msg-bubble .msg-text {
-        display: block;
-    }
-    .msg-bubble img.msg-text,
-    .msg-bubble .msg-text img {
-        max-width: 260px;
-        max-height: 260px;
-        width: auto;
-        height: auto;
-        border-radius: 12px;
-        margin-top: 0.4rem;
-        display: block;
+        background: rgba(6, 11, 20, 0.72);
         border: 1px solid var(--border-color);
-        object-fit: cover;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        border-radius: 14px;
+        padding: 1.2rem 1.4rem 0.9rem;
+        margin-bottom: 1.2rem;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
     }
-    .message.outgoing img.msg-text {
-        border-color: rgba(0, 217, 255, 0.25);
-    }
-    .msg-bubble .msg-time {
-        display: block;
-        font-size: 0.65rem;
-        color: var(--text-muted);
-        margin-top: 0.5rem;
-        opacity: 0.7;
-    }
-
-    /* ===== EMPTY MESSAGES ===== */
-    .messages-empty {
-        text-align: center;
-        padding: 3rem 2rem;
-        color: var(--text-muted);
-    }
-    .messages-empty i {
-        font-size: 2.5rem;
-        display: block;
-        margin-bottom: 0.75rem;
+    html.light-theme .ibx-meta-card { background: rgba(255, 255, 255, 0.85); }
+    .ibx-meta-card::after {
+        content: ''; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--accent), transparent);
         opacity: 0.5;
     }
-    .messages-empty p {
-        font-size: 0.9rem;
+    .ibx-meta-label {
+        display: flex; align-items: center; gap: 0.55rem;
+        font-family: var(--mono); font-size: 0.68rem; letter-spacing: 2px;
+        color: var(--accent-light); margin-bottom: 0.9rem;
     }
+    html.light-theme .ibx-meta-label { color: #0e7490; }
+    .ibx-meta-label i { font-size: 0.85rem; }
+    .ibx-meta-label .dot {
+        margin-left: auto; width: 6px; height: 6px; border-radius: 50%;
+        background: #00ff88; animation: ibxPing 1.8s ease-in-out infinite;
+    }
+    html.light-theme .ibx-meta-label .dot { background: #059669; }
+    .ibx-meta-row {
+        display: flex; gap: 1.2rem; align-items: baseline; flex-wrap: wrap;
+        border-top: 1px dashed rgba(0, 217, 255, 0.12);
+        padding: 0.55rem 0;
+    }
+    html.light-theme .ibx-meta-row { border-top-color: rgba(8, 145, 178, 0.12); }
+    .ibx-meta-row:first-of-type { border-top: none; }
+    .ibx-meta-row .k {
+        font-family: var(--mono); font-size: 0.68rem; letter-spacing: 1px;
+        color: var(--text-muted, #64748b); width: 120px; flex-shrink: 0;
+    }
+    .ibx-meta-row .v { flex: 1; min-width: 0; }
+    .ibx-meta-row .v.name { font-size: 1.05rem; font-weight: 700; color: #f1f5f9; }
+    html.light-theme .ibx-meta-row .v.name { color: #0f172a; }
+    .ibx-meta-row .v.price { font-family: var(--mono); font-size: 1rem; font-weight: 700; color: var(--accent); }
+    html.light-theme .ibx-meta-row .v.price { color: #0891b2; }
+    .ibx-meta-row .v.details {
+        width: 100%; font-size: 0.85rem; line-height: 1.65;
+        color: var(--text-secondary, #94a3b8); white-space: pre-line;
+    }
+    .ibx-meta-row .v.gig { font-family: var(--mono); font-size: 0.8rem; color: #7ce6ff; }
+    html.light-theme .ibx-meta-row .v.gig { color: #0e7490; }
 
-    /* ===== Chat form ===== */
-    .chat-form {
-        background: var(--bg-card);
+    .ibx-msgs {
+        position: relative;
+        background: rgba(6, 11, 20, 0.58);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        padding: 1.2rem;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        transition: all 0.3s ease;
+        border-radius: 16px;
+        padding: 1.4rem;
+        max-height: 520px;
+        overflow-y: auto;
+        display: flex; flex-direction: column; gap: 1rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
     }
-    .chat-form:focus-within {
-        border-color: rgba(0, 217, 255, 0.3);
-        box-shadow: 0 4px 20px rgba(0, 217, 255, 0.05);
+    html.light-theme .ibx-msgs { background: rgba(255, 255, 255, 0.72); box-shadow: 0 20px 60px rgba(2, 32, 44, 0.08); }
+    .ibx-msgs::-webkit-scrollbar { width: 5px; }
+    .ibx-msgs::-webkit-scrollbar-track { background: transparent; }
+    .ibx-msgs::-webkit-scrollbar-thumb { background: rgba(0, 217, 255, 0.25); border-radius: 3px; }
+    html.light-theme .ibx-msgs::-webkit-scrollbar-thumb { background: rgba(8, 145, 178, 0.25); }
+
+    .ibx-date {
+        margin: 0.4rem 0; text-align: center; position: relative;
+        font-family: var(--mono); font-size: 0.65rem; letter-spacing: 2px;
+        color: var(--text-muted, #64748b);
+    }
+    .ibx-date::before {
+        content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px;
+        background: var(--border-color);
+    }
+    .ibx-date span {
+        position: relative; z-index: 1; display: inline-block;
+        padding: 0.25rem 1rem;
+        background: rgba(6, 11, 20, 0.9);
+        border: 1px solid var(--border-color); border-radius: 20px;
+    }
+    html.light-theme .ibx-date span { background: #fff; }
+
+    .ibx-msg { display: flex; gap: 0.75rem; max-width: 85%; animation: ibxIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(10px); }
+    .ibx-msg.incoming { align-self: flex-start; }
+    .ibx-msg.outgoing { align-self: flex-end; flex-direction: row-reverse; }
+    @keyframes ibxIn { to { opacity: 1; transform: translateY(0); } }
+    .ibx-msg-avatar {
+        width: 34px; height: 34px; min-width: 34px;
+        border-radius: 10px;
+        display: flex; align-items: center; justify-content: center;
+        font-family: var(--mono); font-size: 0.78rem; font-weight: 700;
+        color: #071018;
+        background: linear-gradient(135deg, #00d9ff, #00ff88);
+        border: 1px solid rgba(0, 217, 255, 0.3);
+    }
+    html.light-theme .ibx-msg-avatar { color: #fff; }
+    .ibx-msg.outgoing .ibx-msg-avatar { background: linear-gradient(135deg, #0891b2, #059669); color: #fff; }
+    .ibx-msg-bubble {
+        padding: 0.7rem 1rem;
+        border-radius: 14px;
+        font-size: 0.92rem; line-height: 1.55; word-break: break-word;
+        position: relative;
+    }
+    .ibx-msg.incoming .ibx-msg-bubble {
+        background: rgba(0, 217, 255, 0.06);
+        border: 1px solid var(--border-color);
+        color: #f1f5f9;
+        border-top-left-radius: 4px;
+    }
+    html.light-theme .ibx-msg.incoming .ibx-msg-bubble { color: #0f172a; background: rgba(8, 145, 178, 0.05); }
+    .ibx-msg.outgoing .ibx-msg-bubble {
+        background: rgba(0, 217, 255, 0.1);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        color: #f1f5f9;
+        border-top-right-radius: 4px;
+    }
+    html.light-theme .ibx-msg.outgoing .ibx-msg-bubble {
+        background: rgba(8, 145, 178, 0.08);
+        border-color: rgba(8, 145, 178, 0.2);
+        color: #0f172a;
+    }
+    .ibx-msg-label {
+        display: flex; align-items: center; gap: 0.35rem;
+        font-family: var(--mono); font-size: 0.64rem; font-weight: 700; letter-spacing: 1px;
+        margin-bottom: 0.3rem;
+    }
+    .ibx-msg.incoming .ibx-msg-label { color: #00ff88; }
+    .ibx-msg.outgoing .ibx-msg-label { color: var(--accent); }
+    html.light-theme .ibx-msg.incoming .ibx-msg-label { color: #059669; }
+    html.light-theme .ibx-msg.outgoing .ibx-msg-label { color: #0891b2; }
+    .ibx-msg-text { display: block; }
+    .ibx-msg-bubble img {
+        max-width: 260px; max-height: 260px;
+        width: auto; height: auto;
+        border-radius: 10px; margin-top: 0.4rem; display: block;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+    }
+    .ibx-msg-time {
+        display: block; font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.5px;
+        color: var(--text-muted, #64748b); margin-top: 0.4rem; opacity: 0.8;
     }
 
-    /* Emoji picker */
-    .emoji-picker {
-        display: none;
-        padding: 0.6rem 0.5rem 0.5rem;
-        gap: 0.25rem;
-        flex-wrap: wrap;
+    .ibx-empty-msgs {
+        text-align: center; padding: 3rem 2rem; color: var(--text-muted, #64748b);
+        font-family: var(--mono);
+    }
+    .ibx-empty-msgs i { font-size: 2.4rem; display: block; margin-bottom: 0.8rem; opacity: 0.5; }
+    .ibx-empty-msgs p { font-size: 0.82rem; letter-spacing: 1px; }
+
+    .ibx-form {
+        position: relative;
+        background: rgba(6, 11, 20, 0.78);
+        border: 1px solid var(--border-color);
+        border-radius: 16px;
+        padding: 1rem 1.2rem 1.2rem;
+        margin-top: 1rem;
+        overflow: visible;
+        backdrop-filter: blur(10px);
+        transition: var(--transition);
+    }
+    html.light-theme .ibx-form { background: rgba(255, 255, 255, 0.92); }
+    .ibx-form:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.08); }
+    html.light-theme .ibx-form:focus-within { box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.1); }
+    .ibx-form-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        font-family: var(--mono); font-size: 0.68rem; letter-spacing: 1.5px;
+        color: var(--accent); margin-bottom: 0.8rem;
+    }
+    html.light-theme .ibx-form-bar { color: #0891b2; }
+    .ibx-form-bar .cursor {
+        width: 8px; height: 14px; background: var(--accent);
+        animation: ibxBlink 1s step-end infinite;
+    }
+    html.light-theme .ibx-form-bar .cursor { background: #0891b2; }
+    @keyframes ibxBlink { 50% { opacity: 0; } }
+
+    .ibx-emoji {
+        display: none; padding: 0.6rem 0.5rem 0.5rem;
+        gap: 0.25rem; flex-wrap: wrap;
         border-bottom: 1px solid var(--border-color);
         margin-bottom: 0.75rem;
     }
-    .emoji-picker.open { display: flex; }
-    .emoji-picker button {
-        background: none;
-        border: none;
-        font-size: 1.3rem;
-        cursor: pointer;
-        padding: 3px 5px;
-        border-radius: 6px;
+    .ibx-emoji.open { display: flex; }
+    .ibx-emoji button {
+        background: none; border: none; font-size: 1.25rem; cursor: pointer;
+        padding: 3px 5px; border-radius: 6px; line-height: 1;
         transition: background 0.2s, transform 0.2s;
-        line-height: 1;
     }
-    .emoji-picker button:hover {
-        background: rgba(0, 217, 255, 0.1);
-        transform: scale(1.2);
-    }
+    .ibx-emoji button:hover { background: rgba(0, 217, 255, 0.1); transform: scale(1.2); }
 
-    /* Image preview */
-    #imagePreview {
-        display: none;
-        padding: 0.6rem 0;
-        border-top: 1px solid var(--border-color);
-        margin-top: 0.5rem;
-        align-items: center;
-        gap: 0.75rem;
+    .ibx-preview {
+        display: none; padding: 0.55rem 0;
+        border-top: 1px solid var(--border-color); margin-top: 0.4rem;
+        align-items: center; gap: 0.75rem;
     }
-    #imagePreview img {
-        max-width: 100px;
-        max-height: 100px;
-        border-radius: 10px;
-        border: 1px solid var(--border-color);
-        object-fit: cover;
-    }
-    #imagePreview .remove-image {
-        color: #f87171;
-        cursor: pointer;
-        font-size: 0.82rem;
-        font-weight: 500;
-        transition: color 0.2s;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.3rem;
-    }
-    #imagePreview .remove-image:hover { color: #ef4444; }
+    .ibx-preview img { max-width: 90px; max-height: 90px; border-radius: 10px; border: 1px solid var(--border-color); object-fit: cover; }
+    .ibx-preview .remove-image { color: #f87171; cursor: pointer; font-size: 0.8rem; font-weight: 600; display: inline-flex; align-items: center; gap: 0.3rem; }
+    .ibx-preview .remove-image:hover { color: #ef4444; }
 
-    /* ===== INPUT GROUP ===== */
-    .input-group {
-        display: flex;
-        gap: 0.5rem;
-        align-items: flex-end;
-    }
-    .input-group textarea {
-        flex: 1;
-        background: rgba(255,255,255,0.03);
+    .ibx-inputrow {
+        display: flex; align-items: flex-end; gap: 0.55rem;
         border: 1.5px solid var(--border-color);
         border-radius: 14px;
-        color: var(--text-primary);
-        padding: 0.75rem 1rem;
-        font-size: 0.9rem;
-        font-family: 'Inter', 'Noto Sans Bengali', sans-serif;
-        resize: none;
-        min-height: 46px;
-        max-height: 130px;
-        outline: none;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        line-height: 1.5;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
+        transition: var(--transition);
     }
-    html.light-theme .input-group textarea { background: #fff; color: #1e293b; border-color: #e2e8f0; }
-    html.light-theme .input-group textarea:focus { border-color: #00d9ff; box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.1); }
-    .input-group textarea:focus {
-        border-color: #00d9ff;
-        box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.06);
+    .ibx-inputrow:focus-within { border-color: var(--accent); }
+    .ibx-inputrow .prompt { font-family: var(--mono); font-size: 0.95rem; font-weight: 700; color: var(--accent); padding-bottom: 0.35rem; }
+    html.light-theme .ibx-inputrow .prompt { color: #0891b2; }
+    .ibx-inputrow textarea {
+        flex: 1; background: transparent; border: none; outline: none;
+        color: #f1f5f9; font-size: 0.9rem; font-family: var(--mono);
+        resize: none; min-height: 38px; max-height: 120px; padding: 0.4rem 0; line-height: 1.5;
     }
-
-    .input-group .action-btn {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
+    html.light-theme .ibx-inputrow textarea { color: #0f172a; }
+    .ibx-inputrow textarea::placeholder { color: var(--text-muted, #64748b); opacity: 0.7; }
+    .ibx-btn {
+        width: 42px; height: 42px; flex-shrink: 0;
+        border-radius: 11px;
         border: 1.5px solid var(--border-color);
-        background: rgba(255,255,255,0.03);
-        color: var(--text-secondary);
-        font-size: 1.15rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        padding: 0;
-        flex-shrink: 0;
-        position: relative;
-        overflow: hidden;
-    }
-    .input-group .action-btn:hover {
-        border-color: var(--border-hover);
-        color: var(--accent-light);
-        background: rgba(0, 217, 255, 0.06);
-        transform: translateY(-2px);
-    }
-    .input-group .action-btn.image-btn input[type="file"] {
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        opacity: 0;
-        cursor: pointer;
-    }
-
-    .input-group .send-btn {
-        width: 46px;
-        height: 46px;
-        border-radius: 14px;
-        border: none;
-        background: linear-gradient(135deg, #00d9ff, #00a2c9);
-        color: #fff;
+        background: rgba(255, 255, 255, 0.03);
+        color: var(--text-secondary, #94a3b8);
         font-size: 1.1rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        box-shadow: 0 4px 15px rgba(0,217,255,0.3);
-        flex-shrink: 0;
-        padding: 0;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; padding: 0;
+        transition: var(--transition); position: relative; overflow: hidden;
     }
-    .input-group .send-btn:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 8px 25px rgba(0,217,255,0.4);
+    .ibx-btn:hover { border-color: var(--accent); color: var(--accent); background: rgba(0, 217, 255, 0.06); transform: translateY(-2px); }
+    html.light-theme .ibx-btn:hover { background: rgba(8, 145, 178, 0.05); }
+    .ibx-btn.image-btn input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+    .ibx-send {
+        width: 42px; height: 42px; flex-shrink: 0;
+        border-radius: 11px; border: none;
+        background: linear-gradient(135deg, #00d9ff, #0891b2);
+        color: #fff; font-size: 1.1rem;
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; padding: 0;
+        box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+        transition: var(--transition);
     }
-    .input-group .send-btn:active {
-        transform: translateY(-1px) scale(0.98);
-    }
+    .ibx-send:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 25px rgba(0, 217, 255, 0.4); }
+    .ibx-send:active { transform: translateY(-1px) scale(0.98); }
 
-    /* Closed conversation */
-    .conversation-closed {
-        text-align: center;
-        padding: 1.2rem;
-        color: var(--text-muted);
-        background: var(--bg-card);
-        border: 1px solid var(--border-color);
-        border-radius: var(--radius-lg);
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+    .ibx-closed {
+        text-align: center; padding: 1.2rem;
+        margin-top: 1rem;
+        color: var(--text-muted, #64748b);
+        background: rgba(6, 11, 20, 0.6);
+        border: 1px solid var(--border-color); border-radius: 14px;
+        font-family: var(--mono); font-size: 0.8rem; letter-spacing: 1px;
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
     }
+    html.light-theme .ibx-closed { background: rgba(255, 255, 255, 0.8); }
+    .ibx-closed i { color: #f87171; }
+    html.light-theme .ibx-closed i { color: #dc2626; }
 
-    /* ===== Responsive ===== */
+    .form-error { color: #f87171; font-size: 0.78rem; margin-top: 0.5rem; font-family: var(--mono); }
+    html.light-theme .form-error { color: #dc2626; }
+
     @media (max-width: 768px) {
-        .chat-page { padding-top: 85px; }
-        .messages-box { max-height: 420px; padding: 1.2rem; }
-        .message { max-width: 92%; }
-        .chat-header { padding: 0.85rem 1.1rem; }
-        .chat-header .header-info h2 { font-size: 1rem; }
-        .package-summary { padding: 1rem 1.2rem; }
-        .chat-form { padding: 1rem; }
+        .ibx-page { padding-top: 4.6rem; }
+        .ibx-top { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+        .ibx-msgs { max-height: 440px; padding: 1.1rem; }
+        .ibx-msg { max-width: 92%; }
+        .ibx-conv-head { padding: 0.85rem 1.1rem; }
+        .ibx-meta-row .k { width: 90px; }
     }
     @media (max-width: 480px) {
-        .chat-page { padding-top: 75px; }
-        .messages-box { max-height: 360px; padding: 1rem; gap: 1rem; }
-        .message { max-width: 95%; }
-        .msg-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.7rem; border-radius: 10px; }
-        .msg-bubble { padding: 0.6rem 0.9rem; font-size: 0.85rem; border-radius: 14px; }
-        .chat-header { padding: 0.75rem 0.9rem; gap: 0.65rem; }
-        .chat-header .back-btn { width: 32px; height: 32px; font-size: 0.9rem; }
-        .chat-header .header-info h2 { font-size: 0.9rem; }
-        .header-status .status-badge { font-size: 0.65rem; padding: 0.25rem 0.65rem; }
-        .package-summary { padding: 0.8rem 1rem; }
-        .package-summary .pkg-name { font-size: 0.95rem; }
-        .chat-form { padding: 0.8rem; }
-        .input-group textarea { padding: 0.6rem 0.8rem; font-size: 0.85rem; min-height: 40px; }
-        .input-group .action-btn, .input-group .send-btn { width: 40px; height: 40px; font-size: 1rem; }
+        .ibx-page { padding-top: 4.2rem; }
+        .ibx-msgs { max-height: 380px; padding: 0.9rem; }
+        .ibx-msg { max-width: 95%; gap: 0.55rem; }
+        .ibx-msg-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.68rem; }
+        .ibx-msg-bubble { padding: 0.6rem 0.85rem; font-size: 0.85rem; }
+        .ibx-avatar { width: 42px; height: 42px; min-width: 42px; }
+        .ibx-conv-info h2 { font-size: 0.95rem; }
+        .ibx-status { font-size: 0.62rem; padding: 0.3rem 0.65rem; }
+        .ibx-btn, .ibx-send { width: 38px; height: 38px; font-size: 1rem; }
     }
 </style>
 
-<div class="chat-page">
-    <div class="container">
-        <div class="chat-container">
-            {{-- Header --}}
-            <div class="chat-header">
-                <a href="{{ route('inbox.index') }}" class="back-btn" title="{{ __('messages.back_to_inbox') }}">
-                    <i class="bi bi-arrow-left"></i>
-                </a>
-                <div class="header-info">
-                    <h2>{{ $conversation->subject }}</h2>
-                    <div class="header-sub">{{ $conversation->messages->count() }} {{ $conversation->messages->count() === 1 ? __('messages.message') : __('messages.messages') }}</div>
-                </div>
-                <div class="header-status">
-                    <span class="status-badge {{ $conversation->status }}">
-                        <i class="bi bi-{{ $conversation->status == 'open' ? 'unlock' : 'lock' }}-fill"></i>
-                        {{ ucfirst($conversation->status) }}
-                    </span>
-                </div>
+<div class="ibx-page">
+    <div class="ibx-bg" aria-hidden="true">
+        <div class="ibx-grid"></div>
+        <div class="ibx-radar"></div>
+        <div class="ibx-scan"></div>
+        <div class="ibx-particle p1 mono">CHANNEL</div>
+        <div class="ibx-particle p2 mono">0x7E3A</div>
+        <div class="ibx-particle p3 mono">SECURE</div>
+    </div>
+
+    <div class="ibx-inner">
+        <div class="ibx-top">
+            <div class="ibx-path">
+                <span class="ibx-live"></span>
+                <span>HOME</span><span class="sep">/</span>
+                <span>SECURE_CHANNEL</span><span class="sep">/</span>
+                <span>CHANNEL_{{ str_pad($conversation->id, 3, '0', STR_PAD_LEFT) }}</span>
             </div>
-
-            {{-- Package Summary --}}
-            @if($conversation->package_name)
-            <div class="package-summary">
-                <div class="pkg-header">
-                    <i class="bi bi-box-seam pkg-icon"></i>
-                    <h5>{{ __('messages.package_details') }}</h5>
-                </div>
-                <div class="pkg-body">
-                    <span class="pkg-name">{{ $conversation->package_name }}</span>
-                    <span class="pkg-price">{{ number_format($conversation->package_price, 2) }} <span>USD</span></span>
-                    @if($conversation->package_details)
-                        <div class="pkg-details">{{ $conversation->package_details }}</div>
-                    @endif
-                </div>
-            </div>
-            @endif
-
-            {{-- Messages Box --}}
-            <div class="messages-box" id="messagesBox">
-                @forelse($conversation->messages as $msg)
-                    @php $isMine = $msg->sender_id == auth()->id(); @endphp
-                    <div class="message {{ $isMine ? 'outgoing' : 'incoming' }}">
-                        <div class="msg-avatar">{{ substr($msg->sender->name, 0, 1) }}</div>
-                        <div class="msg-bubble">
-                            @if($msg->sender->is_admin)
-                                <span class="sender-label"><i class="bi bi-shield-check me-1"></i>Support</span>
-                            @endif
-                            @if($msg->message)
-                                <span class="msg-text">{!! nl2br(e($msg->message)) !!}</span>
-                            @endif
-                            @if($msg->image)
-                                <img src="{{ config('app.storage_url') }}{{ $msg->image }}" alt="Shared image" class="msg-text">
-                            @endif
-                            <span class="msg-time">{{ $msg->created_at->format('g:i A') }} · {{ $msg->created_at->diffForHumans() }}</span>
-                        </div>
-                    </div>
-                @empty
-                    <div class="messages-empty">
-                        <i class="bi bi-chat-dots"></i>
-                        <p>{{ __('messages.no_messages_yet') }}</p>
-                    </div>
-                @endforelse
-            </div>
-
-            {{-- Chat Form --}}
-            @if($conversation->status == 'open')
-            <form method="POST" action="{{ route('inbox.send', $conversation->id) }}" enctype="multipart/form-data" class="chat-form">
-                @csrf
-
-                {{-- Emoji Picker --}}
-                <div class="emoji-picker" id="emojiPicker">
-                    <button type="button" onclick="insertEmoji('😊')">😊</button>
-                    <button type="button" onclick="insertEmoji('👍')">👍</button>
-                    <button type="button" onclick="insertEmoji('😍')">😍</button>
-                    <button type="button" onclick="insertEmoji('🎉')">🎉</button>
-                    <button type="button" onclick="insertEmoji('🔥')">🔥</button>
-                    <button type="button" onclick="insertEmoji('💯')">💯</button>
-                    <button type="button" onclick="insertEmoji('✅')">✅</button>
-                    <button type="button" onclick="insertEmoji('❓')">❓</button>
-                    <button type="button" onclick="insertEmoji('👋')">👋</button>
-                    <button type="button" onclick="insertEmoji('📸')">📸</button>
-                    <button type="button" onclick="insertEmoji('🚀')">🚀</button>
-                    <button type="button" onclick="insertEmoji('💪')">💪</button>
-                    <button type="button" onclick="insertEmoji('🙏')">🙏</button>
-                    <button type="button" onclick="insertEmoji('😎')">😎</button>
-                    <button type="button" onclick="insertEmoji('💰')">💰</button>
-                </div>
-
-                {{-- Image Preview --}}
-                <div id="imagePreview">
-                    <img id="previewImg" src="" alt="Preview">
-                    <span class="remove-image" onclick="clearImageInput()">
-                        <i class="bi bi-x-circle"></i> {{ __('messages.remove') }}
-                    </span>
-                </div>
-
-                {{-- Input Row --}}
-                <div class="input-group">
-                    <textarea name="message" id="messageInput" rows="1" placeholder="{{ __('messages.type_message') }}" autocomplete="off"></textarea>
-                    <button type="button" class="action-btn" onclick="toggleEmojiPicker()" title="Emoji">
-                        <i class="bi bi-emoji-smile"></i>
-                    </button>
-                    <label class="action-btn image-btn" title="{{ __('messages.send_image') }}">
-                        <i class="bi bi-image"></i>
-                        <input type="file" name="image" accept="image/*" onchange="previewSelectedImage(event)">
-                    </label>
-                    <button type="submit" class="send-btn" title="{{ __('messages.send') }}">
-                        <i class="bi bi-send-fill"></i>
-                    </button>
-                </div>
-
-                @error('message')<div style="color:#f87171; font-size:0.8rem; margin-top:0.4rem;">{{ $message }}</div>@enderror
-                @error('image')<div style="color:#f87171; font-size:0.8rem; margin-top:0.4rem;">{{ $message }}</div>@enderror
-            </form>
-            @else
-                <div class="conversation-closed">
-                    <i class="bi bi-lock-fill"></i>
-                    {{ __('messages.conversation_closed') }}
-                </div>
-            @endif
-
+            <a href="{{ route('inbox.index') }}" class="ibx-back"><i class="bi bi-arrow-left"></i> {{ __('messages.back_to_inbox') }}</a>
         </div>
+
+        <div class="ibx-conv-head">
+            <span class="ibx-avatar">#{{ str_pad($conversation->id, 3, '0', STR_PAD_LEFT) }}</span>
+            <div class="ibx-conv-info">
+                <h2>{{ $conversation->subject }}</h2>
+                <div class="sub">
+                    @if($conversation->gig)<i class="bi bi-layers me-1"></i>{{ $conversation->gig->title }} · @endif
+                    {{ $conversation->messages->count() }} {{ $conversation->messages->count() === 1 ? __('messages.message') : __('messages.messages') }}
+                </div>
+            </div>
+            <span class="ibx-status {{ $conversation->status }}">
+                <span class="st">&#9679;</span> [{{ Str::upper($conversation->status) }}]
+            </span>
+        </div>
+
+        @if($conversation->package_name)
+        <div class="ibx-meta-card">
+            <div class="ibx-meta-label">
+                <i class="bi bi-box-seam"></i> {{ __('messages.package_details') }}<span class="dot"></span>
+            </div>
+            <div class="ibx-meta-row">
+                <span class="k">PACKAGE</span>
+                <span class="v name">{{ $conversation->package_name }}</span>
+            </div>
+            <div class="ibx-meta-row">
+                <span class="k">PRICE</span>
+                <span class="v price">$ {{ number_format($conversation->package_price, 2) }}</span>
+            </div>
+            @if($conversation->package_details)
+            <div class="ibx-meta-row">
+                <span class="k">SPECS</span>
+                <span class="v details">{{ $conversation->package_details }}</span>
+            </div>
+            @endif
+        </div>
+        @endif
+
+        <div class="ibx-msgs" id="messagesBox">
+            @forelse($conversation->messages as $msg)
+                @php $isMine = $msg->sender_id == auth()->id(); @endphp
+                @if(!isset($prevDate) || $msg->created_at->format('Y-m-d') !== $prevDate)
+                    <div class="ibx-date"><span>&mdash; {{ $msg->created_at->format('d M Y') }} &mdash;</span></div>
+                    @php $prevDate = $msg->created_at->format('Y-m-d'); @endphp
+                @endif
+                <div class="ibx-msg {{ $isMine ? 'outgoing' : 'incoming' }}">
+                    <span class="ibx-msg-avatar">{{ substr($msg->sender->name, 0, 1) }}</span>
+                    <div class="ibx-msg-bubble">
+                        <span class="ibx-msg-label">
+                            @if($msg->sender->is_admin)
+                                <i class="bi bi-shield-check"></i> SUPPORT
+                            @elseif(!$isMine)
+                                <i class="bi bi-person"></i> {{ $msg->sender->name }}
+                            @else
+                                <i class="bi bi-person-fill"></i> YOU
+                            @endif
+                        </span>
+                        @if($msg->message)
+                            <span class="ibx-msg-text">{!! nl2br(e($msg->message)) !!}</span>
+                        @endif
+                        @if($msg->image)
+                            <img src="{{ config('app.storage_url') }}{{ $msg->image }}" alt="Shared image">
+                        @endif
+                        <span class="ibx-msg-time">{{ $msg->created_at->format('g:i A') }} &middot; {{ $msg->created_at->diffForHumans() }}</span>
+                    </div>
+                </div>
+            @empty
+                <div class="ibx-empty-msgs">
+                    <i class="bi bi-chat-dots"></i>
+                    <p>{{ __('messages.no_messages_yet') }}</p>
+                </div>
+            @endforelse
+        </div>
+
+        @if($conversation->status == 'open')
+        <form method="POST" action="{{ route('inbox.send', $conversation->id) }}" enctype="multipart/form-data" class="ibx-form">
+            @csrf
+
+            <div class="ibx-form-bar">
+                composer &gt; echo &nbsp;--msg<span class="cursor"></span>
+            </div>
+
+            <div class="ibx-emoji" id="emojiPicker">
+                <button type="button" onclick="insertEmoji('😊')">😊</button>
+                <button type="button" onclick="insertEmoji('👍')">👍</button>
+                <button type="button" onclick="insertEmoji('😍')">😍</button>
+                <button type="button" onclick="insertEmoji('🎉')">🎉</button>
+                <button type="button" onclick="insertEmoji('🔥')">🔥</button>
+                <button type="button" onclick="insertEmoji('💯')">💯</button>
+                <button type="button" onclick="insertEmoji('✅')">✅</button>
+                <button type="button" onclick="insertEmoji('❓')">❓</button>
+                <button type="button" onclick="insertEmoji('👋')">👋</button>
+                <button type="button" onclick="insertEmoji('📸')">📸</button>
+                <button type="button" onclick="insertEmoji('🚀')">🚀</button>
+                <button type="button" onclick="insertEmoji('💪')">💪</button>
+                <button type="button" onclick="insertEmoji('🙏')">🙏</button>
+                <button type="button" onclick="insertEmoji('😎')">😎</button>
+                <button type="button" onclick="insertEmoji('💰')">💰</button>
+            </div>
+
+            <div class="ibx-preview" id="imagePreview">
+                <img id="previewImg" src="" alt="Preview">
+                <span class="remove-image" onclick="clearImageInput()">
+                    <i class="bi bi-x-circle"></i> {{ __('messages.remove') }}
+                </span>
+            </div>
+
+            <div class="ibx-inputrow">
+                <span class="prompt">&gt;_</span>
+                <textarea name="message" id="messageInput" rows="1" placeholder="{{ __('messages.type_message') }}" autocomplete="off"></textarea>
+                <button type="button" class="ibx-btn" onclick="toggleEmojiPicker()" title="Emoji">
+                    <i class="bi bi-emoji-smile"></i>
+                </button>
+                <label class="ibx-btn image-btn" title="{{ __('messages.send_image') }}">
+                    <i class="bi bi-image"></i>
+                    <input type="file" name="image" accept="image/*" onchange="previewSelectedImage(event)">
+                </label>
+                <button type="submit" class="ibx-send" title="{{ __('messages.send') }}">
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </div>
+
+            @error('message')<div class="form-error">{{ $message }}</div>@enderror
+            @error('image')<div class="form-error">{{ $message }}</div>@enderror
+        </form>
+        @else
+            <div class="ibx-closed">
+                <i class="bi bi-lock-fill"></i> {{ __('messages.conversation_closed') }}
+            </div>
+        @endif
     </div>
 </div>
 
@@ -717,7 +627,7 @@
     }
     function autoResize(textarea) {
         textarea.style.height = 'auto';
-        textarea.style.height = Math.min(textarea.scrollHeight, 130) + 'px';
+        textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
     }
     document.addEventListener('DOMContentLoaded', function() {
         const textarea = document.getElementById('messageInput');
