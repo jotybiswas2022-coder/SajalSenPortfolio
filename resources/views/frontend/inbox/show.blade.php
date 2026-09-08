@@ -425,7 +425,9 @@
 
     @media (max-width: 768px) {
         .ibx-page { padding-top: 4.6rem; }
+        .ibx-inner { max-width: 100%; }
         .ibx-top { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
+        .ibx-path { flex-wrap: wrap; }
         .ibx-msgs { max-height: 440px; padding: 1.1rem; }
         .ibx-msg { max-width: 92%; }
         .ibx-conv-head { padding: 0.85rem 1.1rem; }
@@ -433,14 +435,42 @@
     }
     @media (max-width: 480px) {
         .ibx-page { padding-top: 4.2rem; }
-        .ibx-msgs { max-height: 380px; padding: 0.9rem; }
-        .ibx-msg { max-width: 95%; gap: 0.55rem; }
+        .ibx-msgs { max-height: 60vh; min-height: 300px; padding: 0.9rem; gap: 0.85rem; }
+        .ibx-msg { max-width: 100%; gap: 0.55rem; }
         .ibx-msg-avatar { width: 28px; height: 28px; min-width: 28px; font-size: 0.68rem; }
-        .ibx-msg-bubble { padding: 0.6rem 0.85rem; font-size: 0.85rem; }
-        .ibx-avatar { width: 42px; height: 42px; min-width: 42px; }
+        .ibx-msg-bubble { padding: 0.6rem 0.85rem; font-size: 0.84rem; }
+        .ibx-msg-bubble img { max-width: 200px; max-height: 200px; }
+        .ibx-conv-head { flex-wrap: wrap; gap: 0.7rem; padding: 0.85rem 0.9rem; }
+        .ibx-avatar { width: 42px; height: 42px; min-width: 42px; font-size: 0.8rem; }
         .ibx-conv-info h2 { font-size: 0.95rem; }
-        .ibx-status { font-size: 0.62rem; padding: 0.3rem 0.65rem; }
-        .ibx-btn, .ibx-send { width: 38px; height: 38px; font-size: 1rem; }
+        .ibx-status { font-size: 0.6rem; padding: 0.28rem 0.6rem; margin-left: auto; }
+        .ibx-meta-card { padding: 1rem 1rem 0.75rem; }
+        .ibx-meta-row { flex-direction: column; gap: 0.15rem; }
+        .ibx-meta-row .k { width: auto; }
+        .ibx-meta-row .v.gig, .ibx-meta-row .v.details { font-size: 0.8rem; }
+        .ibx-form { padding: 0.8rem; }
+        .ibx-inputrow {
+            flex-wrap: wrap; justify-content: flex-end;
+            border: none; padding: 0; gap: 0.5rem;
+        }
+        .ibx-inputrow .prompt { display: none; }
+        .ibx-inputrow textarea {
+            flex: 1 1 100%; min-height: 34px;
+            border: 1.5px solid var(--border-color); border-radius: 12px;
+            padding: 0.65rem 0.95rem;
+            background: rgba(255, 255, 255, 0.03);
+        }
+        html.light-theme .ibx-inputrow textarea { background: #fff; border-color: #e2e8f0; }
+        .ibx-btn, .ibx-send { width: 40px; height: 40px; font-size: 1rem; }
+        .ibx-date span { font-size: 0.58rem; padding: 0.2rem 0.7rem; }
+        .ibx-closed { font-size: 0.72rem; }
+    }
+    @media (max-width: 360px) {
+        .ibx-page { padding: 3.8rem 0.6rem 3.5rem; }
+        .ibx-path { font-size: 0.62rem; letter-spacing: 0.5px; gap: 0.4rem; }
+        .ibx-back { font-size: 0.68rem; padding: 0.4rem 0.8rem; }
+        .ibx-conv-info .sub { font-size: 0.64rem; }
+        .ibx-btn, .ibx-send { width: 36px; height: 36px; font-size: 0.95rem; }
     }
 </style>
 
