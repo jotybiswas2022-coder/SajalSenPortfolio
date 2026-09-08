@@ -1476,7 +1476,6 @@
         pointer-events: none;
         z-index: 3;
     }
-    .hero > .section-divider { bottom: 0; }
     html.light-theme .section-divider {
         background: linear-gradient(90deg,
             transparent 0%,
@@ -4324,7 +4323,6 @@
                 </a>
             </div>
         </div>
-        <div class="section-divider"></div>
     </section>
 
     <!-- About Section -->
