@@ -2728,6 +2728,33 @@
         100% { left: 110%; opacity: 0; }
     }
 
+    /* ===== Light-theme polish for cyber pricing plans ===== */
+    html.light-theme .gig-tier-name { color: #64748b; }
+    html.light-theme .gig-tier.std .gig-tier-price { color: #0891b2; }
+    html.light-theme .gig-tier.pre .gig-tier-price { color: #b45309; }
+    html.light-theme .gig-tier.std { background: rgba(8, 145, 178, 0.07); border-color: rgba(8, 145, 178, 0.28); }
+    html.light-theme .gig-tier.pre { background: rgba(245, 158, 11, 0.07); border-color: rgba(245, 158, 11, 0.26); }
+    html.light-theme .gig-icon {
+        background: rgba(8, 145, 178, 0.06);
+        border: 1px solid rgba(8, 145, 178, 0.22);
+    }
+    html.light-theme .gig-icon::before, html.light-theme .gig-icon::after { border-color: rgba(8, 145, 178, 0.26); }
+    html.light-theme .gig-thumb {
+        background: linear-gradient(170deg, rgba(8, 145, 178, 0.09), rgba(5, 150, 105, 0.05));
+        border-bottom-color: rgba(8, 145, 178, 0.16);
+    }
+    html.light-theme .gig-cta {
+        background: linear-gradient(90deg, rgba(8, 145, 178, 0.12), rgba(5, 150, 105, 0.09));
+        border-color: rgba(8, 145, 178, 0.32);
+    }
+    html.light-theme .gig-card:hover .gig-cta {
+        background: linear-gradient(90deg, rgba(8, 145, 178, 0.2), rgba(5, 150, 105, 0.15));
+        border-color: rgba(8, 145, 178, 0.5);
+        box-shadow: 0 0 16px rgba(8, 145, 178, 0.18);
+    }
+    html.light-theme .gig-hud-live .dot { box-shadow: 0 0 6px rgba(5, 150, 105, 0.5); }
+    html.light-theme .gc-particle { color: rgba(5, 150, 105, 0.45); }
+
     /* Testimonials */
     .testimonials-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #080b12 100%); }
     html.light-theme .testimonials-section { background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%); }
