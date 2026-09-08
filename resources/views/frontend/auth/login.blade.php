@@ -211,7 +211,8 @@
         }
         html.light-theme .card-header .mark { color: #fff; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-        .card-header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; }
+        .card-header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
+        html.light-theme .card-header h1 { color: #0f172a; }
         .card-header p { color: var(--txt-dim); font-size: 0.88rem; margin-top: 0.35rem; }
 
         /* fields */
