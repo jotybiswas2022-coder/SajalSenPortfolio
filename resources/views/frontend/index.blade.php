@@ -2915,6 +2915,28 @@
     }
     .testimonial-card:hover .author-avatar::before { opacity: 1; }
 
+    /* ===== Light-theme polish for testimonials cyber UI ===== */
+    html.light-theme .tm-corner { border-color: rgba(8, 145, 178, 0.5); }
+    html.light-theme .tm-topbar {
+        background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.7), transparent);
+    }
+    html.light-theme .tm-particle { color: rgba(5, 150, 105, 0.45); }
+    html.light-theme .author-avatar::before { border-color: rgba(8, 145, 178, 0.35); }
+    html.light-theme .quote-icon::before { border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .testimonials-section::before {
+        background:
+            linear-gradient(rgba(8, 145, 178, 0.05) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(8, 145, 178, 0.05) 1px, transparent 1px);
+    }
+    html.light-theme .tm-radar {
+        border-color: rgba(8, 145, 178, 0.12);
+    }
+    html.light-theme .tm-radar::before { border-color: rgba(8, 145, 178, 0.18); }
+    html.light-theme .tm-radar::after {
+        background: conic-gradient(from 0deg, rgba(8, 145, 178, 0.2), transparent 60deg, transparent 360deg);
+    }
+    html.light-theme .testimonial-card { border-color: rgba(8, 145, 178, 0.18); }
+
     /* ===== CONTACT — REDESIGNED MODERN ===== */
     .contact-section {
         background: linear-gradient(180deg, #070d15 0%, #0a1420 40%, #0e1e2e 70%, #080b12 100%);
