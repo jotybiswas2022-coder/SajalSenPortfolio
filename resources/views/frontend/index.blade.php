@@ -4028,6 +4028,35 @@
     }
     .back-top:hover { gap: .7rem; color: var(--accent-light); }
     html.light-theme .footer-links a { color: #64748b; }
+    /* ===== Light-theme polish for footer ===== */
+    html.light-theme .footer::before {
+        background: linear-gradient(90deg, transparent, #0891b2, #059669, #0891b2, transparent);
+    }
+    html.light-theme .footer-brand h4 {
+        background: linear-gradient(135deg, #0891b2, #0d9488, #059669);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    html.light-theme .footer-divider {
+        background: linear-gradient(90deg, transparent, #0891b2, transparent);
+    }
+    html.light-theme .footer-links a::before { color: #0891b2; }
+    html.light-theme .footer-links a:hover {
+        color: #0e7490;
+        border-color: rgba(8, 145, 178, 0.25);
+        background: rgba(8, 145, 178, 0.06);
+    }
+    html.light-theme .social-icon { border-color: rgba(8, 145, 178, 0.18); }
+    html.light-theme .social-icon::before {
+        background: linear-gradient(135deg, rgba(8, 145, 178, 0.12), rgba(5, 150, 105, 0.08));
+    }
+    html.light-theme .social-icon:hover {
+        border-color: #0891b2; color: #0891b2;
+        box-shadow: 0 10px 30px rgba(8, 145, 178, 0.22);
+    }
+    html.light-theme .footer-bottom { border-top-color: rgba(8, 145, 178, 0.15); }
+    html.light-theme .back-top { color: #0891b2; }
+    html.light-theme .back-top:hover { color: #0e7490; }
 
     /* WhatsApp */
     .whatsapp-float {
