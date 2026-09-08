@@ -4324,11 +4324,6 @@
                 </a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <div class="mouse">
-                <div class="wheel"></div>
-            </div>
-        </div>
         <div class="section-divider"></div>
     </section>
 
