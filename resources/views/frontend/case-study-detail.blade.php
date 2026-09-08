@@ -4,444 +4,622 @@
 <style>
     :root {
         --bg-primary: #080b12;
-        --bg-secondary: #111827;
         --bg-card: rgba(17, 24, 39, 0.8);
         --accent: #00d9ff;
         --accent-light: #7ce6ff;
+        --green: #00ff88;
         --text-primary: #f1f5f9;
         --text-secondary: #94a3b8;
-        --text-muted: #94a3b8;
+        --text-muted: #64748b;
         --border-color: #1e293b;
-        --radius-lg: 20px;
-        --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
     html.light-theme {
-        --bg-primary: #f8fafc;
-        --bg-secondary: #f1f5f9;
-        --bg-card: rgba(255, 255, 255, 0.92);
+        --bg-card: rgba(255, 255, 255, 0.9);
+        --accent: #0891b2;
+        --accent-light: #0e7490;
+        --green: #059669;
         --text-primary: #111827;
         --text-secondary: #475569;
-        --text-muted: #94a3b8;
+        --text-muted: #64748b;
         --border-color: #e2e8f0;
     }
     html.light-theme body { background: #f8fafc; }
-    body {
-        font-family: 'Inter', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif;
-    }
+    body { font-family: 'Inter', 'Noto Sans Bengali', system-ui, -apple-system, sans-serif; }
+    .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
 
-    .cs-detail-page {
-        padding-top: 80px;
+    /* ===== Page shell + cyber background ===== */
+    .csd-page {
+        position: relative;
+        padding-top: 90px;
         padding-bottom: 5rem;
         min-height: 100vh;
-        background: var(--bg-primary);
+        overflow: hidden;
+        background:
+            radial-gradient(1100px 480px at 50% -8%, rgba(0, 217, 255, 0.08), transparent 60%),
+            radial-gradient(900px 520px at 88% 55%, rgba(0, 255, 136, 0.04), transparent 60%),
+            linear-gradient(180deg, #080b12, #080d16);
+    }
+    html.light-theme .csd-page {
+        background:
+            radial-gradient(1100px 480px at 50% -8%, rgba(8, 145, 178, 0.09), transparent 60%),
+            radial-gradient(900px 520px at 88% 55%, rgba(5, 150, 105, 0.05), transparent 60%),
+            linear-gradient(180deg, #f8fafc, #eef2f7);
+    }
+    .csd-bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+    .csd-grid {
+        position: absolute; inset: 0;
+        background:
+            linear-gradient(rgba(0, 217, 255, 0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(0, 217, 255, 0.045) 1px, transparent 1px);
+        background-size: 44px 44px;
+        -webkit-mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+        mask-image: radial-gradient(ellipse 70% 75% at 50% 45%, rgba(0,0,0,0.7), transparent 85%);
+    }
+    .csd-radar {
+        position: absolute; left: 50%; top: 38%; width: 660px; height: 660px;
+        transform: translate(-50%, -50%); border-radius: 50%;
+        border: 1px solid rgba(0, 217, 255, 0.06);
+    }
+    .csd-radar::before {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.1); animation: csdRadarSpin 32s linear infinite;
+    }
+    .csd-radar::after {
+        content: ''; position: absolute; inset: 0; border-radius: 50%;
+        background: conic-gradient(from 0deg, rgba(0, 217, 255, 0.1), transparent 70deg, transparent 360deg);
+        animation: csdRadarSpin 7s linear infinite;
+    }
+    html.light-theme .csd-radar { border-color: rgba(8, 145, 178, 0.12); }
+    html.light-theme .csd-radar::before { border-color: rgba(8, 145, 178, 0.16); }
+    html.light-theme .csd-radar::after {
+        background: conic-gradient(from 0deg, rgba(8, 145, 178, 0.13), transparent 70deg, transparent 360deg);
+    }
+    @keyframes csdRadarSpin { to { transform: rotate(360deg); } }
+    .csd-beam {
+        position: absolute; left: 50%; top: 0; bottom: 0; width: 1px;
+        background: linear-gradient(180deg, transparent, rgba(0, 217, 255, 0.35), transparent);
+        transform: translateX(-50%);
+        animation: csdBeamMove 9s ease-in-out infinite;
+    }
+    html.light-theme .csd-beam {
+        background: linear-gradient(180deg, transparent, rgba(8, 145, 178, 0.3), transparent);
+    }
+    @keyframes csdBeamMove {
+        0%   { left: 6%; opacity: 0; }
+        18%  { opacity: 1; }
+        50%  { left: 94%; opacity: 1; }
+        68%  { opacity: 1; }
+        100% { left: 6%; opacity: 0; }
+    }
+    .csd-scan {
+        position: absolute; left: 0; right: 0; height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.45), transparent);
+        animation: csdScanMove 6s ease-in-out infinite; opacity: 0;
+    }
+    html.light-theme .csd-scan {
+        background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.4), transparent);
+    }
+    @keyframes csdScanMove {
+        0%   { top: 5%; opacity: 0; }
+        12%  { opacity: 0.8; }
+        50%  { top: 96%; opacity: 0.8; }
+        62%  { opacity: 0; }
+        100% { top: 5%; opacity: 0; }
+    }
+    .csd-particle {
+        position: absolute; color: rgba(0, 255, 136, 0.35);
+        font-size: 0.66rem; font-weight: 700; opacity: 0;
+        animation: csdFloat linear infinite;
+    }
+    html.light-theme .csd-particle { color: rgba(5, 150, 105, 0.4); }
+    .csd-particle.p1 { left: 5%; top: 30%; animation-duration: 8s; }
+    .csd-particle.p2 { right: 7%; top: 55%; animation-duration: 9.5s; animation-delay: 1.2s; }
+    .csd-particle.p3 { left: 11%; bottom: 26%; animation-duration: 7.5s; animation-delay: 2s; }
+    .csd-particle.p4 { right: 15%; bottom: 16%; animation-duration: 8.8s; animation-delay: 0.6s; }
+    @keyframes csdFloat {
+        0%   { transform: translateY(0); opacity: 0; }
+        12%  { opacity: 1; }
+        88%  { opacity: 1; }
+        100% { transform: translateY(-70px); opacity: 0; }
     }
 
-    .cs-container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+    .csd-container { max-width: 1120px; margin: 0 auto; padding: 0 1.5rem; position: relative; z-index: 2; }
+
+    /* ===== HUD corners (shared) ===== */
+    .csd-corner { position: absolute; width: 16px; height: 16px; border: 2px solid rgba(0, 217, 255, 0.55); z-index: 5; }
+    html.light-theme .csd-corner { border-color: rgba(8, 145, 178, 0.5); }
+    .csd-corner.tl { top: 8px; left: 8px; border-width: 2px 0 0 2px; border-top-left-radius: 8px; }
+    .csd-corner.tr { top: 8px; right: 8px; border-width: 2px 2px 0 0; border-top-right-radius: 8px; }
+    .csd-corner.bl { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; border-bottom-left-radius: 8px; animation: csdBlink 2.4s linear infinite; }
+    .csd-corner.br { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; border-bottom-right-radius: 8px; }
+    @keyframes csdBlink { 50% { opacity: 0.25; } }
 
     /* ===== Top bar ===== */
-    .top-bar {
-        display: flex; align-items: center;
-        margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;
+    .csd-top {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;
     }
-    .back-link {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        padding: 0.6rem 1.4rem; background: var(--bg-card);
-        border: 1px solid var(--border-color); border-radius: 50px;
-        color: var(--text-secondary); text-decoration: none;
-        font-size: 0.85rem; font-weight: 500;
+    .csd-path {
+        display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;
+        font-size: 0.74rem; letter-spacing: 0.08em; color: var(--text-muted);
+    }
+    .csd-path .sep { color: var(--accent); }
+    html.light-theme .csd-path .sep { color: #0891b2; }
+    .csd-live { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 10px rgba(0, 255, 136, 0.9); animation: csdBlink 1.6s linear infinite; }
+    html.light-theme .csd-live { box-shadow: 0 0 10px rgba(5, 150, 105, 0.7); }
+    .csd-back {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.55rem 1.25rem; position: relative; overflow: hidden;
+        background: rgba(13, 27, 42, 0.7); border: 1px solid rgba(0, 217, 255, 0.28);
+        border-radius: 10px; color: var(--text-secondary); text-decoration: none;
+        font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
         backdrop-filter: blur(12px); transition: var(--transition);
     }
-    .back-link:hover {
-        border-color: rgba(0,217,255,0.3); color: var(--accent-light);
-        transform: translateX(-4px); box-shadow: 0 4px 20px rgba(0,217,255,0.08);
+    html.light-theme .csd-back { background: rgba(255, 255, 255, 0.85); border-color: rgba(8, 145, 178, 0.25); }
+    .csd-back i, .csd-back span { position: relative; z-index: 2; }
+    .csd-back::after {
+        content: ''; position: absolute; top: 0; bottom: 0; left: -60px; width: 40px;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+        transform: skewX(-20deg); transition: left 0.5s ease;
     }
+    .csd-back:hover { border-color: rgba(0, 217, 255, 0.6); color: var(--accent-light); transform: translateX(-4px); box-shadow: 0 0 24px rgba(0, 217, 255, 0.12); }
+    .csd-back:hover::after { left: 110%; }
+    html.light-theme .csd-back:hover { color: #0891b2; border-color: rgba(8, 145, 178, 0.5); box-shadow: 0 0 20px rgba(8, 145, 178, 0.1); }
 
-    /* ===== HERO IMAGE (no text overlay) ===== */
-    .cs-image-wrap {
+    /* ===== Hero image cyber frame ===== */
+    .csd-frame {
+        position: relative; border-radius: 20px; overflow: hidden;
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        padding: 10px;
+        background: linear-gradient(165deg, rgba(13, 27, 42, 0.7), rgba(7, 16, 27, 0.7));
+        margin-bottom: 2.6rem;
+        box-shadow: 0 30px 100px rgba(0, 0, 0, 0.4);
+    }
+    html.light-theme .csd-frame {
+        background: linear-gradient(165deg, rgba(255, 255, 255, 0.95), rgba(240, 244, 250, 0.95));
+        border-color: rgba(8, 145, 178, 0.2);
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.12);
+    }
+    .csd-hud {
+        position: absolute; top: 16px; left: 20px; z-index: 4;
+        font-size: 0.66rem; letter-spacing: 0.16em; color: rgba(0, 217, 255, 0.8);
+        background: rgba(5, 8, 15, 0.55); border: 1px solid rgba(0, 217, 255, 0.2);
+        padding: 0.25rem 0.6rem; border-radius: 6px; backdrop-filter: blur(6px);
+    }
+    html.light-theme .csd-hud { color: #0891b2; background: rgba(255, 255, 255, 0.7); border-color: rgba(8, 145, 178, 0.2); }
+    .csd-hud.right { left: auto; right: 20px; }
+    .csd-screen { position: relative; border-radius: 12px; overflow: hidden; background: #05080f; }
+    .csd-screen img { width: 100%; min-height: 220px; object-fit: cover; display: block; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+    .csd-frame:hover .csd-screen img { transform: scale(1.03); }
+    .csd-fallback {
         width: 100%; aspect-ratio: 16 / 9;
-        border-radius: 24px; overflow: hidden;
-        margin-bottom: 2.5rem;
-        border: 1px solid var(--border-color);
-        box-shadow: 0 25px 80px rgba(0,0,0,0.3);
-        background: var(--bg-secondary);
-        position: relative;
+        background: radial-gradient(circle at 50% 40%, rgba(0, 217, 255, 0.08), transparent 55%), linear-gradient(135deg, #0f1c2b, #0a1220);
+        display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem;
     }
-    .cs-image-wrap img {
-        width: 100%; height: 100%; object-fit: cover;
-        display: block;
+    html.light-theme .csd-fallback {
+        background: radial-gradient(circle at 50% 40%, rgba(8, 145, 178, 0.08), transparent 55%), linear-gradient(135deg, #eef3fa, #dfe7f2);
     }
-    .cs-image-wrap .img-fallback {
-        width: 100%; height: 100%;
-        background: linear-gradient(135deg, #1e293b 0%, #111827 50%, #0b1f28 100%);
-        display: flex; align-items: center; justify-content: center;
+    .csd-fallback .fb-icon { position: relative; font-size: 4rem; color: rgba(0, 217, 255, 0.4); }
+    html.light-theme .csd-fallback .fb-icon { color: rgba(8, 145, 178, 0.45); }
+    .csd-fallback .fb-icon::before, .csd-fallback .fb-icon::after {
+        content: ''; position: absolute; left: 50%; top: 50%; border-radius: 50%;
+        border: 1px dashed rgba(0, 217, 255, 0.3); animation: csdRadarSpin 12s linear infinite;
     }
-    .cs-image-wrap .img-fallback i { font-size: 5rem; opacity: 0.2; color: var(--accent); }
+    html.light-theme .csd-fallback .fb-icon::before, html.light-theme .csd-fallback .fb-icon::after { border-color: rgba(8, 145, 178, 0.3); }
+    .csd-fallback .fb-icon::before { width: 90px; height: 90px; margin: -45px 0 0 -45px; }
+    .csd-fallback .fb-icon::after { width: 150px; height: 150px; margin: -75px 0 0 -75px; animation-direction: reverse; }
+    .csd-fallback .fb-tags { font-size: 0.7rem; letter-spacing: 0.14em; color: rgba(0, 217, 255, 0.45); }
+    html.light-theme .csd-fallback .fb-tags { color: #0e7490; }
+    .csd-sweep {
+        position: absolute; inset: 0; pointer-events: none; z-index: 2;
+        background: linear-gradient(115deg, transparent 42%, rgba(0, 217, 255, 0.12) 50%, transparent 58%);
+        transform: translateX(-130%);
+        animation: csdSweep 4.5s ease-in-out infinite;
+    }
+    @keyframes csdSweep {
+        0%   { transform: translateX(-130%); }
+        55%  { transform: translateX(130%); }
+        100% { transform: translateX(130%); }
+    }
+    .csd-frame-bottom {
+        position: relative; margin-top: -1px;
+        display: flex; align-items: center; justify-content: space-between; gap: 0.8rem;
+        padding: 0.7rem 0.9rem 0.35rem;
+        font-size: 0.66rem; letter-spacing: 0.1em; color: rgba(148, 163, 184, 0.9);
+    }
+    .csd-frame-bottom .bar { flex: 1; height: 4px; border-radius: 4px; background: rgba(148, 163, 184, 0.14); overflow: hidden; }
+    html.light-theme .csd-frame-bottom .bar { background: rgba(2, 6, 23, 0.08); }
+    .csd-frame-bottom .bar span { display: block; height: 100%; width: 80%; border-radius: 4px; background: linear-gradient(90deg, var(--accent), var(--green)); animation: csdBarWidth 3s ease-in-out infinite alternate; }
+    @keyframes csdBarWidth { from { width: 40%; } to { width: 92%; } }
 
-    /* ===== Hero content (separate from image) ===== */
-    .cs-hero-content {
-        margin-bottom: 3rem;
-        padding: 0 0.5rem;
-    }
-    .cs-hero-content .hero-meta {
-        display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;
-        margin-bottom: 1rem;
-    }
-    .cs-hero-content .hero-category {
+    /* ===== Hero content ===== */
+    .csd-hero { margin-bottom: 3rem; padding: 0 0.5rem; }
+    .csd-meta { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .csd-chip {
         display: inline-flex; align-items: center; gap: 0.4rem;
-        background: linear-gradient(135deg, #00d9ff, #00ff88);
-        color: #fff; padding: 0.35rem 1.2rem; border-radius: 50px;
-        font-size: 0.78rem; font-weight: 700; letter-spacing: 0.3px;
+        padding: 0.32rem 0.9rem; border-radius: 8px;
+        font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; border: 1px solid;
     }
-    .cs-hero-content .hero-category i { font-size: 0.7rem; }
-    .cs-hero-content .hero-client {
+    .csd-chip.cat { background: rgba(0, 217, 255, 0.08); color: var(--accent-light); border-color: rgba(0, 217, 255, 0.3); }
+    html.light-theme .csd-chip.cat { background: rgba(8, 145, 178, 0.08); color: #075985; border-color: rgba(8, 145, 178, 0.3); }
+    .csd-chip.client { background: rgba(148, 163, 184, 0.08); color: var(--text-secondary); border-color: rgba(148, 163, 184, 0.2); }
+    html.light-theme .csd-chip.client { background: rgba(100, 116, 139, 0.08); color: #475569; border-color: rgba(100, 116, 139, 0.22); }
+    .csd-chip.flag { background: rgba(0, 255, 136, 0.08); color: var(--green); border-color: rgba(0, 255, 136, 0.3); }
+    html.light-theme .csd-chip.flag { background: rgba(5, 150, 105, 0.08); color: #047857; border-color: rgba(5, 150, 105, 0.3); }
+    .csd-chip.flag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px rgba(0, 255, 136, 0.9); animation: csdBlink 1.6s linear infinite; }
+    html.light-theme .csd-chip.flag .dot { box-shadow: 0 0 8px rgba(5, 150, 105, 0.8); }
+    .csd-title {
+        font-size: clamp(2rem, 4.5vw, 3.4rem); font-weight: 900;
+        color: var(--text-primary); margin: 0; letter-spacing: -1.5px; line-height: 1.12;
+    }
+    .csd-title-line { display: flex; align-items: center; gap: 0.35rem; margin-top: 1rem; }
+    .csd-title-line .seg { height: 4px; border-radius: 2px; }
+    .csd-title-line .seg.a { width: 18px; background: var(--accent); }
+    .csd-title-line .seg.b { width: 54px; background: linear-gradient(90deg, var(--accent), var(--green)); animation: csdBarPulse 2.6s ease-in-out infinite alternate; }
+    html.light-theme .csd-title-line .seg.b { animation: none; }
+    @keyframes csdBarPulse { from { width: 30px; } to { width: 70px; } }
+    .csd-title-line .seg.c { width: 18px; background: var(--green); }
+
+    /* ===== Body grid ===== */
+    .csd-grid { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; align-items: start; }
+    .csd-main { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* ===== Terminal blocks ===== */
+    .csd-term {
+        position: relative; overflow: hidden;
+        background: rgba(6, 11, 20, 0.78); border: 1px solid var(--border-color);
+        border-left: 3px solid;
+        border-radius: 14px; backdrop-filter: blur(10px); transition: var(--transition);
+    }
+    html.light-theme .csd-term { background: rgba(255, 255, 255, 0.9); }
+    .csd-term:hover { transform: translateY(-4px); border-color: rgba(0, 217, 255, 0.4); box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 217, 255, 0.06); }
+    html.light-theme .csd-term:hover { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(8, 145, 178, 0.12); }
+    .csd-term.cs-problem { border-left-color: #f43f5e; }
+    .csd-term.cs-solution { border-left-color: #00d9ff; }
+    .csd-term.cs-result { border-left-color: #10b981; }
+    html.light-theme .csd-term.cs-problem { border-left-color: #dc2626; }
+    html.light-theme .csd-term.cs-solution { border-left-color: #0891b2; }
+    html.light-theme .csd-term.cs-result { border-left-color: #059669; }
+    .csd-term-bar {
+        display: flex; align-items: center; gap: 0.5rem;
+        padding: 0.5rem 1.1rem; border-bottom: 1px solid var(--border-color);
+    }
+    .csd-term.cs-problem .csd-term-bar { background: rgba(244, 63, 94, 0.05); }
+    .csd-term.cs-solution .csd-term-bar { background: rgba(0, 217, 255, 0.05); }
+    .csd-term.cs-result .csd-term-bar { background: rgba(16, 185, 129, 0.05); }
+    html.light-theme .csd-term.cs-problem .csd-term-bar { background: rgba(244, 63, 94, 0.04); }
+    html.light-theme .csd-term.cs-solution .csd-term-bar { background: rgba(8, 145, 178, 0.05); }
+    html.light-theme .csd-term.cs-result .csd-term-bar { background: rgba(5, 150, 105, 0.05); }
+    .cdt-dot { width: 9px; height: 9px; border-radius: 50%; }
+    .cdt-dot.r { background: #f43f5e; }
+    .cdt-dot.y { background: #fbbf24; }
+    .cdt-dot.g { background: #22c55e; }
+    .cdt-title { margin-left: 0.5rem; font-size: 0.66rem; letter-spacing: 0.14em; color: var(--text-muted); }
+    .csd-term-body { position: relative; overflow: hidden; padding: 1.6rem 1.7rem; }
+    .csd-term-body::before {
+        content: ''; position: absolute; left: 0; right: 0; height: 2px; top: 0;
+        background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.5), transparent);
+        animation: csdScanMove 5s ease-in-out infinite; opacity: 0.6;
+    }
+    html.light-theme .csd-term-body::before {
+        background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.5), transparent);
+    }
+    .csd-term-body::after {
+        content: ''; position: absolute; inset: 0; pointer-events: none;
+        background: repeating-linear-gradient(180deg, transparent 0 3px, rgba(0, 217, 255, 0.03) 3px 4px);
+    }
+    .csd-term-label {
+        display: flex; align-items: center; gap: 0.5rem;
+        font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
+        margin-bottom: 0.9rem;
+    }
+    .csd-term.cs-problem .csd-term-label { color: #f43f5e; }
+    .csd-term.cs-solution .csd-term-label { color: var(--accent-light); }
+    .csd-term.cs-result .csd-term-label { color: #10b981; }
+    html.light-theme .csd-term.cs-solution .csd-term-label { color: #0891b2; }
+    html.light-theme .csd-term.cs-result .csd-term-label { color: #059669; }
+    .csd-term-label .cursor { width: 8px; height: 14px; background: currentColor; animation: csdBlink 1s steps(2) infinite; }
+    .csd-term-text { color: var(--text-secondary); font-size: 0.98rem; line-height: 1.85; margin: 0; position: relative; z-index: 1; }
+
+    /* ===== Tech stack ===== */
+    .csd-tech {
+        position: relative; overflow: hidden;
+        background: rgba(17, 24, 39, 0.6); border: 1px solid rgba(0, 217, 255, 0.16);
+        border-radius: 16px; padding: 1.6rem 1.8rem; backdrop-filter: blur(10px); transition: var(--transition);
+    }
+    html.light-theme .csd-tech { background: rgba(255, 255, 255, 0.9); border-color: rgba(8, 145, 178, 0.2); }
+    .csd-tech:hover { transform: translateY(-4px); border-color: rgba(0, 217, 255, 0.4); box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 217, 255, 0.06); }
+    html.light-theme .csd-tech:hover { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(8, 145, 178, 0.12); }
+    .csd-tech-head {
+        display: flex; align-items: center; gap: 0.7rem;
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.16em;
+        color: var(--accent-light); margin-bottom: 1.1rem;
+    }
+    html.light-theme .csd-tech-head { color: #0891b2; }
+    .csd-tech-head .tech-live { margin-left: auto; display: inline-flex; align-items: center; gap: 0.4rem; color: var(--green); }
+    html.light-theme .csd-tech-head .tech-live { color: #059669; }
+    .csd-tech-head .tech-live .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 8px rgba(0, 255, 136, 0.9); animation: csdBlink 1.6s linear infinite; }
+    html.light-theme .csd-tech-head .tech-live .dot { box-shadow: 0 0 8px rgba(5, 150, 105, 0.8); }
+    .csd-tech-list { display: flex; flex-wrap: wrap; gap: 0.55rem; }
+    .csd-tech-item {
         display: inline-flex; align-items: center; gap: 0.4rem;
-        padding: 0.35rem 1rem; border-radius: 50px;
-        font-size: 0.82rem; font-weight: 500;
-        background: rgba(0,217,255,0.08); color: var(--accent-light);
-    }
-    html.light-theme .cs-hero-content .hero-client {
-        background: rgba(0,217,255,0.06); color: var(--accent);
-    }
-    .cs-hero-content .hero-client i { font-size: 0.8rem; }
-    .cs-hero-content h1 {
-        font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 900;
-        color: var(--text-primary); margin: 0; letter-spacing: -1px;
-        line-height: 1.15;
-    }
-
-    /* ===== Content grid ===== */
-    .cs-body {
-        display: grid; grid-template-columns: 1fr 320px; gap: 2rem;
-        align-items: start;
-    }
-
-    /* ===== MAIN CONTENT ===== */
-    .cs-main { display: flex; flex-direction: column; gap: 1.5rem; }
-
-    .cs-block {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 2rem 2.5rem;
-        position: relative; overflow: hidden;
-        backdrop-filter: blur(12px); transition: var(--transition);
-    }
-    .cs-block:hover {
-        border-color: rgba(0,217,255,0.25);
-        box-shadow: 0 20px 60px rgba(0,217,255,0.08), 0 8px 20px rgba(0,0,0,0.12);
-        transform: translateY(-4px);
-    }
-    html.light-theme .cs-block:hover {
-        box-shadow: 0 20px 60px rgba(0,217,255,0.1);
-    }
-    .cs-block .block-header {
-        display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
-    }
-    .cs-block .block-icon {
-        width: 40px; height: 40px; border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1rem; font-weight: 800; flex-shrink: 0;
-    }
-    .cs-block .block-icon.ic-problem { background: rgba(239,68,68,0.1); color: #ef4444; }
-    .cs-block .block-icon.ic-solution { background: rgba(0,217,255,0.1); color: var(--accent-light); }
-    .cs-block .block-icon.ic-result { background: rgba(16,185,129,0.1); color: #10b981; }
-    .cs-block .block-label {
-        font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    .cs-block .block-label.lb-problem { color: #ef4444; }
-    .cs-block .block-label.lb-solution { color: var(--accent-light); }
-    .cs-block .block-label.lb-result { color: #10b981; }
-    .cs-block p {
-        color: var(--text-secondary); font-size: 1rem; line-height: 1.8; margin: 0;
-    }
-    .cs-block .block-accent-line {
-        position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    }
-    .cs-block .block-accent-line.ln-problem { background: linear-gradient(90deg, transparent, #ef4444, transparent); }
-    .cs-block .block-accent-line.ln-solution { background: linear-gradient(90deg, transparent, #00d9ff, transparent); }
-    .cs-block .block-accent-line.ln-result { background: linear-gradient(90deg, transparent, #10b981, transparent); }
-
-    /* ===== TECH SECTION ===== */
-    .cs-tech-wrap {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 2rem 2.5rem;
-        position: relative; overflow: hidden;
-        backdrop-filter: blur(12px); transition: var(--transition);
-    }
-    .cs-tech-wrap:hover {
-        border-color: rgba(0,217,255,0.25);
-        box-shadow: 0 20px 60px rgba(0,217,255,0.08), 0 8px 20px rgba(0,0,0,0.12);
-        transform: translateY(-4px);
-    }
-    html.light-theme .cs-tech-wrap:hover {
-        box-shadow: 0 20px 60px rgba(0,217,255,0.1);
-    }
-    .cs-tech-wrap .tech-header {
-        display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem;
-    }
-    .cs-tech-wrap .tech-header .tech-icon {
-        width: 40px; height: 40px; border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        background: rgba(0,255,136,0.1); color: #6bffb8;
-        font-size: 1rem;
-    }
-    .cs-tech-wrap .tech-header .tech-label {
-        font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-        letter-spacing: 0.5px; color: #6bffb8;
-    }
-    .cs-tech-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .cs-tech-item {
-        font-size: 0.78rem; font-weight: 600; padding: 0.35rem 1.1rem;
-        background: linear-gradient(135deg, rgba(0,217,255,0.08), rgba(0,255,136,0.08));
-        color: var(--accent-light); border-radius: 50px;
-        border: 1px solid rgba(0,217,255,0.06);
+        font-size: 0.76rem; font-weight: 700; letter-spacing: 0.04em;
+        padding: 0.4rem 1.1rem; border-radius: 8px;
+        color: var(--accent-light); border: 1px solid rgba(0, 217, 255, 0.14);
+        background: linear-gradient(135deg, rgba(0, 217, 255, 0.07), rgba(0, 255, 136, 0.07));
         transition: var(--transition);
     }
-    .cs-tech-item:hover {
-        background: linear-gradient(135deg, rgba(0,217,255,0.15), rgba(0,255,136,0.15));
-        border-color: rgba(0,217,255,0.15); transform: translateY(-2px);
-    }
+    html.light-theme .csd-tech-item { color: #0e7490; background: rgba(8, 145, 178, 0.05); border-color: rgba(8, 145, 178, 0.2); }
+    .csd-tech-item::before { content: '#'; opacity: 0.55; }
+    .csd-tech-item:hover { transform: translateY(-2px); border-color: rgba(0, 217, 255, 0.4); box-shadow: 0 0 16px rgba(0, 217, 255, 0.15); }
+    html.light-theme .csd-tech-item:hover { border-color: rgba(8, 145, 178, 0.4); box-shadow: 0 0 14px rgba(8, 145, 178, 0.12); }
 
     /* ===== Sidebar ===== */
-    .cs-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+    .csd-side { display: flex; flex-direction: column; gap: 1.5rem; }
+    .csd-card {
+        position: relative; overflow: hidden;
+        background: rgba(13, 27, 42, 0.85); border: 1px solid rgba(0, 217, 255, 0.16);
+        border-radius: 18px; padding: 1.7rem 1.5rem 1.5rem; backdrop-filter: blur(10px); transition: var(--transition);
+    }
+    html.light-theme .csd-card { background: rgba(255, 255, 255, 0.92); border-color: rgba(8, 145, 178, 0.2); }
+    .csd-card:hover { transform: translateY(-4px); border-color: rgba(0, 217, 255, 0.4); box-shadow: 0 16px 45px rgba(0, 0, 0, 0.35), 0 0 24px rgba(0, 217, 255, 0.06); }
+    html.light-theme .csd-card:hover { box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 0 20px rgba(8, 145, 178, 0.12); }
+    .csd-card-top {
+        display: flex; align-items: center; justify-content: space-between;
+        font-size: 0.66rem; font-weight: 800; letter-spacing: 0.16em; color: var(--accent-light);
+        padding-bottom: 0.9rem; border-bottom: 1px solid rgba(0, 217, 255, 0.12); margin-bottom: 0.4rem;
+    }
+    html.light-theme .csd-card-top { color: #0891b2; border-bottom-color: rgba(8, 145, 178, 0.15); }
+    .csd-row {
+        display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+        padding: 0.7rem 0; border-bottom: 1px dashed rgba(148, 163, 184, 0.15);
+    }
+    .csd-row:last-child { border-bottom: none; }
+    html.light-theme .csd-row { border-bottom-color: rgba(100, 116, 139, 0.18); }
+    .csd-row .k { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; color: var(--text-muted); }
+    .csd-row .v { font-size: 0.85rem; font-weight: 600; color: var(--text-primary); text-align: right; }
+    .csd-row .v.ok { color: var(--green); }
+    html.light-theme .csd-row .v.ok { color: #059669; }
+    .csd-card-scan {
+        position: absolute; left: 0; right: 0; height: 2px; top: 0;
+        background: linear-gradient(90deg, transparent, rgba(0, 255, 136, 0.55), transparent);
+        animation: csdCardScan 5s ease-in-out infinite; opacity: 0; pointer-events: none; z-index: 4;
+    }
+    html.light-theme .csd-card-scan { background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.5), transparent); }
+    @keyframes csdCardScan {
+        0%   { top: 0; opacity: 0; }
+        8%   { opacity: 0.9; }
+        90%  { opacity: 0.6; }
+        100% { top: 100%; opacity: 0; }
+    }
 
-    .sidebar-card {
-        background: var(--bg-card); border: 1px solid var(--border-color);
-        border-radius: 20px; padding: 1.8rem; position: relative;
-        overflow: hidden; backdrop-filter: blur(12px); transition: var(--transition);
+    /* ===== CTA ===== */
+    .csd-cta {
+        position: relative; overflow: hidden; text-align: center;
+        background: linear-gradient(150deg, rgba(0, 217, 255, 0.07), rgba(0, 255, 136, 0.07));
+        border: 1px solid rgba(0, 217, 255, 0.14); border-radius: 18px; padding: 1.9rem 1.4rem;
     }
-    .sidebar-card:hover {
-        border-color: rgba(0,217,255,0.25);
-        box-shadow: 0 20px 60px rgba(0,217,255,0.08), 0 8px 20px rgba(0,0,0,0.12);
-        transform: translateY(-4px);
-    }
-    html.light-theme .sidebar-card:hover {
-        box-shadow: 0 20px 60px rgba(0,217,255,0.1);
-    }
-    .sidebar-card .sc-header {
-        display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.2rem;
-        padding-bottom: 1rem; border-bottom: 1px solid var(--border-color);
-    }
-    .sidebar-card .sc-header i {
-        font-size: 1.1rem; color: var(--accent-light);
-    }
-    .sidebar-card .sc-header h4 {
-        font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
-        letter-spacing: 0.5px; color: var(--text-primary); margin: 0;
-    }
-    .sidebar-card .sc-row {
-        display: flex; align-items: center; gap: 0.75rem;
-        padding: 0.6rem 0;
-    }
-    .sidebar-card .sc-row:not(:last-child) { border-bottom: 1px solid var(--border-color); }
-    .sidebar-card .sc-row .sc-label {
-        font-size: 0.78rem; color: var(--text-muted); min-width: 80px;
-    }
-    .sidebar-card .sc-row .sc-value {
-        font-size: 0.85rem; font-weight: 600; color: var(--text-primary);
-    }
-
-    .sidebar-cta {
-        text-align: center; padding: 2rem 1.5rem;
-        background: linear-gradient(135deg, rgba(0,217,255,0.06), rgba(0,255,136,0.06));
-        border: 1px solid rgba(0,217,255,0.12);
-        border-radius: 20px; position: relative; overflow: hidden;
-    }
-    .sidebar-cta::before {
+    html.light-theme .csd-cta { background: rgba(255, 255, 255, 0.9); border-color: rgba(8, 145, 178, 0.2); }
+    .csd-cta::before {
         content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, transparent);
+        background: linear-gradient(90deg, transparent, var(--accent), var(--green), transparent);
     }
-    .sidebar-cta p {
-        font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1.25rem;
-    }
-    .sidebar-cta .btn-cta {
-        display: inline-flex; align-items: center; gap: 0.5rem;
-        padding: 0.75rem 1.8rem;
+    .csd-cta .mono-tag { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.18em; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .csd-cta p { font-size: 0.86rem; color: var(--text-secondary); margin-bottom: 1.3rem; }
+    .csd-btn {
+        position: relative; overflow: hidden;
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.78rem 1.9rem;
         background: linear-gradient(135deg, #00d9ff, #00d9ff, #00ff88);
-        background-size: 200% 200%; color: #fff; border: none;
-        border-radius: 12px; font-size: 0.9rem; font-weight: 700;
-        cursor: pointer; text-decoration: none;
-        transition: all 0.4s ease; animation: btnShimmer 3s ease infinite;
+        background-size: 200% 200%; color: #06121c;
+        text-decoration: none; border: none; border-radius: 12px;
+        font-size: 0.86rem; font-weight: 800; letter-spacing: 0.04em; cursor: pointer;
+        transition: all 0.4s ease; animation: csdBtnGrad 3s ease infinite;
     }
-    @keyframes btnShimmer {
+    @keyframes csdBtnGrad {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
-    .sidebar-cta .btn-cta:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(0,217,255,0.3);
+    .csd-btn::after {
+        content: ''; position: absolute; top: 0; bottom: 0; left: -70px; width: 46px;
+        background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+        transform: skewX(-20deg); transition: left 0.5s ease;
     }
+    .csd-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0, 217, 255, 0.35); }
+    .csd-btn:hover::after { left: 110%; }
+    .csd-btn i { transition: transform 0.35s ease; }
+    .csd-btn:hover i { transform: translateX(4px); }
 
-    /* ===== Glass Card Shine Effect ===== */
-    .cs-block::after,
-    .cs-tech-wrap::after,
-    .sidebar-card::after {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    /* ===== Glass shine (mouse follow) ===== */
+    .csd-term::after, .csd-tech::after, .csd-card::after {
+        content: ''; position: absolute; inset: 0;
         background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%),
-            rgba(0,217,255,0.35) 0%, rgba(0,217,255,0.12) 30%, transparent 60%);
-        pointer-events: none; opacity: 0; transition: opacity 0.5s ease;
-        z-index: 1; border-radius: inherit;
+            rgba(0, 217, 255, 0.14) 0%, transparent 60%);
+        pointer-events: none; opacity: 0; transition: opacity 0.5s ease; z-index: 1; border-radius: inherit;
     }
-    .cs-block:hover::after,
-    .cs-tech-wrap:hover::after,
-    .sidebar-card:hover::after {
-        opacity: 1;
+    html.light-theme .csd-term::after, html.light-theme .csd-tech::after, html.light-theme .csd-card::after {
+        background: radial-gradient(circle at var(--shine-x, 50%) var(--shine-y, 50%),
+            rgba(8, 145, 178, 0.1) 0%, transparent 60%);
     }
-
-    /* Gradient top border accent on hover for tech-wrap & sidebar */
-    .cs-tech-wrap::before,
-    .sidebar-card::before {
-        content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-        background: linear-gradient(90deg, transparent, #00d9ff, #00ff88, transparent);
-        opacity: 0; transition: opacity 0.5s ease; z-index: 2;
-    }
-    .cs-tech-wrap:hover::before,
-    .sidebar-card:hover::before {
-        opacity: 1;
-    }
+    .csd-term:hover::after, .csd-tech:hover::after, .csd-card:hover::after { opacity: 1; }
 
     /* ===== Responsive ===== */
     @media (max-width: 968px) {
-        .cs-body { grid-template-columns: 1fr; }
-        .cs-sidebar { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .csd-grid { grid-template-columns: 1fr; }
+        .csd-side { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: start; }
     }
-
     @media (max-width: 768px) {
-        .cs-detail-page { padding-top: 70px; padding-bottom: 3rem; }
-        .cs-container { padding: 0 1rem; }
-        .cs-image-wrap { aspect-ratio: 16 / 9; border-radius: 16px; margin-bottom: 1.5rem; }
-        .cs-hero-content { margin-bottom: 2rem; padding: 0; }
-        .cs-hero-content h1 { font-size: 1.6rem; }
-        .cs-block { padding: 1.5rem; }
-        .cs-tech-wrap { padding: 1.5rem; }
-        .cs-sidebar { grid-template-columns: 1fr; }
-        .sidebar-card { padding: 1.4rem; }
+        .csd-page { padding-top: 72px; padding-bottom: 3rem; }
+        .csd-container { padding: 0 1rem; }
+        .csd-frame { border-radius: 14px; padding: 7px; margin-bottom: 1.6rem; }
+        .csd-hero { margin-bottom: 2.4rem; padding: 0; }
+        .csd-title { font-size: 1.6rem; }
+        .csd-meta { gap: 0.4rem; }
+        .csd-term-body { padding: 1.3rem 1.2rem; }
+        .csd-tech { padding: 1.4rem 1.2rem; }
     }
-
     @media (max-width: 480px) {
-        .cs-image-wrap { aspect-ratio: 16 / 9; border-radius: 12px; }
-        .cs-hero-content h1 { font-size: 1.3rem; }
-        .cs-hero-content .hero-meta { gap: 0.5rem; }
-        .cs-hero-content .hero-category { font-size: 0.7rem; padding: 0.25rem 0.9rem; }
-        .cs-hero-content .hero-client { font-size: 0.75rem; padding: 0.25rem 0.8rem; }
-        .cs-block { padding: 1.2rem; border-radius: 16px; }
-        .cs-tech-wrap { padding: 1.2rem; }
-        .cs-block .block-icon { width: 34px; height: 34px; font-size: 0.85rem; }
+        .csd-frame { border-radius: 12px; }
+        .csd-title { font-size: 1.35rem; }
+        .csd-side { grid-template-columns: 1fr; }
+        .csd-screen img { min-height: 150px; }
     }
 </style>
 
-<div class="cs-detail-page">
-    <div class="cs-container">
-        <div class="top-bar">
-            <a href="/#case-studies" class="back-link">
-                <i class="bi bi-arrow-left"></i> {{ __('messages.back') }}
+<div class="csd-page">
+    <div class="csd-bg" aria-hidden="true">
+        <div class="csd-grid"></div>
+        <div class="csd-radar"></div>
+        <div class="csd-beam"></div>
+        <div class="csd-scan"></div>
+        <div class="csd-particle p1 mono">FORENSICS</div>
+        <div class="csd-particle p2 mono">0x7E3A</div>
+        <div class="csd-particle p3 mono">IDS</div>
+        <div class="csd-particle p4 mono">SOC_2</div>
+    </div>
+
+    <div class="csd-container">
+        <div class="csd-top">
+            <div class="csd-path mono">
+                <span class="csd-live"></span>
+                <span>HOME</span><span class="sep">/</span>
+                <span>CASE_FILE</span><span class="sep">/</span>
+                <span>CS-{{ str_pad($caseStudy->id, 3, '0', STR_PAD_LEFT) }}</span>
+            </div>
+            <a href="/#case-studies" class="csd-back mono">
+                <i class="bi bi-arrow-left"></i> <span>{{ __('messages.back') }}</span>
             </a>
         </div>
 
-        <!-- Hero Image (no text overlay - fully visible) -->
-        <div class="cs-image-wrap">
-            @if($caseStudy->image)
-                <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}" alt="{{ $caseStudy->title }}">
-            @else
-                <div class="img-fallback">
-                    <i class="bi bi-folder2-open"></i>
-                </div>
-            @endif
-        </div>
-
-        <!-- Hero Content (separate from image) -->
-        <div class="cs-hero-content">
-            <div class="hero-meta">
-                @if($caseStudy->category)
-                    <span class="hero-category"><i class="bi bi-tag-fill"></i> {{ $caseStudy->category }}</span>
-                @endif
-                @if($caseStudy->client)
-                    <span class="hero-client"><i class="bi bi-building"></i> {{ $caseStudy->client }}</span>
+        <div class="csd-frame">
+            <span class="csd-corner tl"></span>
+            <span class="csd-corner tr"></span>
+            <span class="csd-corner bl"></span>
+            <span class="csd-corner br"></span>
+            <div class="csd-hud mono">CASE_FILE // DECRYPTED</div>
+            <div class="csd-hud right mono">CS-{{ str_pad($caseStudy->id, 3, '0', STR_PAD_LEFT) }}</div>
+            <div class="csd-screen">
+                <div class="csd-sweep"></div>
+                @if($caseStudy->image)
+                    <img src="{{ config('app.storage_url') }}{{ $caseStudy->image }}" alt="{{ $caseStudy->title }}">
+                @else
+                    <div class="csd-fallback">
+                        <div class="fb-icon"><i class="bi bi-shield-lock-fill"></i></div>
+                        <div class="fb-tags mono">RECOVERING_EVIDENCE &#60;EOF&#62;</div>
+                    </div>
                 @endif
             </div>
-            <h1>{{ $caseStudy->title }}</h1>
+            <div class="csd-frame-bottom mono">
+                <span>INTEGRITY: OK</span>
+                <div class="bar"><span></span></div>
+                <span>100%</span>
+            </div>
         </div>
 
-        <!-- Content Grid -->
-        <div class="cs-body">
-            <div class="cs-main">
+        <div class="csd-hero">
+            <div class="csd-meta">
+                @if($caseStudy->category)
+                    <span class="csd-chip cat mono"><i class="bi bi-shield-lock-fill"></i> {{ $caseStudy->category }}</span>
+                @endif
+                @if($caseStudy->client)
+                    <span class="csd-chip client mono"><i class="bi bi-building"></i> {{ $caseStudy->client }}</span>
+                @endif
+                <span class="csd-chip flag mono"><span class="dot"></span> {{ __('messages.completed') }}</span>
+            </div>
+            <h1 class="csd-title">{{ $caseStudy->title }}</h1>
+            <div class="csd-title-line"><span class="seg a"></span><span class="seg b"></span><span class="seg c"></span></div>
+        </div>
+
+        <div class="csd-grid">
+            <div class="csd-main">
                 @if($caseStudy->problem)
-                    <div class="cs-block">
-                        <div class="block-accent-line ln-problem"></div>
-                        <div class="block-header">
-                            <div class="block-icon ic-problem"><i class="bi bi-exclamation-triangle-fill"></i></div>
-                            <span class="block-label lb-problem">{{ __('messages.problem') }}</span>
+                    <div class="csd-term cs-problem">
+                        <div class="csd-term-bar mono">
+                            <span class="cdt-dot r"></span><span class="cdt-dot y"></span><span class="cdt-dot g"></span>
+                            <span class="cdt-title">{{ __('messages.problem') }}_identified.log</span>
                         </div>
-                        <p>{{ $caseStudy->problem }}</p>
+                        <div class="csd-term-body">
+                            <div class="csd-term-label mono"><i class="bi bi-exclamation-triangle-fill"></i> {{ __('messages.problem') }} <span class="cursor"></span></div>
+                            <p class="csd-term-text">{{ $caseStudy->problem }}</p>
+                        </div>
                     </div>
                 @endif
 
                 @if($caseStudy->solution)
-                    <div class="cs-block">
-                        <div class="block-accent-line ln-solution"></div>
-                        <div class="block-header">
-                            <div class="block-icon ic-solution"><i class="bi bi-lightbulb-fill"></i></div>
-                            <span class="block-label lb-solution">{{ __('messages.solution') }}</span>
+                    <div class="csd-term cs-solution">
+                        <div class="csd-term-bar mono">
+                            <span class="cdt-dot r"></span><span class="cdt-dot y"></span><span class="cdt-dot g"></span>
+                            <span class="cdt-title">{{ __('messages.solution') }}_deployed.log</span>
                         </div>
-                        <p>{{ $caseStudy->solution }}</p>
+                        <div class="csd-term-body">
+                            <div class="csd-term-label mono"><i class="bi bi-lightbulb-fill"></i> {{ __('messages.solution') }} <span class="cursor"></span></div>
+                            <p class="csd-term-text">{{ $caseStudy->solution }}</p>
+                        </div>
                     </div>
                 @endif
 
                 @if($caseStudy->result)
-                    <div class="cs-block">
-                        <div class="block-accent-line ln-result"></div>
-                        <div class="block-header">
-                            <div class="block-icon ic-result"><i class="bi bi-graph-up-arrow"></i></div>
-                            <span class="block-label lb-result">{{ __('messages.result') }}</span>
+                    <div class="csd-term cs-result">
+                        <div class="csd-term-bar mono">
+                            <span class="cdt-dot r"></span><span class="cdt-dot y"></span><span class="cdt-dot g"></span>
+                            <span class="cdt-title">{{ __('messages.result') }}_verified.log</span>
                         </div>
-                        <p>{{ $caseStudy->result }}</p>
+                        <div class="csd-term-body">
+                            <div class="csd-term-label mono"><i class="bi bi-graph-up-arrow"></i> {{ __('messages.result') }} <span class="cursor"></span></div>
+                            <p class="csd-term-text">{{ $caseStudy->result }}</p>
+                        </div>
                     </div>
                 @endif
 
                 @if($caseStudy->technologies)
-                    <div class="cs-tech-wrap">
-                        <div class="tech-header">
-                            <div class="tech-icon"><i class="bi bi-cpu-fill"></i></div>
-                            <span class="tech-label">{{ __('messages.technologies_used') }}</span>
+                    <div class="csd-tech">
+                        <div class="csd-tech-head mono">
+                            <i class="bi bi-cpu-fill"></i> {{ __('messages.technologies_used') }}
+                            <span class="tech-live"><span class="dot"></span> ACTIVE</span>
                         </div>
-                        <div class="cs-tech-list">
+                        <div class="csd-tech-list">
                             @foreach($caseStudy->tech_list as $tech)
-                                <span class="cs-tech-item">{{ $tech }}</span>
+                                <span class="csd-tech-item mono">{{ $tech }}</span>
                             @endforeach
                         </div>
                     </div>
                 @endif
             </div>
 
-            <div class="cs-sidebar">
-                <div class="sidebar-card">
-                    <div class="sc-header">
-                        <i class="bi bi-info-circle-fill"></i>
-                        <h4>{{ __('messages.project_details') }}</h4>
-                    </div>
+            <div class="csd-side">
+                <div class="csd-card">
+                    <span class="csd-corner tl"></span>
+                    <span class="csd-corner tr"></span>
+                    <span class="csd-corner bl"></span>
+                    <span class="csd-corner br"></span>
+                    <div class="csd-card-scan"></div>
+                    <div class="csd-card-top mono">FILE_METADATA</div>
                     @if($caseStudy->client)
-                        <div class="sc-row">
-                            <span class="sc-label">{{ __('messages.client') }}</span>
-                            <span class="sc-value">{{ $caseStudy->client }}</span>
+                        <div class="csd-row">
+                            <span class="k mono">{{ __('messages.client') }}</span>
+                            <span class="v">{{ $caseStudy->client }}</span>
                         </div>
                     @endif
                     @if($caseStudy->category)
-                        <div class="sc-row">
-                            <span class="sc-label">{{ __('messages.category') }}</span>
-                            <span class="sc-value">{{ $caseStudy->category }}</span>
+                        <div class="csd-row">
+                            <span class="k mono">{{ __('messages.category') }}</span>
+                            <span class="v">{{ $caseStudy->category }}</span>
                         </div>
                     @endif
-                    <div class="sc-row">
-                        <span class="sc-label">{{ __('messages.status') }}</span>
-                        <span class="sc-value" style="color: #10b981;">{{ __('messages.completed') }}</span>
+                    <div class="csd-row">
+                        <span class="k mono">{{ __('messages.status') }}</span>
+                        <span class="v ok mono"><i class="bi bi-check2-circle"></i> {{ __('messages.completed') }}</span>
                     </div>
                 </div>
 
                 @if($caseStudy->url)
-                    <div class="sidebar-cta">
+                    <div class="csd-cta">
+                        <div class="mono-tag">LAUNCH LIVE ORBITAL VIEW</div>
                         <p>{{ __('messages.view_project') }}</p>
-                        <a href="{{ $caseStudy->url }}" target="_blank" rel="noopener noreferrer" class="btn-cta">
-                            <i class="bi bi-box-arrow-up-right"></i> {{ __('messages.live_demo') }}
+                        <a href="{{ $caseStudy->url }}" target="_blank" rel="noopener noreferrer" class="csd-btn mono">
+                            {{ __('messages.live_demo') }} <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>
                 @endif
@@ -449,12 +627,13 @@
         </div>
     </div>
 </div>
+
 <script>
 (function() {
-    var selectors = '.cs-block, .cs-tech-wrap, .sidebar-card';
-    document.querySelectorAll(selectors).forEach(function(card) {
+    var selectors = '.csd-term, .csd-tech, .csd-card';
+    document.querySelectorAll(selectors).forEach(function(el) {
         var rafId = null;
-        card.addEventListener('mousemove', function(e) {
+        el.addEventListener('mousemove', function(e) {
             if (rafId) return;
             var self = this;
             rafId = requestAnimationFrame(function() {
@@ -466,7 +645,7 @@
                 rafId = null;
             });
         });
-        card.addEventListener('mouseleave', function() {
+        el.addEventListener('mouseleave', function() {
             if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
             this.style.setProperty('--shine-x', '50%');
             this.style.setProperty('--shine-y', '50%');
