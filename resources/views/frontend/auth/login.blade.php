@@ -132,8 +132,10 @@
         .aside .claims p { color: var(--txt-dim); font-size: 0.95rem; line-height: 1.7; margin-bottom: 1.75rem; }
 
         .aside .points { display: flex; flex-direction: column; gap: 0.9rem; }
-        .aside .point { display: flex; align-items: center; gap: 0.7rem; font-size: 0.88rem; color: var(--txt-dim); }
-        .aside .point i { color: var(--accent); font-size: 1rem; }
+        .aside .point { display: flex; align-items: center; gap: 0.7rem; font-size: 0.88rem; color: var(--txt-dim); transition: color .25s, transform .25s; }
+        .aside .point i { color: var(--accent); font-size: 1rem; transition: transform .25s; }
+        .aside .point:hover { color: var(--txt); transform: translateX(4px); }
+        .aside .point:hover i { transform: scale(1.2); }
 
         .aside .foot {
             position: relative; z-index: 2; margin-top: 2.6rem;
@@ -198,6 +200,11 @@
         }
         html.light-theme .card { box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08); }
         @keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+        .card:hover {
+            border-color: rgba(45, 212, 191, 0.28);
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.34), 0 0 0 1px rgba(45, 212, 191, 0.05);
+        }
+        html.light-theme .card:hover { box-shadow: 0 28px 70px rgba(15, 23, 42, 0.12); }
 
         .card-header { text-align: center; margin-bottom: 1.9rem; }
         .card-header .mark {
@@ -211,6 +218,7 @@
         }
         html.light-theme .card-header .mark { color: #fff; }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+        .mark:hover { animation: none; transform: scale(1.06) rotate(-3deg); box-shadow: 0 14px 34px rgba(45, 212, 191, 0.4); }
         .card-header h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.02em; color: #fff; }
         html.light-theme .card-header h1 { color: #0f172a; }
         .card-header p { color: var(--txt-dim); font-size: 0.88rem; margin-top: 0.35rem; }
@@ -243,6 +251,9 @@
             transition: border-color .2s, box-shadow .2s;
         }
         .input-box input::placeholder { color: var(--txt-mute); }
+        .input-box:hover .icon { color: var(--txt-dim); }
+        .input-box:hover input:not(:focus):not(:hover) { border-color: var(--line-hi); }
+        .input-box input:hover { border-color: var(--accent); }
         .input-box:focus-within label, .field:focus-within > label { color: var(--accent); }
         .input-box:focus-within .icon { color: var(--accent); }
         .input-box:focus-within input { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
@@ -276,7 +287,8 @@
             transition: all .2s;
         }
         .check input:checked + .box { background: var(--accent-strong); border-color: var(--accent-strong); }
-        .check span { font-size: 0.82rem; color: var(--txt-dim); }
+        .check:hover .box { border-color: var(--accent); }
+        .check:hover span { color: var(--txt); }
         .forgot { font-size: 0.82rem; color: var(--txt-mute); font-weight: 500; transition: color .2s; }
         .forgot:hover { color: var(--accent); }
 
