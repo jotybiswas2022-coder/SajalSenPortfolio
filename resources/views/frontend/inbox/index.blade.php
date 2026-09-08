@@ -334,24 +334,65 @@
     @keyframes ibxIn { to { opacity: 1; transform: translateY(0); } }
 
     @media (max-width: 768px) {
-        .ibx-page { padding-top: 4.6rem; }
+        .ibx-page { padding: 4.6rem 1rem 4.5rem; }
+        .ibx-inner { max-width: 100%; }
         .ibx-title { font-size: 1.5rem; }
         .ibx-headicon { width: 44px; height: 44px; font-size: 1.15rem; }
         .ibx-item { padding: 0.85rem 0.9rem; }
+        .ibx-item:hover { transform: none; }
         .ibx-avatar { width: 40px; height: 40px; min-width: 40px; font-size: 0.72rem; }
         .ibx-subject { font-size: 0.88rem; }
         .ibx-preview { font-size: 0.76rem; }
         .ibx-top { flex-direction: column; align-items: flex-start; gap: 0.8rem; }
         .ibx-count { margin-left: 0; }
+        .ibx-path { flex-wrap: wrap; row-gap: 0.3rem; }
     }
     @media (max-width: 480px) {
-        .ibx-page { padding-top: 4.2rem; }
-        .ibx-avatar { width: 34px; height: 34px; min-width: 34px; border-radius: 9px; }
+        .ibx-page { padding: 4.2rem 0.85rem 4rem; }
+        .ibx-head { gap: 0.75rem; }
+        .ibx-headicon { width: 40px; height: 40px; border-radius: 11px; font-size: 1.05rem; }
+        .ibx-title { font-size: 1.3rem; }
+        .ibx-count { font-size: 0.64rem; padding: 0.35rem 0.85rem; }
+        .ibx-item {
+            flex-wrap: wrap;
+            gap: 0.6rem 0.75rem;
+            padding: 0.8rem 0.85rem;
+        }
+        .ibx-avatar { width: 34px; height: 34px; min-width: 34px; border-radius: 9px; font-size: 0.68rem; }
+        .ibx-subject { font-size: 0.84rem; }
+        .ibx-preview { font-size: 0.73rem; }
+        .ibx-meta {
+            flex: 1 1 100%;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-left: 0;
+            gap: 0.5rem;
+            padding-top: 0.55rem;
+            margin-top: 0.15rem;
+            border-top: 1px dashed var(--border-color);
+            text-align: left;
+        }
         .ibx-status { font-size: 0.6rem; padding: 0.22rem 0.55rem; }
         .ibx-time { font-size: 0.62rem; }
-        .ibx-meta { gap: 0.25rem; }
+        .ibx-search { margin-bottom: 1.3rem; }
+        .ibx-search .ibx-prompt { display: none; }
+        .ibx-search .search-icon { margin-left: 1rem; }
+        .ibx-search input { padding: 0.9rem 1rem; font-size: 0.85rem; }
         .ibx-panel-body { padding: 0.6rem; }
-        .ibx-empty { padding: 3rem 1.2rem; }
+        .ibx-panel-bar { padding: 0.55rem 0.85rem; }
+        .ibx-panel-title { font-size: 0.64rem; }
+        .ibx-dot { width: 8px; height: 8px; }
+        .ibx-empty { padding: 3rem 1.1rem; }
+    }
+    @media (max-width: 360px) {
+        .ibx-page { padding: 3.8rem 0.6rem 3.5rem; }
+        .ibx-path { font-size: 0.64rem; letter-spacing: 0.5px; gap: 0.4rem; }
+        .ibx-item { gap: 0.55rem 0.6rem; padding: 0.75rem 0.7rem; }
+        .ibx-subject { font-size: 0.8rem; }
+        .ibx-preview { font-size: 0.7rem; }
+        .ibx-panel-right { display: none; }
+        .ibx-empty .btn-browse, .ibx-empty .btn-clear { width: 100%; justify-content: center; }
     }
 </style>
 
