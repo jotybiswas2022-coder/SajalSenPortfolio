@@ -5000,6 +5000,34 @@
     html.light-theme #education {
         background: linear-gradient(180deg, #eef2f7 0%, #f1f5f9 100%) !important;
     }
+    html.light-theme .edu-duration {
+        color: #0e7490;
+        background: rgba(8, 145, 178, 0.08);
+        border-color: rgba(8, 145, 178, 0.2);
+    }
+    html.light-theme .edu-icon {
+        background: linear-gradient(135deg, rgba(8, 145, 178, 0.14), rgba(5, 150, 105, 0.08));
+        border-color: rgba(8, 145, 178, 0.4);
+        box-shadow: 0 0 16px rgba(8, 145, 178, 0.18);
+        color: #0e7490;
+    }
+    html.light-theme .edu-card:hover .edu-icon { box-shadow: 0 0 22px rgba(8, 145, 178, 0.3); }
+    html.light-theme .edu-icon-wrap::after { border-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .edu-meta i { color: #0e7490; }
+    html.light-theme .edu-board { color: #64748b; }
+    html.light-theme .edu-result {
+        color: #b45309;
+        background: rgba(245, 158, 11, 0.1);
+        border-color: rgba(245, 158, 11, 0.3);
+    }
+    html.light-theme .edu-bar {
+        background: linear-gradient(90deg, transparent, #0891b2, #059669, #0891b2, transparent);
+    }
+    html.light-theme .edu-scanline {
+        background: linear-gradient(90deg, transparent, rgba(8, 145, 178, 0.12), transparent);
+    }
+    html.light-theme .edu-card { border-color: rgba(8, 145, 178, 0.2) !important; }
+    html.light-theme .edu-card:hover { border-color: rgba(8, 145, 178, 0.45) !important; }
     @media (max-width: 768px) {
         .edu-degree { font-size: 0.95rem !important; }
         .edu-icon-wrap { width: 42px !important; height: 42px !important; }
