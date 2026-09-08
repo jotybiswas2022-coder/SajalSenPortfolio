@@ -84,6 +84,7 @@
             flex: 1;
             display: none;
             flex-direction: column;
+            justify-content: space-between;
             padding: 3rem 3.5rem;
             overflow: hidden;
             background:
@@ -138,7 +139,7 @@
         .aside .brand-name { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.02em; }
         .aside .brand-sub { font-size: 0.72rem; color: var(--txt-mute); }
 
-        .aside .claims { position: relative; z-index: 2; max-width: 420px; margin-top: 4.5rem; margin-bottom: 0.5rem; }
+        .aside .claims { position: relative; z-index: 2; max-width: 420px; margin-top: 2.5rem; }
         .aside .claims h2 {
             font-size: 2rem; font-weight: 600; line-height: 1.25;
             letter-spacing: -0.03em; margin-bottom: 1rem;
@@ -152,20 +153,44 @@
         .aside .point:hover { color: var(--txt); transform: translateX(4px); }
         .aside .point:hover i { transform: scale(1.2); }
 
-        .aside .foot {
-            position: relative; z-index: 2; margin-top: 2.6rem;
-            display: inline-flex; align-items: center; gap: 0.6rem;
-            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
-            letter-spacing: 0.06em; color: var(--txt-mute);
-            border-top: 1px solid var(--line);
-            padding-top: 1.3rem;
+        /* bottom system status panel (fills the panel, cyber themed) */
+        .aside .sysmon {
+            position: relative; z-index: 2;
             max-width: 420px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.5);
+            padding: 0.85rem 1.1rem 1rem;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
-        .aside .foot .dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: var(--accent);
-            animation: pulse 2.4s ease-in-out infinite;
+        html.light-theme .aside .sysmon { background: rgba(255, 255, 255, 0.55); }
+        .aside .sysmon-top {
+            display: flex; align-items: center; gap: 0.5rem;
+            margin-bottom: 0.8rem; padding-bottom: 0.7rem;
+            border-bottom: 1px solid var(--line);
         }
+        .aside .sysmon-top .dot {
+            width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0;
+            background: var(--accent); box-shadow: 0 0 8px var(--accent);
+            animation: pulse 2.2s ease-in-out infinite;
+        }
+        .aside .sysmon-top .mono {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.62rem;
+            letter-spacing: 0.06em; color: var(--txt-dim);
+        }
+        .aside .sysmon-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem 1rem; }
+        .aside .sysmon-cell { display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; }
+        .aside .sysmon-cell span {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.52rem;
+            letter-spacing: 0.12em; color: var(--txt-mute);
+        }
+        .aside .sysmon-cell b {
+            font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+            font-weight: 500; color: var(--txt-dim); letter-spacing: 0.02em;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .aside .sysmon-cell b.ok { color: var(--accent); }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
         /* ---- Right panel ---- */
@@ -500,7 +525,18 @@
                 </div>
             </div>
 
-            <div class="foot"><span class="dot"></span> <span>SECURE CHANNEL · TLS 1.3 · ENCRYPTED</span></div>
+            <div class="sysmon">
+                <div class="sysmon-top">
+                    <span class="dot"></span>
+                    <span class="mono">SECURE CHANNEL · TLS 1.3 · ENCRYPTED</span>
+                </div>
+                <div class="sysmon-grid">
+                    <div class="sysmon-cell"><span>NODE</span><b>{{ config('app.name', 'SecureCore') }}</b></div>
+                    <div class="sysmon-cell"><span>ENCRYPTION</span><b>AES-256-GCM</b></div>
+                    <div class="sysmon-cell"><span>FIREWALL</span><b class="ok">● ACTIVE</b></div>
+                    <div class="sysmon-cell"><span>UPTIME</span><b id="uptime">00:00:00</b></div>
+                </div>
+            </div>
         </aside>
 
         <!-- ======= RIGHT / FORM PANEL ======= -->
@@ -657,6 +693,21 @@
             sizeRain();
             window.addEventListener('resize', sizeRain);
             drawRain();
+        }
+
+        // ============ LIVE UPTIME ============
+        var uptimeEl = document.getElementById('uptime');
+        if (uptimeEl) {
+            (function () {
+                var start = Date.now();
+                setInterval(function () {
+                    var s = Math.floor((Date.now() - start) / 1000);
+                    var hh = String(Math.floor(s / 3600)).padStart(2, '0');
+                    var mm = String(Math.floor((s % 3600) / 60)).padStart(2, '0');
+                    var ss = String(s % 60).padStart(2, '0');
+                    uptimeEl.textContent = hh + ':' + mm + ':' + ss;
+                }, 1000);
+            })();
         }
 
         // ============ LIVE KEYSTROKE ENCRYPTION READOUT ============
