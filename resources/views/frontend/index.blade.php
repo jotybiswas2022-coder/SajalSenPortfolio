@@ -4463,8 +4463,6 @@
                             </div>
                         </aside>
                         @endif
-</div>
-                    </div>
                 </div>
             </div>
         </div>
