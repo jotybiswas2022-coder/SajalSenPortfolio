@@ -954,6 +954,33 @@
         box-shadow: 0 16px 50px rgba(0, 217, 255, 0.15) !important;
     }
 
+    /* ===== Light-theme polish for about cyber UI ===== */
+    html.light-theme .about-name-highlight { color: #0891b2; }
+    html.light-theme .stat-item .stat-icon { color: #0e7490; }
+    html.light-theme .stat-item:hover .stat-icon {
+        background: var(--accent-gradient);
+        box-shadow: 0 8px 25px rgba(8, 145, 178, 0.25);
+    }
+    html.light-theme .stat-item .number {
+        background: linear-gradient(135deg, #0891b2, #059669);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 6px rgba(8, 145, 178, 0.15));
+    }
+    html.light-theme .stat-item:hover .number {
+        background: linear-gradient(135deg, #0e7490, #047857);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+        filter: drop-shadow(0 0 10px rgba(8, 145, 178, 0.25));
+    }
+    html.light-theme .about-scan {
+        background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.55), rgba(8, 145, 178, 0.7), transparent);
+        filter: drop-shadow(0 0 5px rgba(5, 150, 105, 0.35));
+    }
+    html.light-theme .about-bio-lead { border-left-color: rgba(8, 145, 178, 0.45); }
+    html.light-theme .about-image .img-wrapper { border-color: rgba(8, 145, 178, 0.25); }
+    html.light-theme .about-image .glow-ring { border-color: rgba(8, 145, 178, 0.15); }
+
     /* ===== SERVICES — PURE WATER WAVE EFFECT (no boxes, no grid) ===== */
     .services-section {
         background: linear-gradient(180deg, #070d15 0%, #0a1420 40%, #0e1e2e 70%, #112436 100%);
