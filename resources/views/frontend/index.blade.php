@@ -2397,6 +2397,41 @@
         90% { opacity: 1; }
         100% { transform: translateY(200%); opacity: 0; }
     }
+
+    /* ===== Light-theme polish for cyber skill effects ===== */
+    html.light-theme .skill-card .sk-scan {
+        background: linear-gradient(90deg, transparent 5%, rgba(0,145,190,.5) 30%, #0891b2 50%, rgba(0,145,190,.5) 70%, transparent 95%);
+        box-shadow: 0 0 6px rgba(8,145,178,.35), 0 0 14px rgba(8,145,178,.15);
+    }
+    html.light-theme .skill-card .sk-icon {
+        background: rgba(8,145,178,.07);
+        color: #0e7490;
+    }
+    html.light-theme .skill-card:hover .sk-icon {
+        background: rgba(8,145,178,.12);
+        color: #0e7490;
+        box-shadow: 0 0 10px rgba(8,145,178,.22);
+    }
+    html.light-theme .skill-card:hover .skill-name {
+        animation: textGlitchLight 0.4s ease-in-out;
+    }
+    @keyframes textGlitchLight {
+        0%, 100% { text-shadow: none; }
+        10% { text-shadow: -1px 0 rgba(200,0,90,.35), 1px 0 rgba(0,145,190,.4); }
+        20% { text-shadow: 1px 0 rgba(200,0,90,.35), -1px 0 rgba(0,145,190,.4); }
+        30% { text-shadow: none; }
+        40% { text-shadow: -1px 0 rgba(200,0,90,.35), 1px 0 rgba(0,145,190,.4); }
+        50% { text-shadow: none; }
+    }
+    html.light-theme .skill-card:hover .skill-percent { animation: percentFlicker 0.6s ease-in-out; }
+    html.light-theme .skill-card .sk-bar-fill::after {
+        background: #0891b2;
+        box-shadow: 0 0 5px #0891b2, 0 0 10px rgba(8,145,178,.4);
+    }
+    html.light-theme .online-cyber-particle,
+    html.light-theme .cyber-particle { color: rgba(8,145,178,.3); }
+    html.light-theme .skill-card .cyber-particles { opacity: 0; }
+    html.light-theme .skill-card:hover .cyber-particles { opacity: 1; }
     /* Filter Tabs */
     .filter-tabs {
         display: flex; flex-wrap: wrap; gap: 0.6rem;
