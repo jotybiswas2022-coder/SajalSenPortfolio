@@ -2073,6 +2073,21 @@
         100% { top: 100%; opacity: 0; }
     }
 
+    /* ===== Light-theme polish for FAQ console ===== */
+    html.light-theme .faq-item { border-left-color: rgba(8, 145, 178, 0.3); }
+    html.light-theme .faq-item:hover, html.light-theme .faq-item.open { border-left-color: #0891b2; }
+    html.light-theme .faq-item.open .faq-question { color: #0891b2; }
+    html.light-theme .faq-qid { color: #0e7490; }
+    html.light-theme .faq-question .faq-chev { color: #0e7490; }
+    html.light-theme .faq-item.open .faq-chev { border-color: rgba(8, 145, 178, 0.5); }
+    html.light-theme .faq-answer p { border-left-color: rgba(8, 145, 178, 0.2); }
+    html.light-theme .faq-item .faq-scanline {
+        background: linear-gradient(90deg, transparent 5%, rgba(8, 145, 178, 0.4) 50%, transparent 95%);
+    }
+    html.light-theme .faq-item::before {
+        background: linear-gradient(90deg, transparent, #0891b2, transparent);
+    }
+
     /* ─── Cyber-security work experience feed ─── */
     .timeline-section { background: linear-gradient(180deg, var(--bg-primary) 0%, #05080f 100%); }
     html.light-theme .timeline-section { background: linear-gradient(180deg, #f8fafc 0%, #eef2f7 100%); }
