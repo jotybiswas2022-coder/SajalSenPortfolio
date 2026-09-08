@@ -3811,6 +3811,36 @@
     html.light-theme .map-status { background: rgba(255,255,255,0.9); }
     .contact-section .section-title .line { background: linear-gradient(90deg, var(--accent), #00ff88); }
 
+    /* ===== Light-theme polish for contact cyber UI ===== */
+    html.light-theme .contact-info-card h3 {
+        background: linear-gradient(135deg, #0891b2, #0d9488, #059669);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    html.light-theme .contact-info-card::before {
+        background: linear-gradient(90deg, transparent, #0891b2, #059669, #0891b2, transparent);
+    }
+    html.light-theme .contact-item .icon-box { color: #0e7490; }
+    html.light-theme .contact-item:hover .text .value { color: #0891b2; }
+    html.light-theme .contact-item::before { background: linear-gradient(180deg, #0891b2, #059669); }
+    html.light-theme .form-group:focus-within label { color: #0891b2; }
+    html.light-theme .ct-corner { border-color: rgba(8, 145, 178, 0.55); }
+    html.light-theme .ct-topbar {
+        background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.7), transparent);
+    }
+    html.light-theme .map-scan {
+        background: linear-gradient(180deg, transparent, rgba(8, 145, 178, 0.06), rgba(5, 150, 105, 0.14), transparent);
+    }
+    html.light-theme .contact-particle { color: rgba(5, 150, 105, 0.45); }
+    html.light-theme .contact-radar { border-color: rgba(8, 145, 178, 0.12); }
+    html.light-theme .contact-radar::before { border-color: rgba(8, 145, 178, 0.18); }
+    html.light-theme .contact-radar::after {
+        background: conic-gradient(from 0deg, rgba(8, 145, 178, 0.16), transparent 60deg, transparent 360deg);
+    }
+    html.light-theme .about-freelance .freelance-tag { color: #059669; }
+    html.light-theme .contact-social .social-label { color: #64748b; }
+    html.light-theme .map-container { border-color: rgba(8, 145, 178, 0.2); }
+
     /* Map */
     .map-wrapper { margin-top: 3rem; }
     .map-container {
