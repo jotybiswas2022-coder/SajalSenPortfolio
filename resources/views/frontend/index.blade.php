@@ -1550,6 +1550,15 @@
         background: var(--accent-gradient);
         border-color: transparent;
     }
+    html.light-theme .wave-service .ws-icon { color: #0e7490; }
+    html.light-theme .ws-corner { border-color: rgba(8, 145, 178, 0.55); }
+    html.light-theme .ws-scan {
+        background: linear-gradient(90deg, transparent, rgba(5, 150, 105, 0.55), transparent);
+        filter: drop-shadow(0 0 5px rgba(5, 150, 105, 0.35));
+    }
+    html.light-theme .ws-particle { color: rgba(8, 145, 178, 0.5); }
+    html.light-theme .wave-service .ws-icon::before { border-color: rgba(8, 145, 178, 0.35); }
+    html.light-theme .wave-service:hover .ws-icon { box-shadow: 0 8px 25px rgba(8, 145, 178, 0.25); }
     html.light-theme .services-section .water-surface .wave:nth-child(1) {
         background: linear-gradient(90deg,
             transparent 0%,
