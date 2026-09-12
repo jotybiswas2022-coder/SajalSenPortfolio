@@ -2,44 +2,59 @@
 
 @section('content')
 <style>
+    .table thead th {
+        font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
+        font-weight: 600; color: var(--admin-text-muted); white-space: nowrap;
+        border-bottom: 1px solid var(--admin-border); padding: 0.85rem 1rem; background: transparent;
+    }
+    .table tbody td { padding: 0.8rem 1rem; font-size: 0.82rem; color: var(--admin-text); }
+
     @media (max-width: 767.98px) {
-        .ae-page-header { padding: 12px 12px; gap: 0.6rem !important; }
+        .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
+        .faq-table { min-width: 0 !important; max-width: 100% !important; }
+        .faq-table thead { display: none; }
+        .faq-table tbody { display: flex; flex-direction: column; gap: 0.9rem; }
+        .faq-table tr {
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-border);
+            border-radius: 14px;
+            padding: 1.1rem 1rem;
+            width: 100%;
+        }
+        .faq-table td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
+        .faq-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; }
+        .faq-table .c-num { display: none; }
+        .faq-table .c-question { font-size: 0.9rem; line-height: 1.4; word-break: break-word; }
+        .faq-table .c-question .c-question-text { max-width: 100% !important; white-space: normal !important; overflow: visible !important; display: inline !important; }
+        .faq-table .c-answer { margin-top: 0.35rem; font-size: 0.78rem; line-height: 1.5; }
+        .faq-table .c-answer .c-answer-text {
+            max-width: 100% !important; white-space: normal !important;
+            display: -webkit-box !important; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden !important; line-height: 1.5 !important;
+        }
+        .faq-table .c-order, .faq-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; }
+        .faq-table .c-status { margin-left: 0.6rem; }
+        .faq-table .c-actions { margin-top: 0.85rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
+        .faq-table .c-actions .d-flex { width: 100%; gap: 0.6rem; }
+        .faq-table .c-actions .ae-action-btn { flex: 1 1 0; width: auto; height: 2.6rem; font-size: 0.9rem; border-radius: 10px; }
+    }
+
+    @media (max-width: 575.98px) {
+        .msg-hd-left { gap: 0.75rem !important; flex-wrap: nowrap !important; }
         .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
         .ae-page-header .header-ico i { font-size: 1.05rem !important; }
-        .ae-page-header .ae-title { font-size: 1rem; }
-        .ae-page-header .ae-sub { font-size: 0.72rem; }
-        .ae-page-header .ae-badge { font-size: 0.62rem; padding: 0.2rem 0.55rem; }
-        .ae-page-header .ae-header-right { margin-left: auto; }
-
-        .search-bar { flex-wrap: wrap; row-gap: 0.5rem; }
-        .search-bar .input-group { flex: 1 1 100%; max-width: 100% !important; }
-
-        .faq-table { min-width: 0 !important; }
-        .faq-table thead { display: none; }
-        .faq-table, .faq-table tbody, .faq-table tr, .faq-table td { display: block; }
-        .faq-table tr { padding: 0.9rem 1rem; border-bottom: 1px solid var(--admin-border); }
-        .faq-table tr:last-child { border-bottom: 0; }
-        .faq-table td { padding: 0 !important; border-bottom: 0 !important; text-align: left !important; }
-        .faq-table td[colspan] { padding: 2.5rem 1rem !important; text-align: center !important; }
-        .faq-table .c-num { display: none; }
-        .faq-table .c-question { font-size: 0.85rem; line-height: 1.35; word-break: break-word; }
-        .faq-table .c-question .c-question-text { max-width: 100% !important; white-space: normal !important; overflow: visible !important; display: block !important; }
-        .faq-table .c-answer { margin-top: 0.3rem; font-size: 0.75rem; line-height: 1.4; }
-        .faq-table .c-answer .c-answer-text { max-width: 100% !important; white-space: normal !important; overflow: hidden !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .faq-table .c-order { display: inline-block; margin-top: 0.6rem; }
-        .faq-table .c-status { display: inline-block; margin-top: 0.6rem; margin-left: 0.5rem; }
-        .faq-table .c-order .ae-order-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
-        .faq-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
-        .faq-table .c-actions { margin-top: 0.7rem; }
-        .faq-table .c-actions .d-flex { gap: 0.5rem; }
-        .faq-table .c-actions .ae-action-btn { width: 38px; height: 38px; font-size: 0.95rem; }
+        .ae-page-header .ae-title { font-size: 0.95rem; }
+        .ae-page-header .ae-sub { font-size: 0.68rem; }
+        .ae-page-header .ae-badge { font-size: 0.68rem; padding: 0.25rem 0.7rem; }
+        .search-bar .input-group-text { font-size: 0.85rem; }
+        .search-bar #liveSearch { font-size: 0.85rem; }
     }
 </style>
 <div class="container-fluid py-3">
 
     {{-- Header --}}
-    <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
-        <div class="d-flex align-items-center gap-3">
+    <div class="ae-page-header mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-3 msg-hd-left">
             <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                 <i class="bi bi-arrow-left"></i>
             </a>
@@ -101,7 +116,7 @@
             </div>
         </div>
     @else
-        <div class="ae-table-card">
+        <div class="ae-table-card contact-table-wrap">
             <div class="table-responsive">
                 <table class="table table-hover align-middle faq-table" style="min-width:850px;">
                     <thead>
