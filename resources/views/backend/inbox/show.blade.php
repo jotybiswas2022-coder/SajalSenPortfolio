@@ -61,17 +61,30 @@
     }
 
     @media (max-width: 575.98px) {
-        .ae-page-header { padding: 14px 14px; }
-        .ae-page-header .ae-title { font-size: 1.05rem; }
-        .ae-page-header .ae-sub { font-size: 0.75rem; }
-        .msg { max-width: 92%; }
-        .bubble { font-size: 0.85rem; padding: 0.6rem 0.8rem; }
-        .bubble img { max-width: 100%; max-height: 220px; }
-        .chat-messages { max-height: 60vh; padding: 0.75rem; }
+        .ae-page-header { padding: 12px 12px; gap: 0.6rem !important; }
+        .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
+        .ae-page-header .header-ico i { font-size: 1.05rem !important; }
+        .ae-page-header .ae-title { font-size: 0.95rem; line-height: 1.3; }
+        .ae-page-header .ae-sub { font-size: 0.7rem; line-height: 1.35; }
+        .ae-page-header .ae-status-badge { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
+        .ae-card-body .package-label { font-size: 0.65rem !important; }
+        .package-value { font-size: 0.86rem; }
+        .package-price { font-size: 0.78rem; }
+        .msg { max-width: 95%; gap: 0.5rem; }
+        .msg-avatar { width: 28px !important; height: 28px !important; font-size: 0.68rem; }
+        .msg .bubble { font-size: 0.8rem; padding: 0.55rem 0.75rem; border-radius: 14px; line-height: 1.45; }
+        .bubble .sender-label,
+        .bubble .time { font-size: 0.64rem; }
+        .bubble img { max-width: 100%; max-height: 200px; }
+        .chat-messages { max-height: 62vh; padding: 0.7rem; gap: 0.75rem; }
+        .chat-messages .msg-avatar { display: none; }
         .composer-row { flex-wrap: wrap; }
         .composer-input { flex: 1 1 100% !important; }
         .composer-actions { flex: 1 1 100%; justify-content: flex-end; }
-        .composer-actions .ae-btn { flex: 1; max-width: 110px; }
+        .composer-actions .ae-btn { flex: 1; max-width: 104px; font-size: 0.78rem; }
+        .composer-actions .ae-btn i { font-size: 0.9rem; }
+        .ae-btn-ghost { padding: 0.55rem 0.7rem !important; }
+        .emoji-picker button { font-size: 1.15rem !important; }
     }
 </style>
 
@@ -85,7 +98,7 @@
                     <a href="{{ route('admin.inbox.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                         <i class="bi bi-arrow-left"></i>
                     </a>
-                    <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <div class="header-ico" style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                         <i class="bi bi-envelope" style="font-size:1.5rem;color:#00d9ff;"></i>
                     </div>
                     <div class="d-flex flex-column align-items-start gap-1">
@@ -104,9 +117,9 @@
                 <div class="ae-card mb-3">
                     <div class="ae-card-body" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
                         <div>
-                            <small class="ae-form-label" style="text-transform:uppercase; letter-spacing:0.5px;">Package</small>
-                            <span class="fw-bold" style="color:#00d9ff;">{{ $conversation->package_name }}</span>
-                            <span class="fw-semibold ms-2" style="color:var(--admin-text);">{{ $conversation->package_price }} USD</span>
+                            <small class="ae-form-label package-label" style="text-transform:uppercase; letter-spacing:0.5px;">Package</small>
+                            <span class="fw-bold package-value" style="color:#00d9ff;">{{ $conversation->package_name }}</span>
+                            <span class="fw-semibold package-price ms-2" style="color:var(--admin-text);">{{ $conversation->package_price }} USD</span>
                         </div>
                         @if($conversation->gig)
                             <a href="{{ route('admin.gigs.edit', $conversation->gig->id) }}" class="ae-btn ae-btn-ghost ms-auto">
