@@ -8,6 +8,7 @@
         border-bottom: 1px solid var(--admin-border); padding: 0.85rem 1rem; background: transparent;
     }
     .table tbody td { padding: 0.8rem 1rem; font-size: 0.82rem; color: var(--admin-text); }
+    .c-qnum { display: none; }
 
     @media (max-width: 767.98px) {
         .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
@@ -24,6 +25,13 @@
         .faq-table td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
         .faq-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; }
         .faq-table .c-num { display: none; }
+        .c-qnum {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 26px; height: 26px; padding: 0 0.4rem;
+            border-radius: 8px; background: rgba(0,217,255,0.1); color: #00d9ff;
+            font-size: 0.72rem; font-weight: 700;
+            margin-right: 0.5rem; vertical-align: middle;
+        }
         .faq-table .c-question { font-size: 0.9rem; line-height: 1.4; word-break: break-word; }
         .faq-table .c-question .c-question-text { max-width: 100% !important; white-space: normal !important; overflow: visible !important; display: inline !important; }
         .faq-table .c-answer { margin-top: 0.35rem; font-size: 0.78rem; line-height: 1.5; }
