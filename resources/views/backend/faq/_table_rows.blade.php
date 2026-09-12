@@ -2,7 +2,6 @@
     <tr>
         <td class="ps-4 fw-semibold c-num">#{{ $loop->iteration }}</td>
         <td class="fw-semibold c-question">
-            <span class="c-qnum">#{{ $loop->iteration }}</span>
             <span class="text-truncate d-inline-block align-middle c-question-text" style="max-width:280px;color:var(--admin-text);">
                 <i class="bi bi-question-circle me-1" style="color:#00d9ff;"></i>{{ $faq->question }}
             </span>
