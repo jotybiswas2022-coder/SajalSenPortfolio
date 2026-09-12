@@ -27,10 +27,10 @@
         .contact-table .c-view .ae-btn { width: 100%; padding: 0.55rem; font-size: 0.8rem; }
     }
 </style>
-<div class="container-fluid py-3">
+<div class="container-fluid pt-2 pb-3">
 
     {{-- Header --}}
-    <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="ae-page-header mb-3 d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div class="d-flex align-items-center gap-3">
             <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                 <i class="bi bi-arrow-left"></i>
