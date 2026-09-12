@@ -48,8 +48,17 @@
         margin-left: 260px !important;
         min-height: calc(100vh - 57px);
         background: var(--admin-bg);
-        padding: 1.5rem;
+        padding: 1.25rem;
         display: flow-root;
+    }
+    .admin-main .container-fluid {
+        padding-top: 0 !important;
+        padding-bottom: 1.25rem !important;
+    }
+    .admin-main .ae-page-header {
+        padding: 14px 20px;
+        margin-bottom: 0.75rem !important;
+        gap: 0.75rem !important;
     }
     .sidebar-overlay {
         position: fixed;
@@ -310,9 +319,18 @@
     @media (max-width: 767.98px) {
         .admin-main {
             margin-left: 0 !important;
-            padding: 0.6rem;
+            padding: 0.5rem;
             width: 100%;
             font-size: 0.78rem;
+        }
+        .admin-main .container-fluid {
+            padding-top: 0 !important;
+            padding-bottom: 0.75rem !important;
+        }
+        .admin-main .ae-page-header {
+            padding: 10px 12px;
+            margin-bottom: 0.6rem !important;
+            gap: 0.6rem !important;
         }
         .admin-main h1 { font-size: 1.1rem; }
         .admin-main h2 { font-size: 1rem; }
