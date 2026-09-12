@@ -3,6 +3,7 @@
         <td class="ps-4 fw-semibold c-num">#{{ $loop->iteration }}</td>
         <td class="c-name">
             <div class="d-flex align-items-center gap-2">
+                <span class="c-qnum">#{{ $loop->iteration }}</span>
                 <span class="skill-ico">
                     @if($skill->icon)
                         <i class="bi {{ $skill->icon }}" style="text-shadow:0 0 12px rgba(0,217,255,0.4);"></i>

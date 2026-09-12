@@ -15,6 +15,7 @@
         font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center;
     }
     .percent-label { font-weight: 700; font-size: 0.78rem; color: #00d9ff; }
+    .c-qnum { display: none; }
 
     @media (max-width: 767.98px) {
         .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
@@ -34,6 +35,13 @@
         .skill-table td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
         .skill-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; margin-bottom: 0 !important; }
         .skill-table .c-num { display: none !important; }
+        .skill-table .c-qnum {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 26px; height: 26px; padding: 0 0.4rem;
+            border-radius: 8px; background: rgba(0,217,255,0.1); color: #00d9ff;
+            font-size: 0.72rem; font-weight: 700;
+            flex-shrink: 0; align-self: flex-start;
+        }
         .skill-table .c-name { display: flex; align-items: center; gap: 0.6rem; }
         .skill-table .c-name .c-name-text {
             font-size: 0.92rem; font-weight: 600; line-height: 1.35;
