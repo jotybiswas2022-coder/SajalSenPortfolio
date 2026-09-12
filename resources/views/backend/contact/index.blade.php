@@ -35,8 +35,8 @@
     .act-txt { display: none; }
 
     @media (max-width: 767.98px) {
-        .ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
-        #msgTable, #msgTable tbody, #msgTable tr, #msgTable td { display: block; width: 100%; }
+        .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
+        #msgTable { min-width: 0 !important; max-width: 100% !important; }
         #msgTable thead { display: none; }
         #msgTable tbody { display: flex; flex-direction: column; gap: 0.8rem; }
         #msgTable tr {
@@ -44,8 +44,9 @@
             border: 1px solid var(--admin-border);
             border-radius: 14px;
             padding: 1rem;
+            width: 100%;
         }
-        #msgTable td { padding: 0 !important; border: 0 !important; text-align: left !important; }
+        #msgTable td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
         .c-num { display: none; }
         .c-email { margin-top: 0.15rem; }
         .c-message { margin-top: 0.6rem !important; }
@@ -140,7 +141,7 @@
             </div>
         </div>
     @else
-        <div class="ae-table-card">
+        <div class="ae-table-card contact-table-wrap">
             <div class="table-responsive">
                 <table class="table table-hover align-middle" id="msgTable" style="min-width:900px;">
                     <thead>
