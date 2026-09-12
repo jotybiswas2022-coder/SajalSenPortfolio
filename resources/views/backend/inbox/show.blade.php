@@ -59,6 +59,20 @@
     .bubble .sender-label {
         font-size: 0.7rem; color: var(--admin-text-muted); margin-bottom: 0.2rem;
     }
+
+    @media (max-width: 575.98px) {
+        .ae-page-header { padding: 14px 14px; }
+        .ae-page-header .ae-title { font-size: 1.05rem; }
+        .ae-page-header .ae-sub { font-size: 0.75rem; }
+        .msg { max-width: 92%; }
+        .bubble { font-size: 0.85rem; padding: 0.6rem 0.8rem; }
+        .bubble img { max-width: 100%; max-height: 220px; }
+        .chat-messages { max-height: 60vh; padding: 0.75rem; }
+        .composer-row { flex-wrap: wrap; }
+        .composer-input { flex: 1 1 100% !important; }
+        .composer-actions { flex: 1 1 100%; justify-content: flex-end; }
+        .composer-actions .ae-btn { flex: 1; max-width: 110px; }
+    }
 </style>
 
 <div class="container-fluid py-3">
@@ -166,11 +180,11 @@
                                 <button type="button" onclick="insertEmoji('💰')" style="background:none;border:none;font-size:1.4rem;cursor:pointer;padding:2px 4px;border-radius:4px;line-height:1;">💰</button>
                             </div>
 
-                            <div class="d-flex gap-2 align-items-start">
-                                <div style="flex:1;">
+                            <div class="d-flex gap-2 align-items-start composer-row">
+                                <div style="flex:1;" class="composer-input">
                                     <textarea name="message" id="msgInput" class="form-control ae-input-modern" rows="2" placeholder="Type your reply..." style="border-radius:12px;resize:none;"></textarea>
                                 </div>
-                                <div class="d-flex gap-1">
+                                <div class="d-flex gap-1 composer-actions">
                                     <button type="button" class="ae-btn ae-btn-ghost" style="padding:0.4rem 0.7rem;" onclick="toggleEmojiPicker()" title="Emoji">
                                         <i class="bi bi-emoji-smile"></i>
                                     </button>
