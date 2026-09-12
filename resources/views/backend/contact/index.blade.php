@@ -32,6 +32,31 @@
         padding: 0.1rem 0.45rem; border-radius: 50px; text-transform: uppercase;
     }
     .act-btn { padding: 0.3rem 0.55rem !important; font-size: 0.8rem !important; border-radius: 8px !important; }
+    .act-txt { display: none; }
+
+    @media (max-width: 767.98px) {
+        .ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; }
+        #msgTable, #msgTable tbody, #msgTable tr, #msgTable td { display: block; width: 100%; }
+        #msgTable thead { display: none; }
+        #msgTable tbody { display: flex; flex-direction: column; gap: 0.8rem; }
+        #msgTable tr {
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-border);
+            border-radius: 14px;
+            padding: 1rem;
+        }
+        #msgTable td { padding: 0 !important; border: 0 !important; text-align: left !important; }
+        .c-num { display: none; }
+        .c-email { margin-top: 0.15rem; }
+        .c-message { margin-top: 0.6rem !important; }
+        .c-message .msg-preview { max-width: none; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .c-date, .c-time { display: inline !important; color: var(--admin-text-muted); font-size: 0.75rem; }
+        .c-date::after { content: '\00b7'; margin: 0 0.4rem; color: var(--admin-border); }
+        .c-actions { margin-top: 0.8rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
+        .c-actions .d-flex { width: 100%; gap: 0.5rem !important; }
+        .c-actions .act-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.55rem !important; font-size: 0.8rem !important; }
+        .c-actions .act-txt { display: inline; }
+    }
 
     @media (max-width: 575.98px) {
         .sum-box { padding: 0.7rem 0.25rem; }
@@ -139,8 +164,8 @@
                             <tr data-name="{{ strtolower($contact->name) }}"
                                 data-email="{{ strtolower($contact->email) }}"
                                 data-msg="{{ strtolower($contact->message) }}">
-                                <td class="ps-4 text-muted">{{ $loop->iteration }}</td>
-                                <td>
+                                <td class="ps-4 text-muted c-num">{{ $loop->iteration }}</td>
+                                <td class="c-name">
                                     <div class="d-flex align-items-center gap-2">
                                         <span class="msg-avatar">{{ strtoupper(substr($contact->name, 0, 1)) }}</span>
                                         <div class="d-flex align-items-center flex-wrap gap-1" style="min-width:0;">
@@ -151,17 +176,17 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td><span class="text-muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%;">{{ $contact->email }}</span></td>
-                                <td><span class="msg-preview" title="{{ $contact->message }}">{{ $contact->message }}</span></td>
-                                <td class="text-muted">{{ $created->format('d M Y') }}</td>
-                                <td class="text-muted">{{ $created->format('h:i A') }}</td>
-                                <td class="pe-4">
+                                <td class="c-email"><span class="text-muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%;">{{ $contact->email }}</span></td>
+                                <td class="c-message"><span class="msg-preview" title="{{ $contact->message }}">{{ $contact->message }}</span></td>
+                                <td class="c-date">{{ $created->format('d M Y') }}</td>
+                                <td class="c-time">{{ $created->format('h:i A') }}</td>
+                                <td class="pe-4 c-actions">
                                     <div class="d-flex justify-content-end gap-1">
                                         <button type="button" class="ae-btn ae-btn-ghost act-btn" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}" title="View message">
-                                            <i class="bi bi-eye"></i>
+                                            <i class="bi bi-eye"></i><span class="act-txt">View</span>
                                         </button>
                                         <a href="{{ $mailto }}" class="ae-btn ae-btn-ghost act-btn" title="Reply via email">
-                                            <i class="bi bi-reply-fill"></i>
+                                            <i class="bi bi-reply-fill"></i><span class="act-txt">Reply</span>
                                         </a>
                                     </div>
                                 </td>
