@@ -348,9 +348,11 @@
         .admin-main .stat-card .stat-label { font-size: 0.7rem; }
     }
     @media (max-width: 575.98px) {
+        .admin-main .ae-page-header:has(.ae-header-actions) { flex-direction: column !important; align-items: stretch !important; justify-content: flex-start !important; }
+        .admin-main .msg-hd-left { width: 100%; }
         .admin-main .ae-header-actions { width: 100% !important; justify-content: space-between !important; flex-wrap: nowrap !important; }
         .admin-main .ae-header-actions .ae-badge { font-size: 0.65rem; padding: 0.25rem 0.6rem; }
-        .admin-main .ae-header-actions .ae-btn { font-size: 0.8rem; padding: 0.5rem 1rem; }
+        .admin-main .ae-header-actions .ae-btn { font-size: 0.8rem; padding: 0.5rem 1rem; white-space: nowrap; }
     }
         /* ===== Font System: Space Grotesk / Inter / Noto Sans Bengali / JetBrains Mono ===== */
         h1, h2, h3, h4, h5, h6 {
