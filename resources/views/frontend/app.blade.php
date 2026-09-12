@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>{{ config('app.name', 'Portfolio') }} | {{ __('messages.home') }}</title>
-    <link rel="icon" href="/core/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/core/favicon.svg" type="image/svg+xml">
-    <link rel="icon" href="/core/favicon.png" type="image/png" sizes="32x32">
-    <link rel="shortcut icon" href="/core/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/core/apple-touch-icon.png">
+    <link rel="icon" href="/core/favicon.ico?v=2" type="image/x-icon">
+    <link rel="icon" href="/core/favicon.svg?v=2" type="image/svg+xml">
+    <link rel="icon" href="/core/favicon.png?v=2" type="image/png" sizes="32x32">
+    <link rel="shortcut icon" href="/core/favicon.ico?v=2" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/core/apple-touch-icon.png?v=2">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
