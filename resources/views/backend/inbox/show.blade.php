@@ -148,7 +148,7 @@
                             <span class="fw-semibold package-price" style="color:var(--admin-text);">{{ $conversation->package_price }} USD</span>
                         </div>
                         @if($conversation->gig)
-                            <a href="{{ route('admin.gigs.edit', $conversation->gig->id) }}" class="ae-btn ae-btn-ghost ms-auto">
+                            <a href="{{ route('gig.detail', $conversation->gig->id) }}" target="_blank" rel="noopener" class="ae-btn ae-btn-ghost ms-auto">
                                 <i class="bi bi-box-arrow-up-right"></i> View Gig
                             </a>
                         @endif
