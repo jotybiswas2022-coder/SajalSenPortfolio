@@ -13,26 +13,18 @@
         .contact-table { min-width: 0 !important; }
         .contact-table thead { display: none; }
         .contact-table, .contact-table tbody, .contact-table tr, .contact-table td { display: block; }
-        .contact-table tr {
-            position: relative;
-            padding: 1rem;
-            padding-bottom: 1.1rem;
-            border-bottom: 1px solid var(--admin-border);
-        }
+        .contact-table tr { padding: 0.9rem 1rem; border-bottom: 1px solid var(--admin-border); }
         .contact-table tr:last-child { border-bottom: 0; }
         .contact-table td { padding: 0 !important; border-bottom: 0 !important; text-align: left !important; }
         .contact-table .c-num { display: none; }
-        .contact-table .c-name { font-size: 0.85rem; padding-right: 84px; word-break: break-word; }
-        .contact-table .c-email { margin-top: 0.2rem; font-size: 0.72rem; padding-right: 84px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-table .c-name { font-size: 0.85rem; word-break: break-word; }
+        .contact-table .c-email { margin-top: 0.15rem; font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-table .c-date { display: inline-block; margin-top: 0.5rem; }
+        .contact-table .c-time { display: inline-block; margin-top: 0.5rem; margin-left: 0.5rem; }
+        .contact-table .c-date .ae-status-badge,
+        .contact-table .c-time .ae-status-badge { font-size: 0.66rem; padding: 0.2rem 0.5rem; max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .contact-table .c-view { margin-top: 0.65rem; }
         .contact-table .c-view .ae-btn { width: 100%; padding: 0.55rem; font-size: 0.8rem; }
-        .contact-table .c-date { position: absolute; top: 1.05rem; right: 1rem; }
-        .contact-table .c-time { position: absolute; top: 3.35rem; right: 1rem; }
-        .contact-table .c-date .ae-status-badge,
-        .contact-table .c-time .ae-status-badge {
-            font-size: 0.66rem; padding: 0.2rem 0.5rem;
-            max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
     }
 </style>
 <div class="container-fluid py-3">

@@ -13,33 +13,28 @@
         .inbox-table { min-width: 0 !important; }
         .inbox-table thead { display: none; }
         .inbox-table, .inbox-table tbody, .inbox-table tr, .inbox-table td { display: block; }
-        .inbox-table tr {
-            position: relative;
-            padding: 1rem;
-            padding-bottom: 1.1rem;
-            border-bottom: 1px solid var(--admin-border);
-        }
+        .inbox-table tr { padding: 0.9rem 1rem; border-bottom: 1px solid var(--admin-border); }
         .inbox-table tr:last-child { border-bottom: 0; }
         .inbox-table td { padding: 0 !important; border-bottom: 0 !important; text-align: left !important; }
-        .inbox-table .c-client { display: flex; align-items: center; gap: 0.7rem; padding-right: 88px; }
+        .inbox-table .c-client { display: flex; align-items: center; gap: 0.7rem; }
         .inbox-table .c-client-info { flex: 1; min-width: 0; }
         .inbox-table .c-name { font-size: 0.85rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .inbox-table .c-email { font-size: 0.72rem !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .inbox-table .c-status { position: absolute; top: 1.05rem; right: 1rem; }
+        .inbox-table .c-status { display: inline-block; margin-top: 0.55rem; }
         .inbox-table .c-status .ae-status-badge { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
-        .inbox-table .c-time { position: absolute; top: 3.1rem; right: 1rem; font-size: 0.72rem !important; }
-        .inbox-table .c-subject { margin-top: 0.55rem; padding-right: 80px; font-size: 0.85rem; line-height: 1.35; word-break: break-word; }
+        .inbox-table .c-time { display: inline-block; margin-top: 0.55rem; margin-left: 0.5rem; font-size: 0.72rem !important; }
+        .inbox-table .c-subject { margin-top: 0.6rem; font-size: 0.85rem; line-height: 1.35; word-break: break-word; }
         .inbox-table .c-preview {
             margin-top: 0.3rem; font-size: 0.75rem;
             max-width: none !important; white-space: normal !important; overflow: hidden !important;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
         }
-        .inbox-table .c-package { margin-top: 0.65rem; }
+        .inbox-table .c-package { margin-top: 0.6rem; }
         .inbox-table .c-package .ae-status-badge {
             max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
             font-size: 0.7rem; padding: 0.25rem 0.6rem;
         }
-        .inbox-table .c-action { margin-top: 0.8rem; }
+        .inbox-table .c-action { margin-top: 0.75rem; }
         .inbox-table .c-action .ae-btn { width: 100%; padding: 0.55rem; font-size: 0.8rem; }
     }
 </style>
