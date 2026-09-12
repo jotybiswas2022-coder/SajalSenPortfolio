@@ -31,23 +31,31 @@
 
     @media (max-width: 767.98px) {
         .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
-        .gig-table { min-width: 0 !important; max-width: 100% !important; }
+        .contact-table-wrap .table-responsive { overflow: visible !important; }
+        .gig-table { width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
         .gig-table thead { display: none; }
-        .gig-table tbody { display: flex; flex-direction: column; gap: 0.9rem; }
+        .gig-table tbody { display: block; width: 100%; }
         .gig-table tr {
+            display: block !important;
+            width: 100% !important;
             background: var(--admin-card-bg);
             border: 1px solid var(--admin-border);
             border-radius: 14px;
             padding: 1.1rem 1rem;
-            width: 100%;
+            margin-bottom: 0.9rem;
         }
         .gig-table td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
-        .gig-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; }
+        .gig-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; margin-bottom: 0 !important; }
         .gig-table .c-num { display: none !important; }
-        .gig-table .c-title { font-size: 0.9rem; font-weight: 600; }
+        .gig-table .c-gig { display: flex; align-items: center; gap: 0.75rem; }
+        .gig-table .c-title {
+            font-size: 0.9rem; font-weight: 600; line-height: 1.35;
+            white-space: normal !important; overflow: visible !important;
+            max-width: 100% !important; word-break: break-word;
+        }
         .gig-table .c-packages { margin-top: 0.7rem; }
         .gig-table .pkg-list { display: flex; flex-direction: column; gap: 0.35rem; }
-        .gig-table .pkg { margin: 0; }
+        .gig-table .pkg { display: flex; width: 100%; margin: 0; justify-content: space-between; }
         .gig-table .c-order { display: none !important; }
         .gig-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; margin-left: 0; }
         .gig-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
