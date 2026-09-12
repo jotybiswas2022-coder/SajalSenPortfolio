@@ -2,8 +2,9 @@
 
 @section('content')
 <style>
+    .contact-page-header { padding: 14px 20px; }
     @media (max-width: 767.98px) {
-        .ae-page-header { padding: 12px 12px; }
+        .contact-page-header { padding: 10px 12px; }
         .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
         .ae-page-header .header-ico i { font-size: 1.05rem !important; }
         .ae-page-header .ae-title { font-size: 1rem; }
@@ -27,10 +28,10 @@
         .contact-table .c-view .ae-btn { width: 100%; padding: 0.55rem; font-size: 0.8rem; }
     }
 </style>
-<div class="container-fluid pt-2 pb-3">
+<div class="container-fluid pb-3">
 
     {{-- Header --}}
-    <div class="ae-page-header mb-3 d-flex align-items-center justify-content-between flex-wrap gap-3">
+    <div class="ae-page-header contact-page-header mb-2 d-flex align-items-center justify-content-between flex-wrap gap-2">
         <div class="d-flex align-items-center gap-3">
             <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                 <i class="bi bi-arrow-left"></i>
