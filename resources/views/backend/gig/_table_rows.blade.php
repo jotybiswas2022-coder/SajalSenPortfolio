@@ -1,18 +1,46 @@
 @forelse($gigs as $gig)
-    <div class="gig-card">
-        <div class="gig-card-top">
-            @if($gig->image)
-                <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}" class="gig-thumb">
-            @else
-                <div class="gig-thumb-placeholder">
-                    <i class="bi bi-image"></i>
+    <tr>
+        <td class="ps-4 fw-semibold c-num">#{{ $loop->iteration }}</td>
+        <td class="c-gig">
+            <div class="d-flex align-items-center gap-2">
+                @if($gig->image)
+                    <img src="{{ config('app.storage_url') }}{{ $gig->image }}" alt="{{ $gig->title }}" class="gig-thumb-sm">
+                @else
+                    <span class="gig-thumb-ph"><i class="bi bi-image"></i></span>
+                @endif
+                <div style="min-width:0;">
+                    <div class="fw-semibold c-title" style="color:var(--admin-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;">{{ $gig->title }}</div>
+                    <div style="font-size:0.72rem;color:var(--admin-text-muted);">#{{ $gig->id }}</div>
                 </div>
-            @endif
-            <div class="gig-card-info">
-                <h5>{{ $gig->title }}</h5>
-                <span class="gig-id">#{{ $loop->iteration }}</span>
             </div>
-            <div class="d-flex gap-1">
+        </td>
+        <td class="c-packages">
+            <div class="pkg-list">
+                <span class="pkg">
+                    <span class="pkg-name">{{ $gig->basic_name ?: 'Basic' }}</span>
+                    <span class="pkg-price basic">{{ $gig->basic_price }} USD</span>
+                </span>
+                <span class="pkg">
+                    <span class="pkg-name">{{ $gig->standard_name ?: 'Standard' }}</span>
+                    <span class="pkg-price standard">{{ $gig->standard_price }} USD</span>
+                </span>
+                <span class="pkg">
+                    <span class="pkg-name">{{ $gig->premium_name ?: 'Premium' }}</span>
+                    <span class="pkg-price premium">{{ $gig->premium_price }} USD</span>
+                </span>
+            </div>
+        </td>
+        <td class="c-order"><span class="ae-order-badge">{{ $gig->sort_order }}</span></td>
+        <td class="c-status">
+            <a href="{{ route('admin.gigs.toggleStatus', $gig->id) }}"
+               class="status-toggle {{ $gig->is_active ? 'active' : 'inactive' }}"
+               data-title="{{ $gig->title }}">
+                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }}"></i>
+                {{ $gig->is_active ? 'Active' : 'Inactive' }}
+            </a>
+        </td>
+        <td class="pe-4 c-actions">
+            <div class="d-flex gap-1 justify-content-end">
                 <a href="{{ route('admin.gigs.edit', $gig->id) }}" class="ae-action-btn edit" title="Edit">
                     <i class="bi bi-pencil"></i>
                 </a>
@@ -27,40 +55,13 @@
                     @method('DELETE')
                 </form>
             </div>
-        </div>
-
-        <div class="gig-card-body">
-            <div class="pricing-chips">
-                <div class="pricing-chip">
-                    <div class="chip-name">{{ $gig->basic_name ?: 'Basic' }}</div>
-                    <div class="chip-price basic">{{ $gig->basic_price }} USD</div>
-                </div>
-                <div class="pricing-chip">
-                    <div class="chip-name">{{ $gig->standard_name ?: 'Standard' }}</div>
-                    <div class="chip-price standard">{{ $gig->standard_price }} USD</div>
-                </div>
-                <div class="pricing-chip">
-                    <div class="chip-name">{{ $gig->premium_name ?: 'Premium' }}</div>
-                    <div class="chip-price premium">{{ $gig->premium_price }} USD</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="gig-card-footer">
-            <span class="order-badge"><i class="bi bi-sort-numeric-up"></i> Order {{ $gig->sort_order }}</span>
-            <a href="{{ route('admin.gigs.toggleStatus', $gig->id) }}"
-               class="status-toggle {{ $gig->is_active ? 'active' : 'inactive' }}"
-               data-title="{{ $gig->title }}">
-                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }}"></i>
-                {{ $gig->is_active ? 'Active' : 'Inactive' }}
-            </a>
-        </div>
-    </div>
+        </td>
+    </tr>
 @empty
-    <div class="ae-table-card" style="grid-column:1/-1;">
-        <div class="text-center py-5">
+    <tr>
+        <td colspan="6" class="text-center py-5">
             <i class="bi bi-search" style="font-size:2rem;color:var(--admin-text-muted);display:block;margin-bottom:0.5rem;"></i>
             <p class="ae-note mb-0">No gigs found. Try adjusting your search.</p>
-        </div>
-    </div>
+        </td>
+    </tr>
 @endforelse
