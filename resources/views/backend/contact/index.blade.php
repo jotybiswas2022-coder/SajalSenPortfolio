@@ -1,12 +1,49 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+    @media (max-width: 767.98px) {
+        .ae-page-header { padding: 12px 12px; }
+        .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
+        .ae-page-header .header-ico i { font-size: 1.05rem !important; }
+        .ae-page-header .ae-title { font-size: 1rem; }
+        .ae-page-header .ae-sub { font-size: 0.72rem; }
+        .ae-page-header .ae-badge { font-size: 0.62rem; padding: 0.2rem 0.55rem; }
+
+        .contact-table { min-width: 0 !important; }
+        .contact-table thead { display: none; }
+        .contact-table, .contact-table tbody, .contact-table tr, .contact-table td { display: block; }
+        .contact-table tr {
+            position: relative;
+            padding: 1rem;
+            padding-bottom: 1.1rem;
+            border-bottom: 1px solid var(--admin-border);
+        }
+        .contact-table tr:last-child { border-bottom: 0; }
+        .contact-table td { padding: 0 !important; border-bottom: 0 !important; text-align: left !important; }
+        .contact-table .c-num { display: none; }
+        .contact-table .c-name { font-size: 0.85rem; padding-right: 84px; word-break: break-word; }
+        .contact-table .c-email { margin-top: 0.2rem; font-size: 0.72rem; padding-right: 84px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-table .c-view { margin-top: 0.65rem; }
+        .contact-table .c-view .ae-btn { width: 100%; padding: 0.55rem; font-size: 0.8rem; }
+        .contact-table .c-date { position: absolute; top: 1.05rem; right: 1rem; }
+        .contact-table .c-time { position: absolute; top: 3.35rem; right: 1rem; }
+        .contact-table .c-date .ae-status-badge,
+        .contact-table .c-time .ae-status-badge {
+            font-size: 0.66rem; padding: 0.2rem 0.5rem;
+            max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+    }
+</style>
 <div class="container-fluid py-3">
 
     {{-- Header --}}
     <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div class="d-flex align-items-center gap-3">
-            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" class="header-ico">
                 <i class="bi bi-envelope-paper" style="font-size:1.5rem;color:#00d9ff;"></i>
             </div>
             <div class="d-flex flex-column align-items-start gap-1">
@@ -28,7 +65,7 @@
     @else
         <div class="ae-table-card">
             <div class="table-responsive">
-                <table class="table table-hover align-middle" style="min-width:800px;">
+                <table class="table table-hover align-middle contact-table" style="min-width:800px;">
                     <thead>
                         <tr>
                             <th class="ps-4" style="width:50px;">#</th>
@@ -42,10 +79,10 @@
                     <tbody>
                         @foreach ($contacts as $contact)
                             <tr>
-                                <td class="ps-4 fw-semibold" style="color:var(--admin-text-muted);">{{ $loop->iteration }}</td>
-                                <td class="fw-semibold" style="color:var(--admin-text);">{{ $contact->name }}</td>
-                                <td><span style="color:var(--admin-text-muted);">{{ $contact->email }}</span></td>
-                                <td>
+                                <td class="ps-4 fw-semibold c-num" style="color:var(--admin-text-muted);">{{ $loop->iteration }}</td>
+                                <td class="fw-semibold c-name" style="color:var(--admin-text);">{{ $contact->name }}</td>
+                                <td class="c-email"><span style="color:var(--admin-text-muted);">{{ $contact->email }}</span></td>
+                                <td class="c-view">
                                     <button type="button" class="ae-btn ae-btn-ghost" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}">
                                         <i class="bi bi-eye"></i> View
                                     </button>
@@ -78,12 +115,12 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>
+                                <td class="c-date">
                                     <span class="ae-status-badge" style="background:var(--admin-bg-soft);border-color:var(--admin-border);color:var(--admin-text);cursor:default;">
                                         {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('d M Y') }}
                                     </span>
                                 </td>
-                                <td>
+                                <td class="c-time">
                                     <span class="ae-status-badge" style="background:rgba(0,217,255,0.08);border-color:rgba(0,217,255,0.2);color:#00d9ff;cursor:default;">
                                         {{ \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka')->format('h:i A') }}
                                     </span>
