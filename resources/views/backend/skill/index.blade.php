@@ -1,12 +1,75 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+    .table thead th {
+        font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
+        font-weight: 600; color: var(--admin-text-muted); white-space: nowrap;
+        border-bottom: 1px solid var(--admin-border); padding: 0.85rem 1rem; background: transparent;
+    }
+    .table tbody td { padding: 0.8rem 1rem; font-size: 0.82rem; color: var(--admin-text); }
+
+    .skill-ico {
+        width: 34px; height: 34px; border-radius: 9px; flex-shrink: 0;
+        background: rgba(0,217,255,0.12); color: #00d9ff;
+        font-size: 0.95rem; display: inline-flex; align-items: center; justify-content: center;
+    }
+    .percent-label { font-weight: 700; font-size: 0.78rem; color: #00d9ff; }
+
+    @media (max-width: 767.98px) {
+        .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
+        .contact-table-wrap .table-responsive { overflow: visible !important; }
+        .skill-table { width: 100% !important; min-width: 0 !important; max-width: 100% !important; }
+        .skill-table thead { display: none; }
+        .skill-table tbody { display: block; width: 100%; }
+        .skill-table tr {
+            display: block !important;
+            width: 100% !important;
+            background: var(--admin-card-bg);
+            border: 1px solid var(--admin-border);
+            border-radius: 14px;
+            padding: 1.1rem 1rem;
+            margin-bottom: 0.9rem;
+        }
+        .skill-table td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
+        .skill-table td[colspan] { text-align: center !important; padding: 2.5rem 1rem !important; background: transparent !important; border: none !important; margin-bottom: 0 !important; }
+        .skill-table .c-num { display: none !important; }
+        .skill-table .c-name { display: flex; align-items: center; gap: 0.6rem; }
+        .skill-table .c-name .c-name-text {
+            font-size: 0.92rem; font-weight: 600; line-height: 1.35;
+            white-space: normal !important; overflow: visible !important;
+            max-width: 100% !important; word-break: break-word;
+        }
+        .skill-table .c-level { display: none !important; }
+        .skill-table .c-progress { margin-top: 0.7rem; }
+        .skill-table .c-order { display: none !important; }
+        .skill-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; margin-left: 0; }
+        .skill-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+        .skill-table .c-actions { margin-top: 0.85rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
+        .skill-table .c-actions .d-flex { width: 100%; gap: 0.6rem; }
+        .skill-table .c-actions .ae-action-btn { flex: 1 1 0; width: auto; height: 2.6rem; font-size: 0.9rem; border-radius: 10px; }
+    }
+
+    @media (max-width: 575.98px) {
+        .msg-hd-left { gap: 0.75rem !important; flex-wrap: nowrap !important; }
+        .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
+        .ae-page-header .header-ico i { font-size: 1.05rem !important; }
+        .ae-page-header .ae-title { font-size: 0.95rem; }
+        .ae-page-header .ae-sub { font-size: 0.68rem; }
+        .ae-page-header .ae-badge { font-size: 0.68rem; padding: 0.25rem 0.7rem; }
+        .search-bar .input-group-text { font-size: 0.85rem; }
+        .search-bar #liveSearch { font-size: 0.85rem; }
+    }
+</style>
 <div class="container-fluid py-3">
 
     {{-- Header --}}
-    <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
-        <div class="d-flex align-items-center gap-3">
-            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+    <div class="ae-page-header mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <div class="d-flex align-items-center gap-3 msg-hd-left">
+            <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" class="header-ico">
                 <i class="bi bi-lightning-charge" style="font-size:1.5rem;color:#00d9ff;"></i>
             </div>
             <div class="d-flex flex-column align-items-start gap-1">
@@ -23,8 +86,8 @@
     </div>
 
     {{-- Live Search --}}
-    <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
+    <div class="mb-3">
+        <div class="d-flex gap-2 align-items-center search-bar">
             <div class="input-group" style="max-width:500px;">
                 <span class="input-group-text ae-search-icon"><i class="bi bi-search"></i></span>
                 <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
@@ -64,16 +127,15 @@
             </div>
         </div>
     @else
-        <div class="ae-table-card">
+        <div class="ae-table-card contact-table-wrap">
             <div class="table-responsive">
-                <table class="table table-hover align-middle" style="min-width:850px;">
+                <table class="table table-hover align-middle skill-table" style="min-width:900px;">
                     <thead>
                         <tr>
                             <th class="ps-4" style="width:50px;">#</th>
-                            <th style="width:60px;">Icon</th>
                             <th>Name</th>
-                            <th style="width:80px;">Level</th>
-                            <th style="min-width:170px;">Progress</th>
+                            <th style="width:90px;">Level</th>
+                            <th style="min-width:190px;">Progress</th>
                             <th style="width:70px;">Order</th>
                             <th style="width:90px;">Status</th>
                             <th class="pe-4" style="width:110px;">Actions</th>
