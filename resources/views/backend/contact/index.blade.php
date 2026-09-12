@@ -38,38 +38,47 @@
         .contact-table-wrap.ae-table-card { background: transparent !important; border: none !important; box-shadow: none !important; border-radius: 0 !important; overflow: visible !important; padding: 0 !important; }
         #msgTable { min-width: 0 !important; max-width: 100% !important; }
         #msgTable thead { display: none; }
-        #msgTable tbody { display: flex; flex-direction: column; gap: 0.8rem; }
+        #msgTable tbody { display: flex; flex-direction: column; gap: 0.9rem; }
         #msgTable tr {
             background: var(--admin-card-bg);
             border: 1px solid var(--admin-border);
             border-radius: 14px;
-            padding: 1rem;
+            padding: 1.1rem 1rem;
             width: 100%;
         }
         #msgTable td { display: block; width: 100%; padding: 0 !important; border: 0 !important; text-align: left !important; }
         .c-num { display: none; }
-        .c-email { margin-top: 0.15rem; }
-        .c-message { margin-top: 0.6rem !important; }
-        .c-message .msg-preview { max-width: none; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .c-date, .c-time { display: inline !important; color: var(--admin-text-muted); font-size: 0.75rem; }
-        .c-date::after { content: '\00b7'; margin: 0 0.4rem; color: var(--admin-border); }
-        .c-actions { margin-top: 0.8rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
-        .c-actions .d-flex { width: 100%; gap: 0.5rem !important; }
-        .c-actions .act-btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.55rem !important; font-size: 0.8rem !important; }
+        .c-name .msg-avatar { width: 38px; height: 38px; font-size: 0.85rem; }
+        .c-name .fw-semibold { font-size: 0.95rem; max-width: none; }
+        .c-email { margin-top: 0.35rem; }
+        .c-email span { font-size: 0.82rem; }
+        .c-message { margin-top: 0.75rem; }
+        .c-message .msg-preview { max-width: none; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; font-size: 0.82rem; line-height: 1.55; }
+        .c-meta { margin-top: 0.75rem; font-size: 0.74rem; font-weight: 600; }
+        .c-actions { margin-top: 0.9rem !important; padding-top: 0.85rem !important; border-top: 1px solid var(--admin-border) !important; }
+        .c-actions .d-flex { width: 100%; gap: 0.6rem !important; }
+        .c-actions .act-btn { flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem; padding: 0.6rem !important; font-size: 0.85rem !important; }
         .c-actions .act-txt { display: inline; }
     }
 
     @media (max-width: 575.98px) {
-        .sum-box { padding: 0.7rem 0.25rem; }
-        .sum-box .sum-num { font-size: 1.1rem; }
-        .sum-box .sum-label { font-size: 0.6rem; }
-        .msg-preview { max-width: 150px; }
+        .sum-box { padding: 0.8rem 0.25rem; gap: 0.2rem; }
+        .sum-box .sum-ico { font-size: 0.9rem; }
+        .sum-box .sum-num { font-size: 1.15rem; }
+        .sum-box .sum-label { font-size: 0.58rem; }
+        .msg-hd-left { gap: 0.75rem !important; flex-wrap: nowrap !important; }
         .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
         .ae-page-header .header-ico i { font-size: 1.05rem !important; }
-        .ae-page-header .ae-title { font-size: 1rem; }
+        .ae-page-header .ae-title { font-size: 1.02rem; }
         .ae-page-header .ae-sub { font-size: 0.72rem; }
+        .ae-page-header .ae-badge { font-size: 0.7rem; padding: 0.25rem 0.7rem; }
+        .msg-search-row { flex-wrap: wrap; row-gap: 0.35rem; }
+        .msg-search-row .input-group { max-width: none; flex: 1 1 100%; }
+        .msg-search-row .ae-note { font-size: 0.72rem; }
         .modal-header { padding: 0.9rem 1rem !important; }
-        .modal-body { padding: 1rem !important; }
+        .modal-body { padding: 1rem 1rem 1.25rem !important; }
+        .modal-footer { flex-wrap: wrap; gap: 0.5rem; padding: 0.85rem 1rem !important; }
+        .modal-footer .ae-btn { flex: 1 1 100%; justify-content: center; }
     }
 </style>
 
@@ -120,7 +129,7 @@
     </div>
 
     {{-- Search --}}
-    <div class="d-flex align-items-center gap-2 mb-3">
+    <div class="d-flex align-items-center gap-2 mb-3 msg-search-row">
         <div class="input-group" style="max-width:480px;">
             <span class="input-group-text ae-search-icon"><i class="bi bi-search"></i></span>
             <input type="text" id="msgSearch" class="form-control ae-search border-start-0 ps-0"
@@ -149,9 +158,8 @@
                             <th class="ps-4" style="width:50px;">#</th>
                             <th style="width:220px;">Name</th>
                             <th style="width:230px;">Email</th>
-                            <th>Message</th>
-                            <th style="width:120px;">Date</th>
-                            <th style="width:90px;">Time</th>
+                            <th style="width:110px;">Message</th>
+                            <th style="width:160px;">Received</th>
                             <th class="pe-4 text-end" style="width:100px;">Actions</th>
                         </tr>
                     </thead>
@@ -179,8 +187,7 @@
                                 </td>
                                 <td class="c-email"><span class="text-muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%;">{{ $contact->email }}</span></td>
                                 <td class="c-message"><span class="msg-preview" title="{{ $contact->message }}">{{ $contact->message }}</span></td>
-                                <td class="c-date">{{ $created->format('d M Y') }}</td>
-                                <td class="c-time">{{ $created->format('h:i A') }}</td>
+                                <td class="c-meta">{{ $created->format('d M Y') }} <span class="text-muted">&middot; {{ $created->format('h:i A') }}</span></td>
                                 <td class="pe-4 c-actions">
                                     <div class="d-flex justify-content-end gap-1">
                                         <button type="button" class="ae-btn ae-btn-ghost act-btn" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}" title="View message">
@@ -198,7 +205,7 @@
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
                                     <div class="modal-content" style="background:var(--admin-card-bg);border:1px solid var(--admin-border);border-radius:14px;overflow:hidden;">
                                         <div class="modal-header" style="border-bottom:1px solid var(--admin-border);padding:1.1rem 1.4rem;">
-                                            <div class="d-flex align-items-center gap-3">
+<div class="d-flex align-items-center gap-3 msg-hd-left">
                                                 <span class="msg-avatar" style="width:42px;height:42px;font-size:0.95rem;">{{ strtoupper(substr($contact->name, 0, 1)) }}</span>
                                                 <div style="min-width:0;">
                                                     <h5 class="modal-title fw-semibold mb-0" style="color:var(--admin-text);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->name }}</h5>
