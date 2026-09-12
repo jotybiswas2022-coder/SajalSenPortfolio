@@ -50,7 +50,7 @@
         .gig-table .pkg { margin: 0; }
         .gig-table .c-order { display: none !important; }
         .gig-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; margin-left: 0; }
-        .gig-table .c-status .status-toggle { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+        .gig-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
         .gig-table .c-actions { margin-top: 0.85rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
         .gig-table .c-actions .d-flex { width: 100%; gap: 0.6rem; }
         .gig-table .c-actions .ae-action-btn { flex: 1 1 0; width: auto; height: 2.6rem; font-size: 0.9rem; border-radius: 10px; }
@@ -186,7 +186,7 @@
             });
         });
 
-        document.querySelectorAll('.status-toggle').forEach(badge => {
+        document.querySelectorAll('.status-badge').forEach(badge => {
             badge.addEventListener('click', function (e) {
                 e.preventDefault();
                 const href = this.getAttribute('href');

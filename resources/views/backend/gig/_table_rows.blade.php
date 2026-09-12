@@ -33,10 +33,9 @@
         <td class="c-order"><span class="ae-order-badge">{{ $gig->sort_order }}</span></td>
         <td class="c-status">
             <a href="{{ route('admin.gigs.toggleStatus', $gig->id) }}"
-               class="status-toggle {{ $gig->is_active ? 'active' : 'inactive' }}"
+               class="ae-status-badge status-badge {{ $gig->is_active ? '' : 'inactive' }}"
                data-title="{{ $gig->title }}">
-                <i class="bi bi-{{ $gig->is_active ? 'check-circle-fill' : 'circle' }}"></i>
-                {{ $gig->is_active ? 'Active' : 'Inactive' }}
+                <span class="ae-dot"></span> {{ $gig->is_active ? 'Active' : 'Inactive' }}
             </a>
         </td>
         <td class="pe-4 c-actions">
