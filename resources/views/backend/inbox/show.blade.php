@@ -60,6 +60,24 @@
         font-size: 0.7rem; color: var(--admin-text-muted); margin-bottom: 0.2rem;
     }
 
+    .inbox-header-row {
+        position: relative; z-index: 1;
+        display: flex; align-items: center; gap: 0.85rem; flex-wrap: wrap;
+    }
+    .inbox-header-info {
+        flex: 1; min-width: 0;
+        display: flex; flex-direction: column; gap: 0.2rem;
+    }
+    .inbox-header-info .ae-title {
+        overflow: hidden; word-break: break-word;
+        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+        text-overflow: ellipsis;
+    }
+    .inbox-header-info .ae-sub {
+        overflow: hidden; white-space: nowrap; text-overflow: ellipsis;
+    }
+    .inbox-header-row > .ae-status-badge { margin-left: auto; flex-shrink: 0; }
+
     @media (max-width: 575.98px) {
         .ae-page-header { padding: 12px 12px; gap: 0.6rem !important; }
         .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
@@ -67,9 +85,17 @@
         .ae-page-header .ae-title { font-size: 0.95rem; line-height: 1.3; }
         .ae-page-header .ae-sub { font-size: 0.7rem; line-height: 1.35; }
         .ae-page-header .ae-status-badge { font-size: 0.68rem; padding: 0.2rem 0.55rem; }
+        .inbox-header-row { gap: 0.55rem; }
+        .inbox-header-row > .ae-status-badge { order: 2; }
+        .inbox-header-info { order: 3; flex: 1 1 100%; padding-top: 0.15rem; }
+        .inbox-header-info .ae-title { font-size: 0.95rem; }
         .ae-card-body .package-label { font-size: 0.65rem !important; }
         .package-value { font-size: 0.86rem; }
         .package-price { font-size: 0.78rem; }
+        .package-card-inner { flex-direction: column !important; align-items: stretch !important; gap: 0.7rem !important; }
+        .package-details { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 0.5rem; }
+        .package-card-inner > .ae-btn { width: 100%; margin-left: 0 !important; font-size: 0.78rem; }
+        .package-card .ae-card-body { padding: 1rem !important; }
         .msg { max-width: 95%; gap: 0.5rem; }
         .msg-avatar { width: 28px !important; height: 28px !important; font-size: 0.68rem; }
         .msg .bubble { font-size: 0.8rem; padding: 0.55rem 0.75rem; border-radius: 14px; line-height: 1.45; }
@@ -93,33 +119,33 @@
         <div class="col-lg-9 col-md-11">
 
             {{-- Header --}}
-            <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
-                <div class="d-flex align-items-center gap-3">
+            <div class="ae-page-header mb-4 inbox-header">
+                <div class="inbox-header-row">
                     <a href="{{ route('admin.inbox.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                         <i class="bi bi-arrow-left"></i>
                     </a>
                     <div class="header-ico" style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
                         <i class="bi bi-envelope" style="font-size:1.5rem;color:#00d9ff;"></i>
                     </div>
-                    <div class="d-flex flex-column align-items-start gap-1">
+                    <div class="inbox-header-info">
                         <div class="ae-title">{{ $conversation->subject }}</div>
                         <p class="ae-sub mb-0">{{ $conversation->user->name }} ({{ $conversation->user->email }})</p>
                     </div>
+                    @if($conversation->status == 'open')
+                        <span class="ae-status-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.25);color:#22c55e;"><span class="ae-dot"></span> Open</span>
+                    @else
+                        <span class="ae-status-badge inactive"><span class="ae-dot"></span> Closed</span>
+                    @endif
                 </div>
-                @if($conversation->status == 'open')
-                    <span class="ae-status-badge" style="background:rgba(34,197,94,0.1);border-color:rgba(34,197,94,0.25);color:#22c55e;"><span class="ae-dot"></span> Open</span>
-                @else
-                    <span class="ae-status-badge inactive"><span class="ae-dot"></span> Closed</span>
-                @endif
             </div>
 
             @if($conversation->package_name)
-                <div class="ae-card mb-3">
-                    <div class="ae-card-body" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
-                        <div>
+                <div class="ae-card mb-3 package-card">
+                    <div class="ae-card-body package-card-inner" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+                        <div class="package-details">
                             <small class="ae-form-label package-label" style="text-transform:uppercase; letter-spacing:0.5px;">Package</small>
                             <span class="fw-bold package-value" style="color:#00d9ff;">{{ $conversation->package_name }}</span>
-                            <span class="fw-semibold package-price ms-2" style="color:var(--admin-text);">{{ $conversation->package_price }} USD</span>
+                            <span class="fw-semibold package-price" style="color:var(--admin-text);">{{ $conversation->package_price }} USD</span>
                         </div>
                         @if($conversation->gig)
                             <a href="{{ route('admin.gigs.edit', $conversation->gig->id) }}" class="ae-btn ae-btn-ghost ms-auto">
