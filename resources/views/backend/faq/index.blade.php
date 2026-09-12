@@ -42,6 +42,7 @@
             overflow: hidden !important; line-height: 1.5 !important;
         }
         .faq-table .c-order, .faq-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; }
+        .faq-table .c-order { display: none !important; }
         .faq-table .c-status { margin-left: 0.6rem; }
         .faq-table .c-actions { margin-top: 0.85rem !important; padding-top: 0.8rem !important; border-top: 1px solid var(--admin-border) !important; }
         .faq-table .c-actions .d-flex { width: 100%; gap: 0.6rem; }
