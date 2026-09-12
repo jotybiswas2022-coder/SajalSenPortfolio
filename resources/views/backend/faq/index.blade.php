@@ -76,7 +76,7 @@
                 <p class="ae-sub">Manage frequently asked questions.</p>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-2 ae-header-right">
+        <div class="d-flex align-items-center gap-2 ae-header-right ae-header-actions">
             <span class="ae-badge"><span class="ae-dot"></span> {{ $faqs->count() }} FAQs</span>
             <a href="{{ route('admin.faqs.create') }}" class="ae-btn ae-btn-primary">
                 <i class="bi bi-plus-lg"></i> Add FAQ

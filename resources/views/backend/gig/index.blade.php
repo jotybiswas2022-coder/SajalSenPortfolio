@@ -91,7 +91,7 @@
                 <p class="ae-sub">Manage your service packages.</p>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2 ae-header-actions">
             <span class="ae-badge" id="countBadge"><span class="ae-dot"></span> {{ $gigs->count() }} Gigs</span>
             <a href="{{ route('admin.gigs.create') }}" class="ae-btn ae-btn-primary">
                 <i class="bi bi-plus-lg"></i> Add Gig

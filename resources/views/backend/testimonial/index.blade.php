@@ -76,7 +76,7 @@
                 <p class="ae-sub">Manage client reviews and testimonials.</p>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2 ae-header-actions">
             <span class="ae-badge"><span class="ae-dot"></span> {{ $testimonials->count() }} Total</span>
             <a href="{{ route('admin.testimonials.create') }}" class="ae-btn ae-btn-primary">
                 <i class="bi bi-plus-lg"></i> Add New

@@ -85,7 +85,7 @@
                 <p class="ae-sub">Manage your technical skills.</p>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2 ae-header-actions">
             <span class="ae-badge"><span class="ae-dot"></span> {{ $skills->count() }} Skills</span>
             <a href="{{ route('admin.skills.create') }}" class="ae-btn ae-btn-primary">
                 <i class="bi bi-plus-lg"></i> Add Skill
