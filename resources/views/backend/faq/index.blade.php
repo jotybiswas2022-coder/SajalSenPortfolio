@@ -1,12 +1,49 @@
 @extends('backend.app')
 
 @section('content')
+<style>
+    @media (max-width: 767.98px) {
+        .ae-page-header { padding: 12px 12px; gap: 0.6rem !important; }
+        .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
+        .ae-page-header .header-ico i { font-size: 1.05rem !important; }
+        .ae-page-header .ae-title { font-size: 1rem; }
+        .ae-page-header .ae-sub { font-size: 0.72rem; }
+        .ae-page-header .ae-badge { font-size: 0.62rem; padding: 0.2rem 0.55rem; }
+        .ae-page-header .ae-header-right { margin-left: auto; }
+
+        .search-bar { flex-wrap: wrap; row-gap: 0.5rem; }
+        .search-bar .input-group { flex: 1 1 100%; max-width: 100% !important; }
+
+        .faq-table { min-width: 0 !important; }
+        .faq-table thead { display: none; }
+        .faq-table, .faq-table tbody, .faq-table tr, .faq-table td { display: block; }
+        .faq-table tr { padding: 0.9rem 1rem; border-bottom: 1px solid var(--admin-border); }
+        .faq-table tr:last-child { border-bottom: 0; }
+        .faq-table td { padding: 0 !important; border-bottom: 0 !important; text-align: left !important; }
+        .faq-table td[colspan] { padding: 2.5rem 1rem !important; text-align: center !important; }
+        .faq-table .c-num { display: none; }
+        .faq-table .c-question { font-size: 0.85rem; line-height: 1.35; word-break: break-word; }
+        .faq-table .c-question .c-question-text { max-width: 100% !important; white-space: normal !important; overflow: visible !important; display: block !important; }
+        .faq-table .c-answer { margin-top: 0.3rem; font-size: 0.75rem; line-height: 1.4; }
+        .faq-table .c-answer .c-answer-text { max-width: 100% !important; white-space: normal !important; overflow: hidden !important; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .faq-table .c-order { display: inline-block; margin-top: 0.6rem; }
+        .faq-table .c-status { display: inline-block; margin-top: 0.6rem; margin-left: 0.5rem; }
+        .faq-table .c-order .ae-order-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+        .faq-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
+        .faq-table .c-actions { margin-top: 0.7rem; }
+        .faq-table .c-actions .d-flex { gap: 0.5rem; }
+        .faq-table .c-actions .ae-action-btn { width: 38px; height: 38px; font-size: 0.95rem; }
+    }
+</style>
 <div class="container-fluid py-3">
 
     {{-- Header --}}
     <div class="ae-page-header mb-4 d-flex align-items-center justify-content-between flex-wrap gap-3">
         <div class="d-flex align-items-center gap-3">
-            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
+                <i class="bi bi-arrow-left"></i>
+            </a>
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" class="header-ico">
                 <i class="bi bi-question-circle" style="font-size:1.5rem;color:#00d9ff;"></i>
             </div>
             <div class="d-flex flex-column align-items-start gap-1">
@@ -14,7 +51,7 @@
                 <p class="ae-sub">Manage frequently asked questions.</p>
             </div>
         </div>
-        <div class="d-flex align-items-center gap-2">
+        <div class="d-flex align-items-center gap-2 ae-header-right">
             <span class="ae-badge"><span class="ae-dot"></span> {{ $faqs->count() }} FAQs</span>
             <a href="{{ route('admin.faqs.create') }}" class="ae-btn ae-btn-primary">
                 <i class="bi bi-plus-lg"></i> Add FAQ
@@ -24,7 +61,7 @@
 
     {{-- Live Search --}}
     <div class="mb-4">
-        <div class="d-flex gap-2 align-items-center">
+        <div class="d-flex gap-2 align-items-center search-bar">
             <div class="input-group" style="max-width:500px;">
                 <span class="input-group-text ae-search-icon"><i class="bi bi-search"></i></span>
                 <input type="text" id="liveSearch" name="q" value="{{ $query ?? '' }}"
@@ -66,7 +103,7 @@
     @else
         <div class="ae-table-card">
             <div class="table-responsive">
-                <table class="table table-hover align-middle" style="min-width:850px;">
+                <table class="table table-hover align-middle faq-table" style="min-width:850px;">
                     <thead>
                         <tr>
                             <th class="ps-4" style="width:50px;">#</th>

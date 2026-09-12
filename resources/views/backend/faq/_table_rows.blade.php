@@ -1,25 +1,25 @@
 @forelse($faqs as $faq)
     <tr>
-        <td class="ps-4 fw-semibold">#{{ $loop->iteration }}</td>
-        <td class="fw-semibold">
-            <span class="text-truncate d-inline-block align-middle" style="max-width:280px;color:var(--admin-text);">
+        <td class="ps-4 fw-semibold c-num">#{{ $loop->iteration }}</td>
+        <td class="fw-semibold c-question">
+            <span class="text-truncate d-inline-block align-middle c-question-text" style="max-width:280px;color:var(--admin-text);">
                 <i class="bi bi-question-circle me-1" style="color:#00d9ff;"></i>{{ $faq->question }}
             </span>
         </td>
-        <td>
-            <span class="text-muted small text-truncate d-inline-block align-middle" style="max-width:320px;color:var(--admin-text-muted);">
+        <td class="c-answer">
+            <span class="text-muted small text-truncate d-inline-block align-middle c-answer-text" style="max-width:320px;color:var(--admin-text-muted);">
                 {{ Str::limit(strip_tags($faq->answer), 100) }}
             </span>
         </td>
-        <td><span class="ae-order-badge">{{ $faq->sort_order }}</span></td>
-        <td>
+        <td class="c-order"><span class="ae-order-badge">{{ $faq->sort_order }}</span></td>
+        <td class="c-status">
             <a href="{{ route('admin.faqs.toggleStatus', $faq->id) }}"
                class="ae-status-badge status-badge {{ $faq->is_active ? '' : 'inactive' }}"
                data-title="{{ $faq->question }}">
                 <span class="ae-dot"></span> {{ $faq->is_active ? 'Active' : 'Inactive' }}
             </a>
         </td>
-        <td>
+        <td class="c-actions">
             <div class="d-flex gap-1">
                 <a href="{{ route('admin.faqs.edit', $faq->id) }}" class="ae-action-btn edit" title="Edit">
                     <i class="bi bi-pencil"></i>
