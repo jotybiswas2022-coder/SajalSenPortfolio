@@ -41,8 +41,10 @@
             max-width: 100% !important;
         }
         .education-table .c-institution { margin-top: 0.3rem; font-size: 0.8rem; word-break: break-word; }
-        .education-table .c-duration { display: inline-block; margin-top: 0.7rem; font-size: 0.72rem !important; }
-        .education-table .c-result { display: inline-block; margin-top: 0.5rem; }
+        .education-table .c-duration { display: block; margin-top: 0.75rem; font-size: 0.72rem !important; }
+        .education-table .c-duration .ae-order-badge { font-size: 0.72rem !important; }
+        .education-table .c-result { display: block; margin-top: 0.45rem; }
+        .education-table .c-result .text-muted { font-size: 0.75rem; }
         .education-table .c-order { display: none !important; }
         .education-table .c-status { display: inline-block; margin-top: 0.7rem; font-size: 0.7rem; margin-left: 0; }
         .education-table .c-status .ae-status-badge { font-size: 0.7rem; padding: 0.25rem 0.6rem; }
