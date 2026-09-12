@@ -85,7 +85,7 @@
     </div>
 
     {{-- Live Search --}}
-    <div class="mb-4">
+    <div class="mb-3">
         <div class="d-flex gap-2 align-items-center search-bar">
             <div class="input-group" style="max-width:500px;">
                 <span class="input-group-text ae-search-icon"><i class="bi bi-search"></i></span>

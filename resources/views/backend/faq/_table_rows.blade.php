@@ -20,8 +20,8 @@
                 <span class="ae-dot"></span> {{ $faq->is_active ? 'Active' : 'Inactive' }}
             </a>
         </td>
-        <td class="c-actions">
-            <div class="d-flex gap-1">
+        <td class="pe-4 c-actions">
+            <div class="d-flex gap-1 justify-content-end">
                 <a href="{{ route('admin.faqs.edit', $faq->id) }}" class="ae-action-btn edit" title="Edit">
                     <i class="bi bi-pencil"></i>
                 </a>
