@@ -2,185 +2,92 @@
 
 @section('content')
 <style>
-    .min-w-0 { min-width: 0; }
+    .sum-box { padding: 1rem 0.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.15rem; }
+    .sum-box .sum-ico { font-size: 1rem; line-height: 1; }
+    .sum-box .sum-num { font-size: 1.35rem; font-weight: 700; color: var(--admin-text); line-height: 1.1; margin-top: 0.3rem; }
+    .sum-box .sum-label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.5px; color: var(--admin-text-muted); margin-top: 0.2rem; }
+    .sum-row > .col-4 + .col-4 { border-left: 1px solid var(--admin-border); }
 
-    .stat-mini {
-        background: var(--admin-card-bg);
-        border: 1px solid var(--admin-border);
-        border-radius: 16px;
-        padding: 1.1rem 1.25rem;
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        box-shadow: 0 2px 14px rgba(0,0,0,0.05);
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
-        height: 100%;
+    .table thead th {
+        font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.5px;
+        font-weight: 600; color: var(--admin-text-muted); white-space: nowrap;
+        border-bottom: 1px solid var(--admin-border); padding: 0.85rem 1rem; background: transparent;
     }
-    .stat-mini:hover {
-        transform: translateY(-2px);
-        border-color: rgba(0,217,255,0.35);
-        box-shadow: 0 10px 28px rgba(0,217,255,0.10);
-    }
-    .stat-mini .sm-ico {
-        width: 46px; height: 46px;
-        border-radius: 13px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.25rem; flex-shrink: 0;
-    }
-    .stat-mini .sm-num { font-size: 1.5rem; font-weight: 800; line-height: 1; color: var(--admin-text); letter-spacing: -0.5px; }
-    .stat-mini .sm-label { font-size: 0.72rem; color: var(--admin-text-muted); margin-top: 0.3rem; }
+    .table tbody td { padding: 0.8rem 1rem; font-size: 0.82rem; color: var(--admin-text); }
 
-    .ms-card {
-        background: var(--admin-card-bg);
-        border: 1px solid var(--admin-border);
-        border-radius: 16px;
-        padding: 1.1rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 0.7rem;
-        position: relative;
-        overflow: hidden;
-        transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    .msg-avatar {
+        width: 34px; height: 34px; border-radius: 50%;
+        background: var(--admin-bg-soft); border: 1px solid var(--admin-border);
+        color: var(--admin-text); font-weight: 700; font-size: 0.78rem;
+        display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-    .ms-card::before {
-        content: '';
-        position: absolute; top: 0; left: 0; right: 0; height: 2px;
-        background: linear-gradient(90deg, #00d9ff, #00ff88);
-        opacity: 0; transition: opacity .25s ease;
+    .msg-preview {
+        max-width: 240px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        display: inline-block; vertical-align: middle; color: var(--admin-text-muted);
     }
-    .ms-card:hover {
-        transform: translateY(-3px);
-        border-color: rgba(0,217,255,0.4);
-        box-shadow: 0 14px 36px rgba(0,217,255,0.10);
-    }
-    .ms-card:hover::before { opacity: 1; }
-    .ms-card-top { display: flex; gap: 0.75rem; align-items: center; }
-    .ms-avatar {
-        width: 44px; height: 44px;
-        border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 1.05rem; color: #fff;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.25);
-        flex-shrink: 0;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-    }
-    .ms-name {
-        font-weight: 700; color: var(--admin-text); font-size: 0.92rem;
-        display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;
-        white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .ms-email { font-size: 0.75rem; color: var(--admin-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .new-badge {
-        font-size: 0.58rem; font-weight: 700; letter-spacing: 0.5px;
-        background: rgba(0,217,255,0.12); color: #00d9ff;
-        border: 1px solid rgba(0,217,255,0.3);
+        font-size: 0.56rem; font-weight: 700; letter-spacing: 0.4px;
+        background: rgba(14,165,233,0.1); color: #0ea5e9;
+        border: 1px solid rgba(14,165,233,0.25);
         padding: 0.1rem 0.45rem; border-radius: 50px; text-transform: uppercase;
-        text-shadow: none;
     }
-    .ms-preview {
-        font-size: 0.82rem; color: var(--admin-text-muted); line-height: 1.5;
-        display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
-        overflow: hidden;
-        word-break: break-word;
-    }
-    .ms-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: auto; }
-    .chip {
-        font-size: 0.68rem; font-weight: 600;
-        padding: 0.25rem 0.6rem; border-radius: 50px;
-        display: inline-flex; align-items: center; gap: 0.35rem;
-    }
-    .chip-date { background: var(--admin-bg-soft); border: 1px solid var(--admin-border); color: var(--admin-text); }
-    .chip-time { background: rgba(0,217,255,0.08); border: 1px solid rgba(0,217,255,0.2); color: #00d9ff; }
-    .ms-actions {
-        display: flex; gap: 0.5rem;
-        border-top: 1px solid var(--admin-border); padding-top: 0.8rem;
-    }
-    .ms-actions .ae-btn { flex: 1; }
-
-    .ms-modal-header {
-        background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        border-bottom: 1px solid var(--admin-border);
-        padding: 1.25rem 1.5rem;
-        display: flex; align-items: center; gap: 1rem;
-        position: relative; overflow: hidden;
-    }
-    .ms-modal-header::after {
-        content: '';
-        position: absolute; top: -50px; right: -50px;
-        width: 160px; height: 160px; border-radius: 50%;
-        background: radial-gradient(circle, rgba(0,217,255,0.18), transparent 70%);
-        pointer-events: none;
-    }
-    .ms-modal-avatar {
-        width: 56px; height: 56px; border-radius: 14px;
-        display: flex; align-items: center; justify-content: center;
-        font-weight: 800; font-size: 1.4rem; color: #fff;
-        text-shadow: 0 1px 3px rgba(0,0,0,0.25);
-        flex-shrink: 0;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-    }
+    .act-btn { padding: 0.3rem 0.55rem !important; font-size: 0.8rem !important; border-radius: 8px !important; }
 
     @media (max-width: 575.98px) {
-        .stat-mini { padding: 0.8rem 1rem; gap: 0.75rem; }
-        .stat-mini .sm-ico { width: 40px; height: 40px; font-size: 1.05rem; }
-        .stat-mini .sm-num { font-size: 1.2rem; }
+        .sum-box { padding: 0.7rem 0.25rem; }
+        .sum-box .sum-num { font-size: 1.1rem; }
+        .sum-box .sum-label { font-size: 0.6rem; }
+        .msg-preview { max-width: 150px; }
         .ae-page-header .header-ico { width: 40px !important; height: 40px !important; border-radius: 11px !important; }
         .ae-page-header .header-ico i { font-size: 1.05rem !important; }
         .ae-page-header .ae-title { font-size: 1rem; }
         .ae-page-header .ae-sub { font-size: 0.72rem; }
-        .ms-modal-header { padding: 1rem; gap: 0.75rem; }
-        .ms-modal-avatar { width: 48px; height: 48px; font-size: 1.15rem; }
-        .ms-actions { flex-direction: column; }
-        .ms-actions .ae-btn { width: 100%; }
+        .modal-header { padding: 0.9rem 1rem !important; }
+        .modal-body { padding: 1rem !important; }
     }
 </style>
 
 <div class="container-fluid pb-3">
 
     {{-- Header --}}
-    <div class="ae-page-header mb-2 d-flex align-items-center justify-content-between flex-wrap gap-2">
+    <div class="ae-page-header mb-3 d-flex align-items-center justify-content-between flex-wrap gap-2">
         <div class="d-flex align-items-center gap-3">
             <a href="{{ route('admin.dashboard.index') }}" class="ae-btn ae-btn-ghost" style="padding:0.5rem 0.75rem;">
                 <i class="bi bi-arrow-left"></i>
             </a>
-            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;" class="header-ico">
+            <div style="width:52px;height:52px;border-radius:14px;background:rgba(0,217,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;" class="header-ico">
                 <i class="bi bi-envelope-paper" style="font-size:1.5rem;color:#00d9ff;"></i>
             </div>
             <div class="d-flex flex-column align-items-start gap-1">
-                <div class="ae-title">Messages</div>
+                <div class="ae-title">Contact Messages</div>
                 <p class="ae-sub">Manage customer inquiries from one place.</p>
             </div>
         </div>
-        <span class="ae-badge"><span class="ae-dot"></span> {{ $stats['total'] }} Messages</span>
+        <span class="ae-badge"><span class="ae-dot"></span> {{ $contacts->count() }} Messages</span>
     </div>
 
-    {{-- Stats --}}
-    <div class="row g-3 mb-4">
-        <div class="col-md-4">
-            <div class="stat-mini">
-                <div class="sm-ico" style="background:rgba(0,217,255,0.1);color:#00d9ff;"><i class="bi bi-envelope-paper"></i></div>
-                <div class="flex-grow-1 min-w-0">
-                    <div class="sm-num">{{ $stats['total'] }}</div>
-                    <div class="sm-label">Total Messages</div>
+    {{-- Stats strip --}}
+    <div class="ae-table-card mb-3">
+        <div class="row g-0 text-center sum-row">
+            <div class="col-4">
+                <div class="sum-box">
+                    <div class="sum-ico" style="color:#0ea5e9;"><i class="bi bi-envelope"></i></div>
+                    <div class="sum-num">{{ $stats['total'] }}</div>
+                    <div class="sum-label">Total</div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-mini">
-                <div class="sm-ico" style="background:rgba(0,255,136,0.1);color:#00ff88;"><i class="bi bi-calendar-week"></i></div>
-                <div class="flex-grow-1 min-w-0">
-                    <div class="sm-num">{{ $stats['thisWeek'] }}</div>
-                    <div class="sm-label">This Week</div>
+            <div class="col-4">
+                <div class="sum-box">
+                    <div class="sum-ico" style="color:#10b981;"><i class="bi bi-calendar-week"></i></div>
+                    <div class="sum-num">{{ $stats['thisWeek'] }}</div>
+                    <div class="sum-label">This Week</div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="stat-mini">
-                <div class="sm-ico" style="background:rgba(139,92,246,0.12);color:#a78bfa;"><i class="bi bi-lightning-charge"></i></div>
-                <div class="flex-grow-1 min-w-0">
-                    <div class="sm-num">{{ $stats['today'] }}</div>
-                    <div class="sm-label">Today</div>
+            <div class="col-4">
+                <div class="sum-box">
+                    <div class="sum-ico" style="color:#f59e0b;"><i class="bi bi-lightning-charge"></i></div>
+                    <div class="sum-num">{{ $stats['today'] }}</div>
+                    <div class="sum-label">Today</div>
                 </div>
             </div>
         </div>
@@ -208,98 +115,107 @@
             </div>
         </div>
     @else
-        @php
-            $palettes = ['#00d9ff,#00ff88', '#8b5cf6,#ec4899', '#f59e0b,#ef4444', '#06b6d4,#3b82f6', '#22c55e,#84cc16'];
-        @endphp
-        <div class="row g-3" id="msgGrid">
-            @foreach ($contacts as $contact)
-                @php
-                    $created = \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka');
-                    $palette = $palettes[$loop->index % count($palettes)];
-                    $subject = 'Re: Your message via ' . config('app.name', 'Portfolio');
+        <div class="ae-table-card">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle" id="msgTable" style="min-width:900px;">
+                    <thead>
+                        <tr>
+                            <th class="ps-4" style="width:50px;">#</th>
+                            <th style="width:220px;">Name</th>
+                            <th style="width:230px;">Email</th>
+                            <th>Message</th>
+                            <th style="width:120px;">Date</th>
+                            <th style="width:90px;">Time</th>
+                            <th class="pe-4 text-end" style="width:100px;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($contacts as $contact)
+                            @php
+                                $created = \Carbon\Carbon::parse($contact->created_at)->timezone('Asia/Dhaka');
+                                $subject = 'Re: Your message via ' . config('app.name', 'Portfolio');
+                                $mailto = 'mailto:' . $contact->email . '?subject=' . urlencode('=?UTF-8?B?' . base64_encode($subject) . '?=');
+                            @endphp
+                            <tr data-name="{{ strtolower($contact->name) }}"
+                                data-email="{{ strtolower($contact->email) }}"
+                                data-msg="{{ strtolower($contact->message) }}">
+                                <td class="ps-4 text-muted">{{ $loop->iteration }}</td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="msg-avatar">{{ strtoupper(substr($contact->name, 0, 1)) }}</span>
+                                        <div class="d-flex align-items-center flex-wrap gap-1" style="min-width:0;">
+                                            <span class="fw-semibold" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:150px;">{{ $contact->name }}</span>
+                                            @if($created->isToday())
+                                                <span class="new-badge">New</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="text-muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:inline-block;max-width:100%;">{{ $contact->email }}</span></td>
+                                <td><span class="msg-preview" title="{{ $contact->message }}">{{ $contact->message }}</span></td>
+                                <td class="text-muted">{{ $created->format('d M Y') }}</td>
+                                <td class="text-muted">{{ $created->format('h:i A') }}</td>
+                                <td class="pe-4">
+                                    <div class="d-flex justify-content-end gap-1">
+                                        <button type="button" class="ae-btn ae-btn-ghost act-btn" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}" title="View message">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                        <a href="{{ $mailto }}" class="ae-btn ae-btn-ghost act-btn" title="Reply via email">
+                                            <i class="bi bi-reply-fill"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
 
-                    // use RFC 2047-compliant header for the subject
-                    $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-                    $mailto = 'mailto:' . $contact->email . '?subject=' . urlencode($encodedSubject);
-                @endphp
-                <div class="col-md-6 col-xl-4 ms-card-col"
-                     data-name="{{ strtolower($contact->name) }}"
-                     data-email="{{ strtolower($contact->email) }}"
-                     data-msg="{{ strtolower($contact->message) }}">
-                    <div class="ms-card">
-                        <div class="ms-card-top">
-                            <div class="ms-avatar" style="background:linear-gradient(135deg,{{ $palette }});">
-                                {{ strtoupper(substr($contact->name, 0, 1)) }}
-                            </div>
-                            <div class="flex-grow-1 min-w-0">
-                                <div class="ms-name">
-                                    {{ $contact->name }}
-                                    @if($created->isToday())
-                                        <span class="new-badge">New</span>
-                                    @endif
+                            {{-- Modal --}}
+                            <div class="modal fade" id="messageModal{{ $contact->id }}" tabindex="-1" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered modal-lg">
+                                    <div class="modal-content" style="background:var(--admin-card-bg);border:1px solid var(--admin-border);border-radius:14px;overflow:hidden;">
+                                        <div class="modal-header" style="border-bottom:1px solid var(--admin-border);padding:1.1rem 1.4rem;">
+                                            <div class="d-flex align-items-center gap-3">
+                                                <span class="msg-avatar" style="width:42px;height:42px;font-size:0.95rem;">{{ strtoupper(substr($contact->name, 0, 1)) }}</span>
+                                                <div style="min-width:0;">
+                                                    <h5 class="modal-title fw-semibold mb-0" style="color:var(--admin-text);font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->name }}</h5>
+                                                    <div class="small text-muted" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->email }}</div>
+                                                </div>
+                                            </div>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body p-4">
+                                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                                <span class="chip" style="font-size:0.72rem;font-weight:600;padding:0.28rem 0.7rem;border-radius:50px;background:var(--admin-bg-soft);border:1px solid var(--admin-border);color:var(--admin-text);display:inline-flex;align-items:center;gap:0.35rem;">
+                                                    <i class="bi bi-calendar3"></i> {{ $created->format('d M Y') }}
+                                                </span>
+                                                <span class="chip" style="font-size:0.72rem;font-weight:600;padding:0.28rem 0.7rem;border-radius:50px;background:rgba(14,165,233,0.08);border:1px solid rgba(14,165,233,0.2);color:#0ea5e9;display:inline-flex;align-items:center;gap:0.35rem;">
+                                                    <i class="bi bi-clock"></i> {{ $created->format('h:i A') }}
+                                                </span>
+                                            </div>
+                                            <small class="ae-form-label"><i class="bi bi-chat-left-quote me-1"></i> Message</small>
+                                            <p class="mb-0" style="white-space:pre-wrap;color:var(--admin-text);line-height:1.7;">{{ $contact->message }}</p>
+                                        </div>
+                                        <div class="modal-footer" style="border-top:1px solid var(--admin-border);">
+                                            <a href="{{ $mailto }}" class="ae-btn ae-btn-primary"><i class="bi bi-reply-fill"></i> Reply via Email</a>
+                                            <button type="button" class="ae-btn ae-btn-ghost" data-copy="{{ $contact->message }}"><i class="bi bi-clipboard"></i> Copy</button>
+                                            <button type="button" class="ae-btn ae-btn-ghost" data-bs-dismiss="modal">
+                                                <i class="bi bi-x-lg"></i> Close
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="ms-email">{{ $contact->email }}</div>
                             </div>
-                        </div>
-
-                        <div class="ms-preview">{{ $contact->message }}</div>
-
-                        <div class="ms-chips">
-                            <span class="chip chip-date"><i class="bi bi-calendar3"></i> {{ $created->format('d M Y') }}</span>
-                            <span class="chip chip-time"><i class="bi bi-clock"></i> {{ $created->format('h:i A') }}</span>
-                        </div>
-
-                        <div class="ms-actions">
-                            <button type="button" class="ae-btn ae-btn-ghost" data-bs-toggle="modal" data-bs-target="#messageModal{{ $contact->id }}">
-                                <i class="bi bi-eye"></i> View
-                            </button>
-                            <a href="{{ $mailto }}" class="ae-btn ae-btn-ghost">
-                                <i class="bi bi-reply-fill"></i> Reply
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- Modal --}}
-                <div class="modal fade" id="messageModal{{ $contact->id }}" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content" style="background:var(--admin-bg-soft);border:1.5px solid var(--admin-border);border-radius:16px;">
-                            <div class="ms-modal-header">
-                                <div class="ms-modal-avatar" style="background:linear-gradient(135deg,{{ $palette }});">
-                                    {{ strtoupper(substr($contact->name, 0, 1)) }}
-                                </div>
-                                <div class="flex-grow-1 min-w-0" style="position:relative;z-index:1;">
-                                    <div class="fw-bold" style="color:#fff;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->name }}</div>
-                                    <div class="small" style="color:var(--admin-text-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">{{ $contact->email }}</div>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" style="filter:invert(1);position:relative;z-index:1;"></button>
-                            </div>
-                            <div class="modal-body p-4">
-                                <div class="d-flex flex-wrap gap-2 mb-3">
-                                    <span class="chip chip-date"><i class="bi bi-calendar3"></i> {{ $created->format('d M Y') }}</span>
-                                    <span class="chip chip-time"><i class="bi bi-clock"></i> {{ $created->format('h:i A') }}</span>
-                                </div>
-                                <small class="ae-form-label"><i class="bi bi-chat-left-quote me-1"></i> Message</small>
-                                <p class="mb-0" style="white-space:pre-wrap;color:var(--admin-text);line-height:1.7;">{{ $contact->message }}</p>
-                            </div>
-                            <div class="modal-footer" style="border-top:1px solid var(--admin-border);">
-                                <a href="{{ $mailto }}" class="ae-btn ae-btn-primary"><i class="bi bi-reply-fill"></i> Reply via Email</a>
-                                <button type="button" class="ae-btn ae-btn-ghost" data-copy="{{ $contact->message }}"><i class="bi bi-clipboard"></i> Copy</button>
-                                <button type="button" class="ae-btn ae-btn-ghost" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-lg"></i> Close
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
-        <div class="ae-table-card d-none" id="msgEmpty">
-            <div class="text-center py-5">
-                <i class="bi bi-search" style="font-size:2.2rem;color:var(--admin-text-muted);display:block;margin-bottom:0.5rem;"></i>
-                <div class="fw-semibold" style="color:var(--admin-text);">No matching messages</div>
-                <p class="ae-note mb-0">Try a different search term.</p>
+        <div class="d-none" id="msgEmpty">
+            <div class="ae-table-card">
+                <div class="text-center py-5">
+                    <i class="bi bi-search" style="font-size:2.2rem;color:var(--admin-text-muted);display:block;margin-bottom:0.5rem;"></i>
+                    <div class="fw-semibold" style="color:var(--admin-text);">No matching messages</div>
+                    <p class="ae-note mb-0">Try a different search term.</p>
+                </div>
             </div>
         </div>
     @endif
@@ -312,17 +228,17 @@
 (function () {
     var search = document.getElementById('msgSearch');
     var clear = document.getElementById('msgSearchClear');
-    var cards = Array.prototype.slice.call(document.querySelectorAll('.ms-card-col'));
+    var rows = Array.prototype.slice.call(document.querySelectorAll('#msgTable tbody tr'));
     var empty = document.getElementById('msgEmpty');
     var count = document.getElementById('msgCount');
 
     function applyFilter() {
         var q = search.value.trim().toLowerCase();
         var visible = 0;
-        cards.forEach(function (card) {
-            var haystack = (card.dataset.name + ' ' + card.dataset.email + ' ' + card.dataset.msg);
+        rows.forEach(function (row) {
+            var haystack = (row.dataset.name + ' ' + row.dataset.email + ' ' + row.dataset.msg);
             var match = haystack.indexOf(q) !== -1;
-            card.style.display = match ? '' : 'none';
+            row.style.display = match ? '' : 'none';
             if (match) visible++;
         });
         if (clear) clear.style.display = q ? 'inline-flex' : 'none';
@@ -344,18 +260,13 @@
     document.addEventListener('click', function (e) {
         var btn = e.target.closest('[data-copy]');
         if (!btn) return;
-        e.preventDefault();
         var text = btn.getAttribute('data-copy');
         var done = function () {
             var icon = btn.querySelector('i');
             var old = icon.className;
             icon.className = 'bi bi-check-lg';
-            btn.classList.add('ae-btn-primary');
-            btn.classList.remove('ae-btn-ghost');
             setTimeout(function () {
                 icon.className = old;
-                btn.classList.remove('ae-btn-primary');
-                btn.classList.add('ae-btn-ghost');
             }, 1400);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
